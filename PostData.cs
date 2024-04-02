@@ -1,4 +1,4 @@
-﻿using System;
+﻿namespace SharedLibrary.Data;
 
 public class Class1
 {
