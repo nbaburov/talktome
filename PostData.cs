@@ -1,8 +1,10 @@
 ﻿namespace SharedLibrary.Data;
 
-public class Class1
+public class PostData
 {
-	public Class1()
+
+    public int PostId { get; set; }
+    public PostData()
 	{
 	}
 }
