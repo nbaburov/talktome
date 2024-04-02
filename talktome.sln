@@ -18,6 +18,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{8D1614
 		User.cs = User.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{AA0E88FB-514C-4093-94C6-B447A89051BF}"
+	ProjectSection(SolutionItems) = preProject
+		UserData.cs = UserData.cs
+		PostData.cs = PostData.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interface", "Interface", "{1F50CFCF-D5B5-45FD-8DA0-A4F0DF781E1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +46,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8D161455-3217-41D7-8AB8-C17867FB9395} = {761B2187-3B28-47CD-9AED-A20F5EB0D13A}
+		{AA0E88FB-514C-4093-94C6-B447A89051BF} = {761B2187-3B28-47CD-9AED-A20F5EB0D13A}
+		{1F50CFCF-D5B5-45FD-8DA0-A4F0DF781E1F} = {761B2187-3B28-47CD-9AED-A20F5EB0D13A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3256D3AD-F1C0-4A60-8657-A53A7F04EC1E}
