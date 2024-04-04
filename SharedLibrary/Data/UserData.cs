@@ -111,6 +111,47 @@ namespace SharedLibrary.Data
             return null;
         }
 
+        // Read (Get) all Users
+        public async Task<List<string>> GetAllUsers()
+        {
+            List<string> userList = new List<string>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT * FROM Users";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var userType = reader["UserType"].ToString();
+                            var user = new
+                            {
+                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                                Username = reader["Username"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                ImagePath = reader["ImagePath"].ToString(),
+                                PasswordHash = reader["PasswordHash"].ToString(),
+                                Salt = reader["Salt"].ToString(),
+                                RegistrationDate = reader.GetDateTime(reader.GetOrdinal("RegistrationDate")),
+                                UserType = userType,
+                                Bio = reader["Bio"] as string,
+                                Status = reader["Status"] as int?,
+                                Permission = reader["Permission"] as int?
+                            };
+                            userList.Add(JsonConvert.SerializeObject(user));
+                        }
+                    }
+                }
+            }
+
+            return userList;
+        }
+
+
         // Update a User
         public async Task UpdateUser(int userId, string username, string email, string imagePath, string passwordHash, string salt, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
         {

@@ -2,3 +2,72 @@
 @model talktomeweb.Pages.Account.RegisterModel
 @{
 }
+
+
+<div class="w-full">
+    <div class="w-full p-12 md:p-2">
+        <form id="registerForm" method="post" enctype="multipart/form-data"
+            class='flex flex-col items-center gap-4 ring-2 ring-pink-400 w-4/5 md:w-2/3 p-6 m-auto rounded-lg shadow-lg'>
+            <h2 class="font-bold text-center m-auto text-2xl md:text-4xl">Create a new account.</h2>
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-xs" role="alert"></div>
+            <div class="flex flex-col md:flex-row gap-4 w-full">
+                <div class="flex flex-col w-full">
+                    <label class="text-sm font-thin text-gray-500" asp-for="Input.Username">Name</label>
+                    <input
+                        class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"
+                        asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true"
+                        placeholder="Nick Baburov" />
+                    <span asp-validation-for="Input.Username" class="text-red-500 text-xs"></span>
+                </div>
+                <div class="flex flex-col w-full">
+                    <label class="text-sm font-thin text-gray-500" asp-for="Input.Email">Email</label>
+                    <input
+                        class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"
+                        asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
+                        placeholder="name@example.com" />
+                    <span asp-validation-for="Input.Email" class="text-red-500 text-xs"></span>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row  gap-4 w-full">
+                <div class="flex flex-col w-full">
+                    <label class="text-sm font-thin text-gray-500" asp-for="Input.Password">Password</label>
+                    <input
+                        class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"
+                        asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true"
+                        placeholder="password" />
+                    <span asp-validation-for="Input.Password" class="text-red-500 text-xs"></span>
+                </div>
+                <div class="flex flex-col w-full">
+                    <label class="text-sm font-thin text-gray-500" asp-for="Input.ConfirmPassword">Confirm
+                        Password</label>
+                    <input
+                        class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"
+                        asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                        aria-required="true" placeholder="password" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-red-500 text-xs"></span>
+                </div>
+            </div>
+            <div class="flex flex-col w-full">
+                <label for="image" class="block text-sm text-gray-500" asp-for="Input.Image">Image</label>
+
+                <input asp-for="Input.Image" type="file"
+                    class="block w-full px-3 py-2 mt-2 text-sm text-pink-600 bg-white border border-pink-400 rounded-lg file:bg-gray-200 file:text-pink-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full  placeholder-pink-400 focus:border-pink-400 focus:outline-none focus:ring focus:ring-pink-300 focus:ring-opacity-40  " />
+                <span asp-validation-for="Input.Image" class="text-red-500 text-xs"></span>
+            </div>
+            <div class="flex flex-col w-full">
+                <label for="image" class="block text-sm text-gray-500" asp-for="Input.Bio">Bio</label>
+
+                <textarea asp-for="Input.Bio" type="file"
+                    class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"></textarea>
+                <span asp-validation-for="Input.Bio" class="text-red-500 text-xs"></span>
+            </div>
+            <div class="flex items-center w-full justify-evenly">
+                <a class="border-2 border-pink-500 to-rose-500 py-1.5 px-6 text-pink-500 font-bold rounded hover:scale-110 hover:bg-rose-500 hover:text-white transition-all duration-100"
+                    id="login" href="/Account/Login">Login</a>
+                <button
+                    class="bg-gradient-to-tl from-pink-500 to-rose-500 py-3 px-8 text-white font-bold rounded hover:scale-110 transition-all duration-100"
+                    id="registerSubmit" type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
