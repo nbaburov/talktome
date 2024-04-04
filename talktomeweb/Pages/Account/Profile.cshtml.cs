@@ -9,7 +9,7 @@ namespace talktomeweb.Pages.Account
     {
         private readonly UserService _userService;
 
-        public dynamic CurrentUser { get; private set; }
+        public dynamic SelectedUser { get; private set; }
 
         public ProfileModel(UserService userService)
         {
@@ -18,7 +18,7 @@ namespace talktomeweb.Pages.Account
 
         public void OnGet(int userId)
         {
-            CurrentUser = _userService.GetUserById(userId);
+            SelectedUser = _userService.GetUserById(userId);
         }
     }
 }

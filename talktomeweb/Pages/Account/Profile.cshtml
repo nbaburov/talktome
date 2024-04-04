@@ -4,7 +4,36 @@
 }
 
 
-<div>
-    <h1>@Model.CurrentUser.Username</h1>
-    <!-- Display other user information -->
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="flex flex-col gap-8  p-6">
+        @if (Model.SelectedUser != null)
+        {
+            var imagePath = "/images/users/" + Model.SelectedUser.ImagePath ??
+            "/images/default-profile.png";
+
+            var myProfileLink = Url.Page("/Account/Profile", new { userId = Model.SelectedUser.UserId });
+
+            <div class="flex items-start gap-6 bg-white shadow rounded-lg p-6">
+                <div class="rounded-lg min-w-fit">
+                    <img src="@imagePath" alt="Profile Image" class="w-16 h-16 lg:w-24 lg:h-24 rounded-full object-cover">
+                </div>
+                <div class="flex flex-col gap-4 w-full">
+                    <div>
+                        <h2 class="text-lg lg:text-2xl font-bold">@Model.SelectedUser.Username</h2>
+                        @if (Model.SelectedUser.Bio != null)
+                        {
+
+                            <span class="text-xs lg:text-sm">@Model.SelectedUser.Bio</span>
+                        }
+                        <div class="flex flex-col">
+                            <span class="text-xs lg:text-sm">Email: @Model.SelectedUser.Email</span>
+                            <span class="text-xs lg:text-sm">Registration Date: @Model.SelectedUser.RegistrationDate</span>
+                            <span class="text-xs lg:text-sm">Posts: @Model.SelectedUser.Posts.Count</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
 </div>
