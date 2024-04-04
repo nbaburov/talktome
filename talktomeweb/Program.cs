@@ -10,7 +10,7 @@ if (connectionString != null)
 }
 
 builder.Services.AddRazorPages();
-builder.Services.AddHttpContextAccessor(); // Register HttpContextAccessor as a service
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

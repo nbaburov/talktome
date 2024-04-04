@@ -17,7 +17,7 @@ namespace SharedLibrary.Services
         private readonly UserData _userData;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private List<User> _users;
-        public User CurrentlyLoggedInUser { get; private set; }
+        public User? CurrentlyLoggedInUser { get; private set; }
 
         public UserService(string connectionString, IHttpContextAccessor httpContextAccessor)
         {
@@ -72,10 +72,8 @@ namespace SharedLibrary.Services
         {
             try
             {
-                // Generate salt
                 byte[] salt = GenerateSalt();
 
-                // Hash the password with salt
                 string passwordHash = HashPassword(password, salt);
 
                 User newUser;
@@ -128,11 +126,8 @@ namespace SharedLibrary.Services
 
             if (user != null)
             {
-                // Hash the entered password with the salt stored in the database
-                // Console.WriteLine(user.Salt);
                 string enteredPasswordHash = HashPassword(password, Convert.FromBase64String(user.Salt));
 
-                // Check if the entered hashed password matches the stored hashed password
                 if (enteredPasswordHash == user.PasswordHash)
                 {
                     CurrentlyLoggedInUser = user;
@@ -143,23 +138,33 @@ namespace SharedLibrary.Services
             return false;
         }
 
+        public void Logout()
+        {
+            CurrentlyLoggedInUser = null;
 
-        public async Task EditUser(int userId, string username, string email, string imagePath, string password, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("UserEmail");
+        }
+
+
+
+        public async Task EditUser(int userId, string username, string email, string imagePath, string? password, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
         {
             var user = _users.FirstOrDefault(u => u.UserId == userId);
             if (user != null)
             {
-                // Generate salt
-                byte[] salt = GenerateSalt();
+                if (password != null)
+                {
+                    byte[] salt = GenerateSalt();
 
-                // Hash the password with salt
-                string passwordHash = HashPassword(password, salt);
+                    string passwordHash = HashPassword(password, salt);
+                    user.PasswordHash = passwordHash;
+                    user.Salt = Convert.ToBase64String(salt);
+                }
 
                 user.Username = username;
                 user.Email = email;
                 user.ImagePath = imagePath;
-                user.PasswordHash = passwordHash;
-                user.Salt = Convert.ToBase64String(salt);
+
                 user.RegistrationDate = registrationDate;
 
                 if (user is Admin admin)
@@ -172,7 +177,7 @@ namespace SharedLibrary.Services
                     client.Status = status.HasValue ? (Status)status.Value : client.Status;
                 }
 
-                await _userData.UpdateUser(userId, username, email, imagePath, passwordHash, Convert.ToBase64String(salt), registrationDate, userType, bio, status, permission);
+                await _userData.UpdateUser(userId, username, email, imagePath, user.PasswordHash, user.Salt, registrationDate, userType, bio, status, permission);
             }
             else
             {
@@ -194,6 +199,14 @@ namespace SharedLibrary.Services
                 throw new Exception("User not found.");
             }
         }
+
+        public List<User> SearchUsers(string query)
+        {
+            return _users
+                .Where(user => user.Username.Contains(query, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+
 
         public dynamic? GetCurrentlyLoggedInUser()
         {
@@ -236,23 +249,34 @@ namespace SharedLibrary.Services
         // Method to generate random salt
         private byte[] GenerateSalt()
         {
+            // Create an array of bytes to store the salt
             byte[] salt = new byte[16];
+
+            // Use RNGCryptoServiceProvider to generate random bytes for the salt
             using (var rng = new RNGCryptoServiceProvider())
             {
-                rng.GetBytes(salt);
+                rng.GetBytes(salt); // Fill the salt array with random bytes
             }
-            return salt;
+
+            return salt; // Return the generated salt
         }
 
         // Method to hash password with salt
         private string HashPassword(string password, byte[] salt)
         {
+            // Create an instance of Rfc2898DeriveBytes to hash the password using PBKDF2 algorithm
             using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000))
             {
-                byte[] hash = pbkdf2.GetBytes(20); // 20-byte hash
-                byte[] hashBytes = new byte[36]; // 16 bytes for salt + 20 bytes for hash
+                byte[] hash = pbkdf2.GetBytes(20); // Generate a 20-byte hash using PBKDF2
+                byte[] hashBytes = new byte[36]; // Create an array to store the combined salt and hash bytes
+
+                // Copy the salt bytes to the beginning of the hashBytes array
                 Array.Copy(salt, 0, hashBytes, 0, 16);
+
+                // Copy the hash bytes to the end of the hashBytes array
                 Array.Copy(hash, 0, hashBytes, 16, 20);
+
+                // Convert the combined salt and hash bytes to a base64-encoded string
                 return Convert.ToBase64String(hashBytes);
             }
         }

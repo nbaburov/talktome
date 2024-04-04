@@ -26,5 +26,11 @@ namespace talktomeweb.Pages.Account
 
             return Page();
         }
+
+        public IActionResult OnPostLogout()
+        {
+            _userService.Logout();
+            return RedirectToPage("/Index");
+        }
     }
 }

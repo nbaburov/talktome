@@ -23,7 +23,7 @@ namespace talktomeweb.Pages
             CurrentUser = _userService.GetCurrentlyLoggedInUser();
             if (CurrentUser == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Account/Register");
             }
 
             return Page();

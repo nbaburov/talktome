@@ -1,0 +1,30 @@
+﻿@page
+@model talktomeweb.Pages.SearchResultsModel
+
+<h2 class="font-bold text-center m-auto text-2xl md:text-4xl mb-10">Search Results</h2>
+<hr>
+<h2 class="font-semibold text-start m-auto text-xl md:text-2xl mt-5 mb-2">Accounts:</h2>
+
+@if (Model.Users.Any())
+{
+    <div>
+    @foreach (var user in Model.Users)
+        {
+            var ProfileLink = Url.Page("/Account/Profile", new { userId = user.UserId });
+            var imagePath = "/images/users/" + user.ImagePath ??
+            "/images/default-profile.png";
+            <a href='@ProfileLink'>
+                <div class="flex flex-row w-full gap-2 items-center">
+                    <div class="rounded-lg min-w-fit">
+                        <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                    </div>
+                    <span class="text-lg font-bold">@user.Username</span>
+                </div>
+            </a>
+        }
+    </div>
+}
+else
+{
+    <p>No results found.</p>
+}

@@ -1,0 +1,97 @@
+﻿@page
+@model talktomeweb.Pages.Account.EditProfileModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+@if (TempData["AlertMessage"] != null)
+{
+    <div role="alert" class="rounded-xl border border-gray-100 bg-white p-4">
+    <div class="flex items-start gap-4">
+        <span class="text-red-600">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+
+        </span>
+
+        <div class="flex-1">
+            <strong class="block font-medium text-gray-900">No Changes</strong>
+
+            <p class="mt-1 text-sm text-gray-700">Nothing is changed, so nothing is edited.</p>
+        </div>
+
+        <button class="text-gray-500 transition hover:text-gray-600">
+            <span class="sr-only">Dismiss popup</span>
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+</div>
+}
+<div class="w-full">
+
+    <div class="w-full p-12 md:p-2">
+        <form method="post" enctype="multipart/form-data"
+            class="flex flex-col items-center gap-4 ring-2 ring-pink-400 w-4/5 md:w-2/3 p-6 m-auto rounded-lg shadow-lg">
+            <h2 class="font-bold text-center m-auto text-2xl md:text-4xl">Edit Profile</h2>
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-xs"></div>
+
+            <div class="w-full">
+                <label asp-for="Input.Username" class="text-sm font-thin text-gray-500"></label>
+                <input asp-for="Input.Username"
+                    class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150" />
+                <span asp-validation-for="Input.Username" class="text-red-500 text-xs"></span>
+            </div>
+
+            <div class="w-full">
+                <label asp-for="Input.Email" class="text-sm font-thin text-gray-500"></label>
+                <input asp-for="Input.Email"
+                    class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150" />
+                <span asp-validation-for="Input.Email" class="text-red-500 text-xs"></span>
+            </div>
+
+            <div class="w-full">
+                <label asp-for="Input.Bio" class="text-sm font-thin text-gray-500"></label>
+                <textarea asp-for="Input.Bio"
+                    class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"></textarea>
+                <span asp-validation-for="Input.Bio" class="text-red-500 text-xs"></span>
+            </div>
+
+            <div class="flex flex-row w-full justify-between gap-6 items-center">
+
+                <div class="">
+                    <label asp-for="Input.Image" class="text-sm font-thin text-gray-500"></label>
+                    <input asp-for="Input.Image"
+                        class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"
+                        type="file" />
+                </div>
+                <div class="min-w-fit flex flex-col gap-2">
+                    <span class="text-sm font-thin text-gray-500">Current Image</span>
+                    <div class="rounded-lg min-w-fit">
+                        <img src="/images/users/@Model.imagePath" alt="Profile Image"
+                            class="w-16 h-16 lg:w-24 lg:h-24 rounded-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full">
+                <label asp-for="Input.Password" class="text-sm font-thin text-gray-500"></label>
+                <input asp-for="Input.Password"
+                    class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"
+                    type="password" />
+                <p class="text-gray-500 text-xs">If you do not wish to change your password, leave this blank.</p>
+            </div>
+
+
+
+            <button type="submit"
+                class="bg-gradient-to-tl m-auto from-pink-500 to-rose-500 py-3 px-8 text-white font-bold rounded hover:scale-110 transition-all duration-100">Save</button>
+        </form>
+
+    </div>
+</div>
