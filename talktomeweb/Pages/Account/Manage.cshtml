@@ -2,3 +2,58 @@
 @model talktomeweb.Pages.Account.ManageModel
 @{
 }
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <div class="flex flex-col gap-8  p-6">
+        @if (Model.CurrentUser != null)
+        {
+            var imagePath = "/images/users/" + Model.CurrentUser.ImagePath ??
+            "/images/default-profile.png";
+
+            var myProfileLink = Url.Page("/Account/Profile", new { userId = Model.CurrentUser.UserId });
+
+            <div class="flex items-start gap-6 bg-white shadow rounded-lg p-6">
+                <div class="rounded-lg min-w-fit">
+                    <img src="@imagePath" alt="Profile Image" class="w-16 h-16 lg:w-24 lg:h-24 rounded-full object-cover">
+                </div>
+                <div class="flex flex-col gap-4 w-full">
+                    <div>
+                        <h2 class="text-lg lg:text-2xl font-bold">@Model.CurrentUser.Username</h2>
+                        @if (Model.CurrentUser.Bio != null)
+                        {
+
+                            <span class="text-xs lg:text-sm">@Model.CurrentUser.Bio</span>
+                        }
+                        <div class="flex flex-col">
+                            <span class="text-xs lg:text-sm">Email: @Model.CurrentUser.Email</span>
+                            <span class="text-xs lg:text-sm">Registration Date: @Model.CurrentUser.RegistrationDate</span>
+                            <span class="text-xs lg:text-sm">Posts: @Model.CurrentUser.Posts.Count</span>
+                        </div>
+                    </div>
+                    <div class="flex w-full gap-6">
+                        <a href='@myProfileLink'
+                            class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">
+                            View Profile
+                        </a>
+                        <form method="post">
+                            <button type="submit" asp-page-handler="Logout"
+                                class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">Log
+                                out</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="flex flex-row w-full h-10 items-end">
+                    <div class="rounded-lg min-w-fit">
+                        <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                    </div>
+                    <button
+                        class="border-b-2 border-pink-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
+                    <button
+                        class="bg-gradient-to-tl from-pink-500 to-rose-500 py-1 px-4 text-white font-bold rounded">Post</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
