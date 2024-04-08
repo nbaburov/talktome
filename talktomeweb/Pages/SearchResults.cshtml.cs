@@ -16,7 +16,7 @@ namespace talktomeweb.Pages
             _userService = userService;
         }
 
-        public List<User> Users { get; set; }
+        public List<dynamic> Users { get; set; }
 
         public void OnGet(string query)
         {
