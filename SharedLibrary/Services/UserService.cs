@@ -200,10 +200,11 @@ namespace SharedLibrary.Services
             }
         }
 
-        public List<User> SearchUsers(string query)
+        public List<dynamic> SearchUsers(string query)
         {
             return _users
                 .Where(user => user.Username.Contains(query, StringComparison.OrdinalIgnoreCase))
+                .Select(user => (dynamic)user)
                 .ToList();
         }
 

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using SharedLibrary.Models;
 using SharedLibrary.Services;
 
 namespace talktomeweb.Pages.Account

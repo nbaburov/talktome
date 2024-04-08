@@ -4,13 +4,16 @@ using SharedLibrary.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddHttpContextAccessor();
 if (connectionString != null)
 {
     builder.Services.AddScoped<UserService>(provider => new UserService(connectionString, provider.GetRequiredService<IHttpContextAccessor>()));
+        builder.Services.AddScoped<PostService>(provider => new PostService(
+        connectionString, 
+        provider.GetRequiredService<UserService>()));
 }
 
 builder.Services.AddRazorPages();
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
