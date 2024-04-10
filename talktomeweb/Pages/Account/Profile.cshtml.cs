@@ -22,7 +22,7 @@ namespace talktomeweb.Pages.Account
         public void OnGet(int userId)
         {
             SelectedUser = _userService.GetUserById(userId);
-            Posts = _postService.GetAllPostsByUser(userId);
+            Posts = SelectedUser.Posts;
         }
     }
 }

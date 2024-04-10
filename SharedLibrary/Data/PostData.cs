@@ -27,7 +27,7 @@ namespace SharedLibrary.Data
                         ImagePath NVARCHAR(255) NULL, 
                         UserId INT, 
                         CategoryId INT,
-                        CreationDate DATETIME NOT NULL DEFAULT GETDATE(), -- Added CreationDate column
+                        CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
                         FOREIGN KEY (UserId) REFERENCES Users(UserId), 
                         FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId),
                     ) 

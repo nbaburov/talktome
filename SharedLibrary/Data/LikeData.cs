@@ -18,7 +18,17 @@ namespace SharedLibrary.Data
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            var createLikeTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Likes') BEGIN CREATE TABLE Likes (LikeId INT PRIMARY KEY IDENTITY, UserId INT, PostId INT, CreationDate DATETIME NOT NULL DEFAULT GETDATE(), FOREIGN KEY (UserId) REFERENCES Users(UserId), FOREIGN KEY (PostId) REFERENCES Posts(PostId)) END";
+            var createLikeTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Likes')
+                        BEGIN 
+                            CREATE TABLE Likes (
+                                LikeId INT PRIMARY KEY IDENTITY, 
+                                UserId INT, 
+                                PostId INT, 
+                                CreationDate DATETIME NOT NULL DEFAULT GETDATE(), 
+                                FOREIGN KEY (UserId) REFERENCES Users(UserId), 
+                                FOREIGN KEY (PostId) REFERENCES Posts(PostId)
+                            ) 
+                        END";
 
             using (var command = new SqlCommand(createLikeTable, connection))
             {
