@@ -36,38 +36,52 @@ namespace SharedLibrary.Services
 
         private async Task LoadAllDataAsync()
         {
-            // Load and Deserialize Categories
             var categoryJsonList = await _categoryData.GetAllCategories();
             Categories = categoryJsonList.Select(JsonConvert.DeserializeObject<Category>).ToList();
 
-            // Load and Deserialize Posts
             var postJsonList = await _postData.GetAllPosts();
-            var tempPosts = postJsonList.Select(JsonConvert.DeserializeObject<Post>).ToList();
-
-            foreach (var post in tempPosts)
+            Posts = postJsonList.Select(JsonConvert.DeserializeObject<Post>).ToList();
+            foreach (var post in Posts)
             {
-                if (post.UserId != 0)
-                {
-                    post.User = _userService.GetUserById(post.UserId);
-                }
-                if (post.CategoryId != 0)
-                {
-                    post.Category = GetCategoryById(post.CategoryId);
-                }
+                post.Category = GetCategoryById(post.CategoryId);
+                post.User = _userService.GetUserById(post.UserId);
+                post.User.Posts.Add(post);
             }
 
-            Posts = tempPosts;
-
-            // Load and Deserialize Comments
-            var commentJsonList = await _commentData.GetAllComments();
-            Comments = commentJsonList.Select(JsonConvert.DeserializeObject<Comment>).ToList();
-
-            // Load and Deserialize Likes
             var likeJsonList = await _likeData.GetAllLikes();
             Likes = likeJsonList.Select(JsonConvert.DeserializeObject<Like>).ToList();
+            foreach (var like in Likes)
+            {
+                like.Post = GetPostById(like.PostId);
+                like.User = _userService.GetUserById(like.UserId);
+            }
+
+            var commentJsonList = await _commentData.GetAllComments();
+            Comments = commentJsonList.Select(JsonConvert.DeserializeObject<Comment>).ToList();
+            foreach (var comment in Comments)
+            {
+                comment.Post = GetPostById(comment.PostId);
+                comment.User = _userService.GetUserById(comment.UserId);
+            }
+
+            foreach (var post in Posts)
+            {
+                post.Likes = GetLikesByPostId(post.PostId);
+                post.Comments = GetCommentsByPostId(post.PostId);
+            }
+
         }
 
+
         // Post Management
+
+        public List<Post> SearchPosts(string query)
+        {
+            return Posts
+                .Where(post => post.Text.Contains(query, StringComparison.OrdinalIgnoreCase))
+                .Select(post => post)
+                .ToList();
+        }
 
         public async Task CreatePostAsync(string text, string imagePath, int categoryId, int userId)
         {
@@ -102,6 +116,12 @@ namespace SharedLibrary.Services
             return Posts.Where(p => p.CategoryId == categoryId).ToList();
         }
 
+        public Post GetPostById(int postId)
+        {
+            return Posts.FirstOrDefault(p => p.PostId == postId);
+        }
+
+
 
         // Category Management
 
@@ -112,6 +132,59 @@ namespace SharedLibrary.Services
         public Category GetCategoryById(int categoryId)
         {
             return Categories.FirstOrDefault(c => c.CategoryId == categoryId);
+        }
+
+
+        // Like Management
+        public async Task LikePost(int postId, int userId)
+        {
+            if (Likes.Any(l => l.PostId == postId && l.UserId == userId))
+            {
+                throw new InvalidOperationException("User has already liked the post.");
+            }
+
+            var likeId = await _likeData.AddLike(userId, postId);
+            var user = _userService.GetUserById(userId);
+            var post = GetPostById(postId);
+
+            var newLike = new Like
+            {
+                LikeId = likeId,
+                UserId = user.UserId,
+                User = user,
+                PostId = post.PostId,
+                Post = post,
+                CreationDate = DateTime.Now
+            };
+
+            Likes.Add(newLike);
+            post.Likes.Add(newLike);
+        }
+
+        public async Task UnlikePost(int postId, int userId)
+        {
+            var existingLike = Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId);
+            if (existingLike == null)
+            {
+                throw new InvalidOperationException("User has not liked the post.");
+            }
+            var post = GetPostById(postId);
+            await _likeData.DeleteLike(existingLike.LikeId);
+
+            Likes.Remove(existingLike);
+            post.Likes.Remove(existingLike);
+        }
+
+        public List<Like> GetLikesByPostId(int postId)
+        {
+            return Likes.Where(l => l.PostId == postId).ToList();
+        }
+
+        // Category Management
+
+        public List<Comment> GetCommentsByPostId(int postId)
+        {
+            return Comments.Where(c => c.PostId == postId).ToList();
         }
 
 
