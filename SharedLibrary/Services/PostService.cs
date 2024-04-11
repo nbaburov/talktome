@@ -113,7 +113,7 @@ namespace SharedLibrary.Services
                 throw new KeyNotFoundException("Post not found.");
             }
 
-            
+
 
             var likesToRemove = Likes.Where(l => l.PostId == postId).ToList();
             foreach (var like in likesToRemove)
@@ -210,11 +210,54 @@ namespace SharedLibrary.Services
             return Likes.Where(l => l.PostId == postId).ToList();
         }
 
-        // Category Management
+        // Comments Management
+
+        public Comment GetCommentById(int commentId)
+        {
+            return Comments.FirstOrDefault(c => c.CommentId == commentId);
+        }
+
 
         public List<Comment> GetCommentsByPostId(int postId)
         {
             return Comments.Where(c => c.PostId == postId).ToList();
+        }
+
+        public async Task AddCommentAsync(string text, int userId, int postId)
+        {
+            var commentId = await _commentData.AddComment(text, userId, postId);
+
+            var user = _userService.GetUserById(userId);
+            var post = GetPostById(postId);
+
+            var newComment = new Comment
+            {
+                CommentId = commentId,
+                Text = text,
+                UserId = userId,
+                User = user,
+                PostId = postId,
+                Post = post,
+                CreationDate = DateTime.Now
+            };
+
+            Comments.Add(newComment);
+            post.Comments.Add(newComment);
+        }
+
+        public async Task DeleteCommentAsync(int commentId)
+        {
+            var commentToDelete = Comments.FirstOrDefault(c => c.CommentId == commentId);
+            if (commentToDelete == null)
+            {
+                throw new KeyNotFoundException("Comment not found.");
+            }
+
+            await _commentData.DeleteComment(commentId);
+
+            Comments.Remove(commentToDelete);
+            var post = GetPostById(commentToDelete.PostId);
+            post.Comments.Remove(commentToDelete);
         }
 
 

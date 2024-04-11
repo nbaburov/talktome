@@ -1,4 +1,10 @@
 ﻿@inject SharedLibrary.Services.UserService UserService
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
 @{
     var currentUser = UserService.GetCurrentlyLoggedInUser();
 }
