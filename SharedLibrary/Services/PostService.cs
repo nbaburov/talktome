@@ -105,6 +105,36 @@ namespace SharedLibrary.Services
             Posts.Add(post);
         }
 
+        public async Task DeletePostAsync(int postId)
+        {
+            var post = GetPostById(postId);
+            if (post == null)
+            {
+                throw new KeyNotFoundException("Post not found.");
+            }
+
+            
+
+            var likesToRemove = Likes.Where(l => l.PostId == postId).ToList();
+            foreach (var like in likesToRemove)
+            {
+                Likes.Remove(like);
+                post.Likes.Remove(like);
+                await _likeData.DeleteLike(like.LikeId);
+            }
+
+            var commentsToRemove = Comments.Where(c => c.PostId == postId).ToList();
+            foreach (var comment in commentsToRemove)
+            {
+                Comments.Remove(comment);
+                await _commentData.DeleteComment(comment.CommentId);
+            }
+
+            await _postData.DeletePost(postId);
+            Posts.Remove(post);
+        }
+
+
         public List<Post> GetAllPostsByUser(int userId)
         {
             return Posts.Where(p => p.UserId == userId).ToList();
