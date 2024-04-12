@@ -47,15 +47,18 @@
                 </div>
             </div>
             <div>
-                <div class="flex flex-row w-full h-10 items-end">
-                    <div class="rounded-lg min-w-fit">
-                        <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                <a asp-page="/Post/Create" class="cursor-pointer">
+                    <div class="flex flex-row w-full h-10 items-end">
+                        <div class="rounded-lg min-w-fit">
+                            <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                        </div>
+                        <button
+                            class="border-b-2 border-pink-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
+                        <button class="bg-gradient-to-tl from-pink-500 to-rose-500 py-1 px-4 text-white font-bold rounded">
+                            Post
+                        </button>
                     </div>
-                    <button
-                        class="border-b-2 border-pink-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
-                    <button
-                        class="bg-gradient-to-tl from-pink-500 to-rose-500 py-1 px-4 text-white font-bold rounded">Post</button>
-                </div>
+                </a>
             </div>
         }
 
