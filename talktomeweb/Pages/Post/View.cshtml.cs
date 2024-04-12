@@ -44,31 +44,35 @@ namespace talktomeweb.Pages.Post
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToPage(new { id = id });
-            }
-            Post = _postService.GetPostById(id);
-            Console.Write(Post);
-            if (Post == null)
-            {
-                return RedirectToPage("/Index");
+                Post = _postService.GetPostById(id);
+                Comments = (List<Comment>)Post.Comments;
+                CurrentUser = _userService.GetCurrentlyLoggedInUser();
+                Posts.Add(Post);
+                return Page();
             }
 
             var currentUser = _userService.GetCurrentlyLoggedInUser();
             if (currentUser == null)
             {
+                return RedirectToPage("/Account/Login");
+            }
+
+            var currentPost = _postService.GetPostById(id);
+            if (currentPost == null)
+            {
                 return RedirectToPage("/Index");
             }
 
-            Console.Write(!string.IsNullOrWhiteSpace(CommentText));
             if (!string.IsNullOrWhiteSpace(CommentText))
             {
-
-                await _postService.AddCommentAsync(CommentText, currentUser.UserId, Post.PostId);
+                await _postService.AddCommentAsync(CommentText, currentUser.UserId, currentPost.PostId);
                 CommentText = string.Empty;
             }
 
             return RedirectToPage(new { id = id });
         }
+
+
 
         public async Task<IActionResult> OnPostDeleteCommentAsync(int id, int commentId)
         {
