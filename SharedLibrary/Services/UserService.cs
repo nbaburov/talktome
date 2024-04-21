@@ -21,7 +21,7 @@ namespace SharedLibrary.Services
 
         public UserService(string connectionString, IHttpContextAccessor httpContextAccessor)
         {
-            _userData = new UserData(connectionString);
+            _userData = new UserData(connectionString); // Configuration, look up
             _users = new List<User>();
             _httpContextAccessor = httpContextAccessor;
             LoadUsersAsync().Wait();
