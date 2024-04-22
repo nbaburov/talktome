@@ -3,6 +3,7 @@ using SharedLibrary.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace SharedLibrary.Services
 {
@@ -20,8 +21,9 @@ namespace SharedLibrary.Services
         public List<Comment> Comments { get; private set; }
         public List<Like> Likes { get; private set; }
 
-        public PostService(string connectionString, UserService userService)
+        public PostService(IConfiguration configuration, UserService userService)
         {
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
             _categoryData = new CategoryData(connectionString);
             _postData = new PostData(connectionString);
             _commentData = new CommentData(connectionString);
@@ -107,7 +109,7 @@ namespace SharedLibrary.Services
 
         public async Task DeletePostAsync(int postId)
         {
-            var post = GetPostById(postId);
+            var post =  GetPostById(postId);
             if (post == null)
             {
                 throw new KeyNotFoundException("Post not found.");
@@ -175,7 +177,7 @@ namespace SharedLibrary.Services
 
             var likeId = await _likeData.AddLike(userId, postId);
             var user = _userService.GetUserById(userId);
-            var post = GetPostById(postId);
+            var post =  GetPostById(postId);
 
             var newLike = new Like
             {
@@ -228,7 +230,7 @@ namespace SharedLibrary.Services
             var commentId = await _commentData.AddComment(text, userId, postId);
 
             var user = _userService.GetUserById(userId);
-            var post = GetPostById(postId);
+            var post =  GetPostById(postId);
 
             var newComment = new Comment
             {

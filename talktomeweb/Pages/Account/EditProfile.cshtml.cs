@@ -86,7 +86,10 @@ namespace talktomeweb.Pages.Account
 
             if (!hasChanged)
             {
-                TempData["AlertMessage"] = "No changes were detected in your profile.";
+                TempData["AlertTitle"] = "No changes.";
+                TempData["AlertText"] = "No changes were detected in your profile.";
+                TempData["AlertColor"] = "red";
+
                 return RedirectToPage();
             }
 

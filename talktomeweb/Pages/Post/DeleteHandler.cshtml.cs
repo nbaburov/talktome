@@ -24,13 +24,16 @@ namespace talktomeweb.Pages.Post
                 return RedirectToPage("/Account/Login");
             }
 
-            var post = _postService.GetPostById(postId);
+            var post =  _postService.GetPostById(postId);
             if (post == null || post.UserId != user.UserId)
             {
                 return RedirectToPage("/Index");
             }
 
             await _postService.DeletePostAsync(postId);
+            TempData["AlertTitle"] = "Deleted.";
+            TempData["AlertText"] = "The post has been deleted successfully.";
+            TempData["AlertColor"] = "red";
 
             return RedirectToPage("/Index");
         }
