@@ -28,8 +28,8 @@ namespace SharedLibrary.Data
                         UserId INT, 
                         CategoryId INT,
                         CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
-                        FOREIGN KEY (UserId) REFERENCES Users(UserId), 
-                        FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId),
+                        FOREIGN KEY (UserId) REFERENCES Users(UserId) ON DELETE CASCADE, 
+                        FOREIGN KEY (CategoryId) REFERENCES Categories(CategoryId) ON DELETE CASCADE,
                     ) 
                 END";
 

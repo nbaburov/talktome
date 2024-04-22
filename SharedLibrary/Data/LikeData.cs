@@ -26,7 +26,7 @@ namespace SharedLibrary.Data
                                 PostId INT, 
                                 CreationDate DATETIME NOT NULL DEFAULT GETDATE(), 
                                 FOREIGN KEY (UserId) REFERENCES Users(UserId), 
-                                FOREIGN KEY (PostId) REFERENCES Posts(PostId)
+                                FOREIGN KEY (PostId) REFERENCES Posts(PostId) ON DELETE CASCADE,
                             ) 
                         END";
 

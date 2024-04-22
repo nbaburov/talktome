@@ -9,6 +9,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using SharedLibrary.Interface;
 
 
 namespace SharedLibrary.Services
@@ -16,28 +17,30 @@ namespace SharedLibrary.Services
     public class UserService
     {
         private readonly UserData _userData;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUserContext _userContext;
         private List<User> _users;
         public User? CurrentlyLoggedInUser { get; private set; }
 
-        public UserService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public UserService(IServiceConfig config)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            string connectionString = config.ConnectionString;
             _userData = new UserData(connectionString);
             _users = new List<User>();
-            _httpContextAccessor = httpContextAccessor;
+            _userContext = config.UserContext; // This replaces direct IHttpContextAccessor usage
+
             LoadAllDataAsync().Wait();
-            CheckAndSetCurrentlyLoggedInUserFromCookie();
+            CheckAndSetCurrentlyLoggedInUser(); // Adjust this method to use _userContext
         }
+
 
         //* Managing Data
 
-        private void CheckAndSetCurrentlyLoggedInUserFromCookie()
+        private void CheckAndSetCurrentlyLoggedInUser()
         {
-            var emailCookie = _httpContextAccessor.HttpContext.Request.Cookies["UserEmail"];
-            if (!string.IsNullOrEmpty(emailCookie))
+            var email = _userContext.GetCurrentUserEmail();
+            if (!string.IsNullOrEmpty(email))
             {
-                var user = _users.FirstOrDefault(u => u.Email == emailCookie);
+                var user = _users.FirstOrDefault(u => u.Email == email);
                 if (user != null)
                 {
                     CurrentlyLoggedInUser = user;
@@ -113,6 +116,7 @@ namespace SharedLibrary.Services
 
                 _users.Add(newUser);
                 await _userData.AddUser(username, email, imagePath, passwordHash, Convert.ToBase64String(salt), registrationDate, userType, bio, status, permission);
+                _userContext.SetCurrentUserEmail(email);
                 return true;
             }
             catch (Exception e)
@@ -133,6 +137,7 @@ namespace SharedLibrary.Services
                 if (enteredPasswordHash == user.PasswordHash)
                 {
                     CurrentlyLoggedInUser = user;
+                    _userContext.SetCurrentUserEmail(email);
                     return true;
                 }
             }
@@ -144,7 +149,7 @@ namespace SharedLibrary.Services
         {
             CurrentlyLoggedInUser = null;
 
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete("UserEmail");
+            _userContext.ClearCurrentUserEmail();
         }
 
 
