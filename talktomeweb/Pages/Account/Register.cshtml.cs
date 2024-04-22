@@ -82,13 +82,13 @@ namespace talktomeweb.Pages.Account
 
                 if (loginSuccess)
                 {
-                    var cookieOptions = new CookieOptions
-                    {
-                        Expires = DateTime.Now.AddDays(7), 
-                        HttpOnly = true, 
-                        Secure = true, 
-                    };
-                    Response.Cookies.Append("UserEmail", Input.Email, cookieOptions);
+                    // var cookieOptions = new CookieOptions
+                    // {
+                    //     Expires = DateTime.Now.AddDays(7), 
+                    //     HttpOnly = true, 
+                    //     Secure = true, 
+                    // };
+                    // Response.Cookies.Append("UserEmail", Input.Email, cookieOptions);
 
                     return RedirectToPage("/Index");
                 }

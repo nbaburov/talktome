@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using SharedLibrary.Interface;
 
 namespace SharedLibrary.Services
 {
@@ -21,17 +22,19 @@ namespace SharedLibrary.Services
         public List<Comment> Comments { get; private set; }
         public List<Like> Likes { get; private set; }
 
-        public PostService(IConfiguration configuration, UserService userService)
+        public PostService(IServiceConfig config, UserService userService)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            string connectionString = config.ConnectionString;
             _categoryData = new CategoryData(connectionString);
             _postData = new PostData(connectionString);
             _commentData = new CommentData(connectionString);
             _likeData = new LikeData(connectionString);
             _userService = userService;
+            // _moderationService = moderationService;
 
             LoadAllDataAsync().Wait();
         }
+
 
 
         // Loading Data
@@ -109,28 +112,33 @@ namespace SharedLibrary.Services
 
         public async Task DeletePostAsync(int postId)
         {
-            var post =  GetPostById(postId);
+            var post = GetPostById(postId);
             if (post == null)
             {
                 throw new KeyNotFoundException("Post not found.");
             }
 
+            // var likesToRemove = Likes.Where(l => l.PostId == postId).ToList();
+            // foreach (var like in likesToRemove)
+            // {
+            //     Likes.Remove(like);
+            //     post.Likes.Remove(like);
+            //     await _likeData.DeleteLike(like.LikeId);
+            // }
 
+            // var commentsToRemove = Comments.Where(c => c.PostId == postId).ToList();
+            // foreach (var comment in commentsToRemove)
+            // {
+            //     Comments.Remove(comment);
+            //     await _commentData.DeleteComment(comment.CommentId);
+            // }
 
-            var likesToRemove = Likes.Where(l => l.PostId == postId).ToList();
-            foreach (var like in likesToRemove)
-            {
-                Likes.Remove(like);
-                post.Likes.Remove(like);
-                await _likeData.DeleteLike(like.LikeId);
-            }
+            // var flaggedPostsToRemove = _moderationService.FlaggedPosts.Where(fp => fp.PostId == postId).ToList();
+            // foreach (var flaggedPost in flaggedPostsToRemove)
+            // {
+            //     await _moderationService.RemoveFlaggedPost(flaggedPost.FlagId);
+            // }
 
-            var commentsToRemove = Comments.Where(c => c.PostId == postId).ToList();
-            foreach (var comment in commentsToRemove)
-            {
-                Comments.Remove(comment);
-                await _commentData.DeleteComment(comment.CommentId);
-            }
 
             await _postData.DeletePost(postId);
             Posts.Remove(post);
@@ -177,7 +185,7 @@ namespace SharedLibrary.Services
 
             var likeId = await _likeData.AddLike(userId, postId);
             var user = _userService.GetUserById(userId);
-            var post =  GetPostById(postId);
+            var post = GetPostById(postId);
 
             var newLike = new Like
             {
@@ -230,7 +238,7 @@ namespace SharedLibrary.Services
             var commentId = await _commentData.AddComment(text, userId, postId);
 
             var user = _userService.GetUserById(userId);
-            var post =  GetPostById(postId);
+            var post = GetPostById(postId);
 
             var newComment = new Comment
             {
@@ -254,6 +262,12 @@ namespace SharedLibrary.Services
             {
                 throw new KeyNotFoundException("Comment not found.");
             }
+
+            // var flaggedCommentsToRemove = _moderationService.FlaggedComments.Where(fc => fc.CommentId == commentId).ToList();
+            // foreach (var flaggedComment in flaggedCommentsToRemove)
+            // {
+            //     await _moderationService.RemoveFlaggedComment(flaggedComment.FlagId);
+            // }
 
             await _commentData.DeleteComment(commentId);
 

@@ -12,6 +12,7 @@ namespace talktomeweb.Pages.Account
         private readonly ModerationService _moderationService;
         public List<SharedLibrary.Models.Post> Posts { get; set; }
         public dynamic SelectedUser { get; private set; }
+        public dynamic CurrentUser { get; private set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -33,6 +34,7 @@ namespace talktomeweb.Pages.Account
         public void OnGet(int userId)
         {
             SelectedUser = _userService.GetUserById(userId);
+            CurrentUser = _userService.GetCurrentlyLoggedInUser();
 
             if (SelectedUser != null)
             {

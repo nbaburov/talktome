@@ -18,7 +18,16 @@ namespace SharedLibrary.Data
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            var createCommentTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Comments') BEGIN CREATE TABLE Comments (CommentId INT PRIMARY KEY IDENTITY, Text TEXT NOT NULL, UserId INT, PostId INT, CreationDate DATETIME NOT NULL DEFAULT GETDATE(), FOREIGN KEY (UserId) REFERENCES Users(UserId), FOREIGN KEY (PostId) REFERENCES Posts(PostId)) END";
+            var createCommentTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Comments') BEGIN CREATE TABLE 
+            Comments (CommentId INT PRIMARY KEY IDENTITY, 
+            Text TEXT NOT NULL, 
+            UserId INT, 
+            PostId INT, 
+            CreationDate 
+            DATETIME NOT NULL DEFAULT GETDATE(), 
+            FOREIGN KEY (UserId) REFERENCES Users(UserId) , 
+            FOREIGN KEY (PostId) REFERENCES Posts(PostId) ON DELETE CASCADE
+            ) END";
 
             using (var command = new SqlCommand(createCommentTable, connection))
             {

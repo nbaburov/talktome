@@ -54,13 +54,13 @@ namespace talktomeweb.Pages.Account
             // Console.WriteLine(loginSuccess);
             if (loginSuccess)
             {
-                var cookieOptions = new CookieOptions
-                {
-                    Expires = DateTime.Now.AddDays(7),
-                    HttpOnly = true,
-                    Secure = true,
-                };
-                Response.Cookies.Append("UserEmail", Input.Email, cookieOptions);
+                // var cookieOptions = new CookieOptions
+                // {
+                //     Expires = DateTime.Now.AddDays(7),
+                //     HttpOnly = true,
+                //     Secure = true,
+                // };
+                // Response.Cookies.Append("UserEmail", Input.Email, cookieOptions);
                 return RedirectToPage("/Index");
             }
             else

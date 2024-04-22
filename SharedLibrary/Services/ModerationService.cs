@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using SharedLibrary.Interface;
 
 namespace SharedLibrary.Services
 {
@@ -16,9 +17,9 @@ namespace SharedLibrary.Services
         public List<FlagPost> FlaggedPosts { get; private set; }
         public List<FlagComment> FlaggedComments { get; private set; }
 
-        public ModerationService(IConfiguration configuration, UserService userService, PostService postService)
+        public ModerationService(IServiceConfig config, UserService userService, PostService postService)
         {
-            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            string connectionString = config.ConnectionString;
             _flagData = new FlagData(connectionString);
 
             _userService = userService;
@@ -26,6 +27,7 @@ namespace SharedLibrary.Services
 
             LoadAllDataAsync().Wait();
         }
+
 
         // Loading Data
 
@@ -122,6 +124,43 @@ namespace SharedLibrary.Services
                 Comment = comment,
             });
             return true;
+        }
+
+
+        // Remove flagged user by flag ID
+        public async Task<bool> RemoveFlaggedUser(int flagId)
+        {
+            var flagUser = FlaggedUsers.Find(u => u.FlagId == flagId);
+            if (flagUser != null)
+            {
+                FlaggedUsers.Remove(flagUser);
+                return await _flagData.RemoveFlagUser(flagId);
+            }
+            return false;
+        }
+
+        // Remove flagged post by flag ID
+        public async Task<bool> RemoveFlaggedPost(int flagId)
+        {
+            var flagPost = FlaggedPosts.Find(p => p.FlagId == flagId);
+            if (flagPost != null)
+            {
+                FlaggedPosts.Remove(flagPost);
+                return await _flagData.RemoveFlagPost(flagId);
+            }
+            return false;
+        }
+
+        // Remove flagged comment by flag ID
+        public async Task<bool> RemoveFlaggedComment(int flagId)
+        {
+            var flagComment = FlaggedComments.Find(c => c.FlagId == flagId);
+            if (flagComment != null)
+            {
+                FlaggedComments.Remove(flagComment);
+                return await _flagData.RemoveFlagComment(flagId);
+            }
+            return false;
         }
     }
 }

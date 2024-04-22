@@ -21,30 +21,36 @@ namespace SharedLibrary.Data
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
+            //! Ask teacher I want to delete flag when post or comment is deleted but I cant set them both cascade
+            //! I tried triggers and the logic should work but I get
+            // SqlException: The DELETE statement conflicted with the REFERENCE constraint "FK__Flags__PostId__269AB60B". The conflict occurred in database "dbi530788_talktome", table "dbo.Flags", column 'PostId'.
+            //! I get that because the post needs to be deleted firstly before trying to delete flag, i think
+            // Create Flags table
             var createFlagTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Flags')
-            BEGIN
-                CREATE TABLE Flags (
-                    FlagId INT PRIMARY KEY IDENTITY(1,1),
-                    FromUserId INT NOT NULL,
-                    Resolved BIT NOT NULL DEFAULT 0,
-                    FlagType VARCHAR(50) NOT NULL,
-                    CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
-                    ToUserId INT,
-                    Reason TEXT,
-                    PostId INT,
-                    CommentId INT,
-                    FOREIGN KEY (FromUserId) REFERENCES Users(UserId), 
-                    FOREIGN KEY (ToUserId) REFERENCES Users(UserId), 
-                    FOREIGN KEY (PostId) REFERENCES Posts(PostId), 
-                    FOREIGN KEY (CommentId) REFERENCES Comments(CommentId)
-                )
-            END";
+        BEGIN
+            CREATE TABLE Flags (
+                FlagId INT PRIMARY KEY IDENTITY(1,1),
+                FromUserId INT NOT NULL,
+                Resolved BIT NOT NULL DEFAULT 0,
+                FlagType VARCHAR(50) NOT NULL,
+                CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
+                ToUserId INT,
+                Reason TEXT,
+                PostId INT,
+                CommentId INT,
+                FOREIGN KEY (FromUserId) REFERENCES Users(UserId), 
+                FOREIGN KEY (ToUserId) REFERENCES Users(UserId), 
+                FOREIGN KEY (CommentId) REFERENCES Comments(CommentId) ON DELETE CASCADE,
+                FOREIGN KEY (PostId) REFERENCES Posts(PostId), 
+            )
+        END";
 
             using (var command = new SqlCommand(createFlagTable, connection))
             {
                 await command.ExecuteNonQueryAsync();
             }
         }
+
 
         public async Task<bool> IsAlreadyFlagged(int fromUserId, int? toUserId, int? postId, int? commentId)
         {
@@ -239,6 +245,57 @@ namespace SharedLibrary.Data
             }
 
             return flagComments;
+        }
+
+        // Remove flagged user by flag ID
+        public async Task<bool> RemoveFlagUser(int flagId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = @"DELETE FROM Flags WHERE FlagId = @FlagId";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FlagId", flagId);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+        }
+
+        // Remove flagged post by flag ID
+        public async Task<bool> RemoveFlagPost(int flagId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = @"DELETE FROM Flags WHERE FlagId = @FlagId";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FlagId", flagId);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
+        }
+
+        // Remove flagged comment by flag ID
+        public async Task<bool> RemoveFlagComment(int flagId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = @"DELETE FROM Flags WHERE FlagId = @FlagId";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FlagId", flagId);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
         }
     }
 }
