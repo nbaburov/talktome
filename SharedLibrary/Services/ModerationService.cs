@@ -162,5 +162,41 @@ namespace SharedLibrary.Services
             }
             return false;
         }
+
+        public int[] GetInsights()
+        {
+            int totalUsers = _userService.GetTotalUsers();
+            int usersCreatedToday = _userService.GetUsersCreatedToday();
+            int totalPosts = _postService.GetTotalPosts();
+            int postsCreatedToday = _postService.GetPostsCreatedToday();
+            int totalComments = _postService.GetTotalComments();
+            int totalLikes = _postService.GetTotalLikes();
+
+            return new int[]
+            {
+        totalUsers,
+        usersCreatedToday,
+        totalPosts,
+        postsCreatedToday,
+        totalComments,
+        totalLikes
+            };
+        }
+
+        public FlagUser GetFlagUserById(int id)
+        {
+            return FlaggedUsers.FirstOrDefault(f => f.FlagId == id);
+        }
+
+        public FlagPost GetFlagPostById(int id)
+        {
+            return FlaggedPosts.FirstOrDefault(f => f.FlagId == id);
+        }
+
+        public FlagComment GetFlagCommentById(int id)
+        {
+            return FlaggedComments.FirstOrDefault(f => f.FlagId == id);
+        }
+
     }
 }

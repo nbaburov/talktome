@@ -174,6 +174,28 @@ namespace SharedLibrary.Services
             return Categories.FirstOrDefault(c => c.CategoryId == categoryId);
         }
 
+        public int GetTotalPosts()
+        {
+            return Posts.Count;
+        }
+
+        public int GetPostsCreatedToday()
+        {
+            return Posts.Count(p => p.CreationDate.Date == DateTime.Today);
+        }
+
+
+        public int GetTotalComments()
+        {
+            return Comments.Count;
+        }
+
+        public int GetTotalLikes()
+        {
+            return Likes.Count;
+        }
+
+
 
         // Like Management
         public async Task LikePost(int postId, int userId)

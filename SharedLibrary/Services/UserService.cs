@@ -251,6 +251,17 @@ namespace SharedLibrary.Services
             return null;
         }
 
+        public int GetTotalUsers()
+        {
+            return _users.Count;
+        }
+
+        public int GetUsersCreatedToday()
+        {
+            return _users.Count(u => u.RegistrationDate.Date == DateTime.Today);
+        }
+
+
 
         //* Helper Methods
 
