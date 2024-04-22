@@ -1,17 +1,15 @@
 using Microsoft.AspNetCore.Http;
 using SharedLibrary.Services;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddHttpContextAccessor();
-if (connectionString != null)
-{
-    builder.Services.AddScoped<UserService>(provider => new UserService(connectionString, provider.GetRequiredService<IHttpContextAccessor>()));
-        builder.Services.AddScoped<PostService>(provider => new PostService(
-        connectionString, 
-        provider.GetRequiredService<UserService>()));
-}
+var configuration = builder.Configuration;
+
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<PostService>();
+builder.Services.AddScoped<ModerationService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddRazorPages();
 

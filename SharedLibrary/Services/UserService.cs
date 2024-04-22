@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Text;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 
 namespace SharedLibrary.Services
@@ -19,12 +20,13 @@ namespace SharedLibrary.Services
         private List<User> _users;
         public User? CurrentlyLoggedInUser { get; private set; }
 
-        public UserService(string connectionString, IHttpContextAccessor httpContextAccessor)
+        public UserService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
-            _userData = new UserData(connectionString); // Configuration, look up
+            string connectionString = configuration.GetConnectionString("DefaultConnection");
+            _userData = new UserData(connectionString);
             _users = new List<User>();
             _httpContextAccessor = httpContextAccessor;
-            LoadUsersAsync().Wait();
+            LoadAllDataAsync().Wait();
             CheckAndSetCurrentlyLoggedInUserFromCookie();
         }
 
@@ -44,7 +46,7 @@ namespace SharedLibrary.Services
         }
 
 
-        private async Task LoadUsersAsync()
+        private async Task LoadAllDataAsync()
         {
             var usersFromData = await _userData.GetAllUsers();
             foreach (var userData in usersFromData)

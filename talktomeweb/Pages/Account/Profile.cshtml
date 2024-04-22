@@ -3,8 +3,7 @@
 @{
 }
 
-
-<div class="max-w-4xl mx-auto px-4 py-8">
+<div id="profile-body" class="max-w-4xl mx-auto px-4 py-8 z-10">
     <div class="flex flex-col gap-8 p-6">
         @if (Model.SelectedUser != null)
         {
@@ -19,7 +18,20 @@
                 </div>
                 <div class="flex flex-col gap-4 w-full">
                     <div>
-                        <h2 class="text-lg lg:text-2xl font-bold">@Model.SelectedUser.Username</h2>
+                        <div class="flex flex-row gap-2">
+                            <h2 class="text-lg lg:text-2xl font-bold">@Model.SelectedUser.Username</h2>
+                            <button onclick="
+                            document.getElementById('flagModal').style.display='block'
+                            document.getElementById('profile-body').classList.toggle('blur-lg')
+                                                                        " title="Flag User"
+                                class="text-yellow-500 hover:text-yellow-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+                                </svg>
+                            </button>
+                        </div>
                         @if (Model.SelectedUser.Bio != null)
                         {
                             <span class="text-xs lg:text-sm">@Model.SelectedUser.Bio</span>
@@ -39,4 +51,38 @@
             @await Html.PartialAsync("_PostsPartial", Model.Posts)
         </div>
     </div>
+
 </div>
+
+<div id="flagModal" class="absolute z-0 blur-none top-1/3 left-1/3 shadow rounded bg-white p-5" style="display:none;">
+    <div class="modal-content">
+        <div class="flex flex-row justify-between">
+            <h2>Flag User</h2>
+            <span onclick="
+                        document.getElementById('flagModal').style.display='none'
+                        document.getElementById('profile-body').classList.toggle('blur-lg')
+                                        " class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form method="post" asp-page-handler="FlagUser">
+                <input type="hidden" asp-for="Input.ToUserId" />
+                <label asp-for="Input.Reason" class="text-sm font-thin text-gray-500">Reason:</label>
+                <textarea asp-for="Input.Reason"
+                    class="w-full placeholder-gray-500 py-2 px-4 bg-white border focus:border-2 border-pink-400 rounded-lg text-gray-800  focus:border-pink-600  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-pink-300 transition-all duration-150"></textarea>
+                <span asp-validation-for="Input.Reason" class="text-red-500 text-xs"></span>
+                <button type="submit"
+                    class="bg-gradient-to-tl m-auto from-pink-500 to-rose-500 py-3 px-8 text-white font-bold rounded hover:scale-110 transition-all duration-100">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Close the modal when users click outside of it
+    window.onclick = function (event) {
+        if (event.target == document.getElementById('flagModal')) {
+            document.getElementById('flagModal').style.display = "none";
+        }
+    }
+</script>
