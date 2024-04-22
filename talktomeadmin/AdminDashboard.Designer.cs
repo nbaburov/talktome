@@ -28,1119 +28,1223 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageDashboard = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lstBoxFlaggedCommentsDashboard = new System.Windows.Forms.ListBox();
-            this.lstBoxFlaggedPostsDashboard = new System.Windows.Forms.ListBox();
-            this.lstBoxFlaggedUsersDashboard = new System.Windows.Forms.ListBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblCommentsTotal = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblLikesTotal = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.lblPostsToday = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblUsersToday = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblUsersTotal = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblPostsTotal = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPageUsers = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnRemoveFlagUser = new System.Windows.Forms.Button();
-            this.label21 = new System.Windows.Forms.Label();
-            this.btnBanUser = new System.Windows.Forms.Button();
-            this.btnSuspendUser = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.txtBoxSuspendDays = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lblUserBio = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblUserFlagReason = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lblUserEmail = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.lblUserName = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.pictureBoxUserProfile = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lstBoxFlaggedUsers = new System.Windows.Forms.ListBox();
-            this.tabPagePosts = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.btnRemovePost = new System.Windows.Forms.Button();
-            this.btnRemoveFlagPost = new System.Windows.Forms.Button();
-            this.label22 = new System.Windows.Forms.Label();
-            this.btnBanUserFromPost = new System.Windows.Forms.Button();
-            this.btnSuspendUserFromPost = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.txtBoxSuspendDaysPosts = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.lblPostText = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.lblUserEmailPost = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.lblUserNamePost = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.pictureBoxPostImage = new System.Windows.Forms.PictureBox();
-            this.label35 = new System.Windows.Forms.Label();
-            this.lstBoxFlaggedPosts = new System.Windows.Forms.ListBox();
-            this.tabPageComments = new System.Windows.Forms.TabPage();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.btnDeleteComment = new System.Windows.Forms.Button();
-            this.btnRemoveFlagComment = new System.Windows.Forms.Button();
-            this.label28 = new System.Windows.Forms.Label();
-            this.btnBanUserFromComment = new System.Windows.Forms.Button();
-            this.btnSupsendUserFromComment = new System.Windows.Forms.Button();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtBoxSuspendDaysComments = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.lbCommentText = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.lblUserEmailComment = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.lblUserNameComment = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.lstBoxFlaggedComments = new System.Windows.Forms.ListBox();
-            this.tabControl1.SuspendLayout();
-            this.tabPageDashboard.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabPageUsers.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserProfile)).BeginInit();
-            this.tabPagePosts.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPostImage)).BeginInit();
-            this.tabPageComments.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
-            this.SuspendLayout();
+            tabControl1 = new TabControl();
+            tabPageDashboard = new TabPage();
+            groupBox2 = new GroupBox();
+            lstBoxFlaggedCommentsDashboard = new ListBox();
+            lstBoxFlaggedPostsDashboard = new ListBox();
+            lstBoxFlaggedUsersDashboard = new ListBox();
+            lblFlaggedCommentsTotal = new Label();
+            label11 = new Label();
+            lblFlaggedUsersTotal = new Label();
+            label17 = new Label();
+            lblFlaggedPostsTotal = new Label();
+            label19 = new Label();
+            groupBox1 = new GroupBox();
+            lblCommentsTotal = new Label();
+            label7 = new Label();
+            lblLikesTotal = new Label();
+            label9 = new Label();
+            lblPostsToday = new Label();
+            label5 = new Label();
+            lblUsersToday = new Label();
+            label6 = new Label();
+            lblUsersTotal = new Label();
+            label4 = new Label();
+            lblPostsTotal = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            tabPageUsers = new TabPage();
+            groupBox4 = new GroupBox();
+            btnRemoveFlagUser = new Button();
+            label21 = new Label();
+            btnBanUser = new Button();
+            btnSuspendUser = new Button();
+            label20 = new Label();
+            txtBoxSuspendDays = new TextBox();
+            label13 = new Label();
+            groupBox3 = new GroupBox();
+            lblUserBio = new Label();
+            label23 = new Label();
+            lblUserFlagReason = new Label();
+            label15 = new Label();
+            lblUserEmail = new Label();
+            label14 = new Label();
+            lblUserName = new Label();
+            label12 = new Label();
+            label8 = new Label();
+            pictureBoxUserProfile = new PictureBox();
+            label3 = new Label();
+            lstBoxFlaggedUsers = new ListBox();
+            tabPagePosts = new TabPage();
+            groupBox5 = new GroupBox();
+            label26 = new Label();
+            btnRemovePost = new Button();
+            btnRemoveFlagPost = new Button();
+            label22 = new Label();
+            btnBanUserFromPost = new Button();
+            btnSuspendUserFromPost = new Button();
+            label24 = new Label();
+            txtBoxSuspendDaysPosts = new TextBox();
+            label25 = new Label();
+            groupBox6 = new GroupBox();
+            lblPostText = new Label();
+            label29 = new Label();
+            lblUserEmailPost = new Label();
+            label31 = new Label();
+            lblUserNamePost = new Label();
+            label33 = new Label();
+            label34 = new Label();
+            pictureBoxPostImage = new PictureBox();
+            label35 = new Label();
+            lstBoxFlaggedPosts = new ListBox();
+            tabPageComments = new TabPage();
+            groupBox7 = new GroupBox();
+            label27 = new Label();
+            btnDeleteComment = new Button();
+            btnRemoveFlagComment = new Button();
+            label28 = new Label();
+            btnBanUserFromComment = new Button();
+            btnSupsendUserFromComment = new Button();
+            label30 = new Label();
+            txtBoxSuspendDaysComments = new TextBox();
+            label32 = new Label();
+            groupBox8 = new GroupBox();
+            lbCommentText = new Label();
+            label37 = new Label();
+            lblUserEmailComment = new Label();
+            label39 = new Label();
+            lblUserNameComment = new Label();
+            label41 = new Label();
+            label43 = new Label();
+            lstBoxFlaggedComments = new ListBox();
+            tabControl1.SuspendLayout();
+            tabPageDashboard.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            tabPageUsers.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxUserProfile).BeginInit();
+            tabPagePosts.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPostImage).BeginInit();
+            tabPageComments.SuspendLayout();
+            groupBox7.SuspendLayout();
+            groupBox8.SuspendLayout();
+            SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPageDashboard);
-            this.tabControl1.Controls.Add(this.tabPageUsers);
-            this.tabControl1.Controls.Add(this.tabPagePosts);
-            this.tabControl1.Controls.Add(this.tabPageComments);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1020, 537);
-            this.tabControl1.TabIndex = 0;
+            tabControl1.Controls.Add(tabPageDashboard);
+            tabControl1.Controls.Add(tabPageUsers);
+            tabControl1.Controls.Add(tabPagePosts);
+            tabControl1.Controls.Add(tabPageComments);
+            tabControl1.Location = new Point(14, 14);
+            tabControl1.Margin = new Padding(4, 3, 4, 3);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1190, 620);
+            tabControl1.TabIndex = 0;
             // 
             // tabPageDashboard
             // 
-            this.tabPageDashboard.Controls.Add(this.groupBox2);
-            this.tabPageDashboard.Controls.Add(this.groupBox1);
-            this.tabPageDashboard.Controls.Add(this.label1);
-            this.tabPageDashboard.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDashboard.Name = "tabPageDashboard";
-            this.tabPageDashboard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDashboard.Size = new System.Drawing.Size(1012, 511);
-            this.tabPageDashboard.TabIndex = 0;
-            this.tabPageDashboard.Text = "Dashboard";
-            this.tabPageDashboard.UseVisualStyleBackColor = true;
+            tabPageDashboard.Controls.Add(groupBox2);
+            tabPageDashboard.Controls.Add(groupBox1);
+            tabPageDashboard.Controls.Add(label1);
+            tabPageDashboard.Location = new Point(4, 24);
+            tabPageDashboard.Margin = new Padding(4, 3, 4, 3);
+            tabPageDashboard.Name = "tabPageDashboard";
+            tabPageDashboard.Padding = new Padding(4, 3, 4, 3);
+            tabPageDashboard.Size = new Size(1182, 592);
+            tabPageDashboard.TabIndex = 0;
+            tabPageDashboard.Text = "Dashboard";
+            tabPageDashboard.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lstBoxFlaggedCommentsDashboard);
-            this.groupBox2.Controls.Add(this.lstBoxFlaggedPostsDashboard);
-            this.groupBox2.Controls.Add(this.lstBoxFlaggedUsersDashboard);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Location = new System.Drawing.Point(6, 159);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1000, 346);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Moderation Information";
+            groupBox2.Controls.Add(lstBoxFlaggedCommentsDashboard);
+            groupBox2.Controls.Add(lstBoxFlaggedPostsDashboard);
+            groupBox2.Controls.Add(lstBoxFlaggedUsersDashboard);
+            groupBox2.Controls.Add(lblFlaggedCommentsTotal);
+            groupBox2.Controls.Add(label11);
+            groupBox2.Controls.Add(lblFlaggedUsersTotal);
+            groupBox2.Controls.Add(label17);
+            groupBox2.Controls.Add(lblFlaggedPostsTotal);
+            groupBox2.Controls.Add(label19);
+            groupBox2.Location = new Point(7, 183);
+            groupBox2.Margin = new Padding(4, 3, 4, 3);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new Padding(4, 3, 4, 3);
+            groupBox2.Size = new Size(1167, 399);
+            groupBox2.TabIndex = 12;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Moderation Information";
             // 
             // lstBoxFlaggedCommentsDashboard
             // 
-            this.lstBoxFlaggedCommentsDashboard.FormattingEnabled = true;
-            this.lstBoxFlaggedCommentsDashboard.Location = new System.Drawing.Point(735, 37);
-            this.lstBoxFlaggedCommentsDashboard.Name = "lstBoxFlaggedCommentsDashboard";
-            this.lstBoxFlaggedCommentsDashboard.Size = new System.Drawing.Size(224, 290);
-            this.lstBoxFlaggedCommentsDashboard.TabIndex = 12;
+            lstBoxFlaggedCommentsDashboard.FormattingEnabled = true;
+            lstBoxFlaggedCommentsDashboard.ItemHeight = 15;
+            lstBoxFlaggedCommentsDashboard.Location = new Point(858, 43);
+            lstBoxFlaggedCommentsDashboard.Margin = new Padding(4, 3, 4, 3);
+            lstBoxFlaggedCommentsDashboard.Name = "lstBoxFlaggedCommentsDashboard";
+            lstBoxFlaggedCommentsDashboard.Size = new Size(261, 334);
+            lstBoxFlaggedCommentsDashboard.TabIndex = 12;
             // 
             // lstBoxFlaggedPostsDashboard
             // 
-            this.lstBoxFlaggedPostsDashboard.FormattingEnabled = true;
-            this.lstBoxFlaggedPostsDashboard.Location = new System.Drawing.Point(375, 37);
-            this.lstBoxFlaggedPostsDashboard.Name = "lstBoxFlaggedPostsDashboard";
-            this.lstBoxFlaggedPostsDashboard.Size = new System.Drawing.Size(224, 290);
-            this.lstBoxFlaggedPostsDashboard.TabIndex = 11;
+            lstBoxFlaggedPostsDashboard.FormattingEnabled = true;
+            lstBoxFlaggedPostsDashboard.ItemHeight = 15;
+            lstBoxFlaggedPostsDashboard.Location = new Point(438, 43);
+            lstBoxFlaggedPostsDashboard.Margin = new Padding(4, 3, 4, 3);
+            lstBoxFlaggedPostsDashboard.Name = "lstBoxFlaggedPostsDashboard";
+            lstBoxFlaggedPostsDashboard.Size = new Size(261, 334);
+            lstBoxFlaggedPostsDashboard.TabIndex = 11;
             // 
             // lstBoxFlaggedUsersDashboard
             // 
-            this.lstBoxFlaggedUsersDashboard.FormattingEnabled = true;
-            this.lstBoxFlaggedUsersDashboard.Location = new System.Drawing.Point(9, 37);
-            this.lstBoxFlaggedUsersDashboard.Name = "lstBoxFlaggedUsersDashboard";
-            this.lstBoxFlaggedUsersDashboard.Size = new System.Drawing.Size(224, 290);
-            this.lstBoxFlaggedUsersDashboard.TabIndex = 10;
+            lstBoxFlaggedUsersDashboard.FormattingEnabled = true;
+            lstBoxFlaggedUsersDashboard.ItemHeight = 15;
+            lstBoxFlaggedUsersDashboard.Location = new Point(10, 43);
+            lstBoxFlaggedUsersDashboard.Margin = new Padding(4, 3, 4, 3);
+            lstBoxFlaggedUsersDashboard.Name = "lstBoxFlaggedUsersDashboard";
+            lstBoxFlaggedUsersDashboard.Size = new Size(261, 334);
+            lstBoxFlaggedUsersDashboard.TabIndex = 10;
             // 
-            // label10
+            // lblFlaggedCommentsTotal
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(883, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(99, 16);
-            this.label10.TabIndex = 9;
-            this.label10.Text = "{postamount}";
+            lblFlaggedCommentsTotal.AutoSize = true;
+            lblFlaggedCommentsTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblFlaggedCommentsTotal.Location = new Point(1030, 18);
+            lblFlaggedCommentsTotal.Margin = new Padding(4, 0, 4, 0);
+            lblFlaggedCommentsTotal.Name = "lblFlaggedCommentsTotal";
+            lblFlaggedCommentsTotal.Size = new Size(99, 16);
+            lblFlaggedCommentsTotal.TabIndex = 9;
+            lblFlaggedCommentsTotal.Text = "{postamount}";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(713, 16);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(164, 18);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "Flagged Comments: ";
+            label11.AutoSize = true;
+            label11.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Location = new Point(832, 18);
+            label11.Margin = new Padding(4, 0, 4, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(164, 18);
+            label11.TabIndex = 8;
+            label11.Text = "Flagged Comments: ";
             // 
-            // label16
+            // lblFlaggedUsersTotal
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(134, 18);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(99, 16);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "{postamount}";
+            lblFlaggedUsersTotal.AutoSize = true;
+            lblFlaggedUsersTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblFlaggedUsersTotal.Location = new Point(156, 21);
+            lblFlaggedUsersTotal.Margin = new Padding(4, 0, 4, 0);
+            lblFlaggedUsersTotal.Name = "lblFlaggedUsersTotal";
+            lblFlaggedUsersTotal.Size = new Size(99, 16);
+            lblFlaggedUsersTotal.TabIndex = 3;
+            lblFlaggedUsersTotal.Text = "{postamount}";
             // 
             // label17
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(6, 16);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(122, 18);
-            this.label17.TabIndex = 2;
-            this.label17.Text = "Flagged Users:";
+            label17.AutoSize = true;
+            label17.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.Location = new Point(7, 18);
+            label17.Margin = new Padding(4, 0, 4, 0);
+            label17.Name = "label17";
+            label17.Size = new Size(122, 18);
+            label17.TabIndex = 2;
+            label17.Text = "Flagged Users:";
             // 
-            // label18
+            // lblFlaggedPostsTotal
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(499, 18);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(99, 16);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "{postamount}";
+            lblFlaggedPostsTotal.AutoSize = true;
+            lblFlaggedPostsTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblFlaggedPostsTotal.Location = new Point(582, 21);
+            lblFlaggedPostsTotal.Margin = new Padding(4, 0, 4, 0);
+            lblFlaggedPostsTotal.Name = "lblFlaggedPostsTotal";
+            lblFlaggedPostsTotal.Size = new Size(99, 16);
+            lblFlaggedPostsTotal.TabIndex = 1;
+            lblFlaggedPostsTotal.Text = "{postamount}";
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(372, 16);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(121, 18);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "Flagged Posts:";
+            label19.AutoSize = true;
+            label19.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.Location = new Point(434, 18);
+            label19.Margin = new Padding(4, 0, 4, 0);
+            label19.Name = "label19";
+            label19.Size = new Size(121, 18);
+            label19.TabIndex = 0;
+            label19.Text = "Flagged Posts:";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lblCommentsTotal);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.lblLikesTotal);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.lblPostsToday);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.lblUsersToday);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.lblUsersTotal);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.lblPostsTotal);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(6, 57);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1000, 86);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Platform Information";
+            groupBox1.Controls.Add(lblCommentsTotal);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(lblLikesTotal);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(lblPostsToday);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(lblUsersToday);
+            groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(lblUsersTotal);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(lblPostsTotal);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Location = new Point(7, 66);
+            groupBox1.Margin = new Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 3, 4, 3);
+            groupBox1.Size = new Size(1167, 99);
+            groupBox1.TabIndex = 1;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Platform Information";
             // 
             // lblCommentsTotal
             // 
-            this.lblCommentsTotal.AutoSize = true;
-            this.lblCommentsTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCommentsTotal.Location = new System.Drawing.Point(814, 46);
-            this.lblCommentsTotal.Name = "lblCommentsTotal";
-            this.lblCommentsTotal.Size = new System.Drawing.Size(99, 16);
-            this.lblCommentsTotal.TabIndex = 11;
-            this.lblCommentsTotal.Text = "{postamount}";
+            lblCommentsTotal.AutoSize = true;
+            lblCommentsTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblCommentsTotal.Location = new Point(950, 53);
+            lblCommentsTotal.Margin = new Padding(4, 0, 4, 0);
+            lblCommentsTotal.Name = "lblCommentsTotal";
+            lblCommentsTotal.Size = new Size(99, 16);
+            lblCommentsTotal.TabIndex = 11;
+            lblCommentsTotal.Text = "{postamount}";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(713, 44);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(95, 18);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Comments:";
+            label7.AutoSize = true;
+            label7.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Location = new Point(832, 51);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(95, 18);
+            label7.TabIndex = 10;
+            label7.Text = "Comments:";
             // 
             // lblLikesTotal
             // 
-            this.lblLikesTotal.AutoSize = true;
-            this.lblLikesTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLikesTotal.Location = new System.Drawing.Point(771, 18);
-            this.lblLikesTotal.Name = "lblLikesTotal";
-            this.lblLikesTotal.Size = new System.Drawing.Size(99, 16);
-            this.lblLikesTotal.TabIndex = 9;
-            this.lblLikesTotal.Text = "{postamount}";
+            lblLikesTotal.AutoSize = true;
+            lblLikesTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblLikesTotal.Location = new Point(899, 21);
+            lblLikesTotal.Margin = new Padding(4, 0, 4, 0);
+            lblLikesTotal.Name = "lblLikesTotal";
+            lblLikesTotal.Size = new Size(99, 16);
+            lblLikesTotal.TabIndex = 9;
+            lblLikesTotal.Text = "{postamount}";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(713, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 18);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Likes:";
+            label9.AutoSize = true;
+            label9.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.Location = new Point(832, 18);
+            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(53, 18);
+            label9.TabIndex = 8;
+            label9.Text = "Likes:";
             // 
             // lblPostsToday
             // 
-            this.lblPostsToday.AutoSize = true;
-            this.lblPostsToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPostsToday.Location = new System.Drawing.Point(537, 46);
-            this.lblPostsToday.Name = "lblPostsToday";
-            this.lblPostsToday.Size = new System.Drawing.Size(99, 16);
-            this.lblPostsToday.TabIndex = 7;
-            this.lblPostsToday.Text = "{postamount}";
+            lblPostsToday.AutoSize = true;
+            lblPostsToday.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblPostsToday.Location = new Point(626, 53);
+            lblPostsToday.Margin = new Padding(4, 0, 4, 0);
+            lblPostsToday.Name = "lblPostsToday";
+            lblPostsToday.Size = new Size(99, 16);
+            lblPostsToday.TabIndex = 7;
+            lblPostsToday.Text = "{postamount}";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(372, 44);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(158, 18);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "New Posts (Today):";
+            label5.AutoSize = true;
+            label5.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(434, 51);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(158, 18);
+            label5.TabIndex = 6;
+            label5.Text = "New Posts (Today):";
             // 
             // lblUsersToday
             // 
-            this.lblUsersToday.AutoSize = true;
-            this.lblUsersToday.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsersToday.Location = new System.Drawing.Point(171, 46);
-            this.lblUsersToday.Name = "lblUsersToday";
-            this.lblUsersToday.Size = new System.Drawing.Size(99, 16);
-            this.lblUsersToday.TabIndex = 5;
-            this.lblUsersToday.Text = "{postamount}";
+            lblUsersToday.AutoSize = true;
+            lblUsersToday.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUsersToday.Location = new Point(200, 53);
+            lblUsersToday.Margin = new Padding(4, 0, 4, 0);
+            lblUsersToday.Name = "lblUsersToday";
+            lblUsersToday.Size = new Size(99, 16);
+            lblUsersToday.TabIndex = 5;
+            lblUsersToday.Text = "{postamount}";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 44);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(159, 18);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "New Users (Today):";
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(7, 51);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(159, 18);
+            label6.TabIndex = 4;
+            label6.Text = "New Users (Today):";
             // 
             // lblUsersTotal
             // 
-            this.lblUsersTotal.AutoSize = true;
-            this.lblUsersTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsersTotal.Location = new System.Drawing.Point(69, 18);
-            this.lblUsersTotal.Name = "lblUsersTotal";
-            this.lblUsersTotal.Size = new System.Drawing.Size(99, 16);
-            this.lblUsersTotal.TabIndex = 3;
-            this.lblUsersTotal.Text = "{postamount}";
+            lblUsersTotal.AutoSize = true;
+            lblUsersTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUsersTotal.Location = new Point(80, 21);
+            lblUsersTotal.Margin = new Padding(4, 0, 4, 0);
+            lblUsersTotal.Name = "lblUsersTotal";
+            lblUsersTotal.Size = new Size(99, 16);
+            lblUsersTotal.TabIndex = 3;
+            lblUsersTotal.Text = "{postamount}";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 18);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Users:";
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(7, 18);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(58, 18);
+            label4.TabIndex = 2;
+            label4.Text = "Users:";
             // 
             // lblPostsTotal
             // 
-            this.lblPostsTotal.AutoSize = true;
-            this.lblPostsTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPostsTotal.Location = new System.Drawing.Point(435, 18);
-            this.lblPostsTotal.Name = "lblPostsTotal";
-            this.lblPostsTotal.Size = new System.Drawing.Size(99, 16);
-            this.lblPostsTotal.TabIndex = 1;
-            this.lblPostsTotal.Text = "{postamount}";
+            lblPostsTotal.AutoSize = true;
+            lblPostsTotal.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblPostsTotal.Location = new Point(507, 21);
+            lblPostsTotal.Margin = new Padding(4, 0, 4, 0);
+            lblPostsTotal.Name = "lblPostsTotal";
+            lblPostsTotal.Size = new Size(99, 16);
+            lblPostsTotal.TabIndex = 1;
+            lblPostsTotal.Text = "{postamount}";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(372, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Posts:";
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(434, 18);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(57, 18);
+            label2.TabIndex = 0;
+            label2.Text = "Posts:";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(249, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(518, 42);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "TalkToMe Admin Dashboard";
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(290, 14);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(518, 42);
+            label1.TabIndex = 0;
+            label1.Text = "TalkToMe Admin Dashboard";
             // 
             // tabPageUsers
             // 
-            this.tabPageUsers.Controls.Add(this.groupBox4);
-            this.tabPageUsers.Controls.Add(this.groupBox3);
-            this.tabPageUsers.Controls.Add(this.label3);
-            this.tabPageUsers.Controls.Add(this.lstBoxFlaggedUsers);
-            this.tabPageUsers.Location = new System.Drawing.Point(4, 22);
-            this.tabPageUsers.Name = "tabPageUsers";
-            this.tabPageUsers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUsers.Size = new System.Drawing.Size(1012, 511);
-            this.tabPageUsers.TabIndex = 1;
-            this.tabPageUsers.Text = "Users";
-            this.tabPageUsers.UseVisualStyleBackColor = true;
+            tabPageUsers.Controls.Add(groupBox4);
+            tabPageUsers.Controls.Add(groupBox3);
+            tabPageUsers.Controls.Add(label3);
+            tabPageUsers.Controls.Add(lstBoxFlaggedUsers);
+            tabPageUsers.Location = new Point(4, 24);
+            tabPageUsers.Margin = new Padding(4, 3, 4, 3);
+            tabPageUsers.Name = "tabPageUsers";
+            tabPageUsers.Padding = new Padding(4, 3, 4, 3);
+            tabPageUsers.Size = new Size(1182, 592);
+            tabPageUsers.TabIndex = 1;
+            tabPageUsers.Text = "Users";
+            tabPageUsers.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.btnRemoveFlagUser);
-            this.groupBox4.Controls.Add(this.label21);
-            this.groupBox4.Controls.Add(this.btnBanUser);
-            this.groupBox4.Controls.Add(this.btnSuspendUser);
-            this.groupBox4.Controls.Add(this.label20);
-            this.groupBox4.Controls.Add(this.txtBoxSuspendDays);
-            this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Location = new System.Drawing.Point(259, 296);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(747, 212);
-            this.groupBox4.TabIndex = 14;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Actions";
+            groupBox4.Controls.Add(btnRemoveFlagUser);
+            groupBox4.Controls.Add(label21);
+            groupBox4.Controls.Add(btnBanUser);
+            groupBox4.Controls.Add(btnSuspendUser);
+            groupBox4.Controls.Add(label20);
+            groupBox4.Controls.Add(txtBoxSuspendDays);
+            groupBox4.Controls.Add(label13);
+            groupBox4.Location = new Point(302, 342);
+            groupBox4.Margin = new Padding(4, 3, 4, 3);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new Padding(4, 3, 4, 3);
+            groupBox4.Size = new Size(872, 245);
+            groupBox4.TabIndex = 14;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Actions";
             // 
             // btnRemoveFlagUser
             // 
-            this.btnRemoveFlagUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFlagUser.Location = new System.Drawing.Point(449, 99);
-            this.btnRemoveFlagUser.Name = "btnRemoveFlagUser";
-            this.btnRemoveFlagUser.Size = new System.Drawing.Size(234, 43);
-            this.btnRemoveFlagUser.TabIndex = 27;
-            this.btnRemoveFlagUser.Text = "Remove Flag";
-            this.btnRemoveFlagUser.UseVisualStyleBackColor = true;
+            btnRemoveFlagUser.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRemoveFlagUser.Location = new Point(524, 114);
+            btnRemoveFlagUser.Margin = new Padding(4, 3, 4, 3);
+            btnRemoveFlagUser.Name = "btnRemoveFlagUser";
+            btnRemoveFlagUser.Size = new Size(273, 50);
+            btnRemoveFlagUser.TabIndex = 27;
+            btnRemoveFlagUser.Text = "Remove Flag";
+            btnRemoveFlagUser.UseVisualStyleBackColor = true;
             // 
             // label21
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(18, 123);
-            this.label21.MaximumSize = new System.Drawing.Size(300, 0);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(275, 30);
-            this.label21.TabIndex = 26;
-            this.label21.Text = "Banning a user is irreversible. User will be able to view content but nothing els" +
-    "e.";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label21.AutoSize = true;
+            label21.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label21.Location = new Point(21, 142);
+            label21.Margin = new Padding(4, 0, 4, 0);
+            label21.MaximumSize = new Size(350, 0);
+            label21.Name = "label21";
+            label21.Size = new Size(345, 30);
+            label21.TabIndex = 26;
+            label21.Text = "Banning a user is irreversible. User will be able to view content but nothing else.";
+            label21.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnBanUser
             // 
-            this.btnBanUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBanUser.Location = new System.Drawing.Point(92, 163);
-            this.btnBanUser.Name = "btnBanUser";
-            this.btnBanUser.Size = new System.Drawing.Size(127, 43);
-            this.btnBanUser.TabIndex = 25;
-            this.btnBanUser.Text = "Ban";
-            this.btnBanUser.UseVisualStyleBackColor = true;
+            btnBanUser.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBanUser.Location = new Point(107, 188);
+            btnBanUser.Margin = new Padding(4, 3, 4, 3);
+            btnBanUser.Name = "btnBanUser";
+            btnBanUser.Size = new Size(148, 50);
+            btnBanUser.TabIndex = 25;
+            btnBanUser.Text = "Ban";
+            btnBanUser.UseVisualStyleBackColor = true;
             // 
             // btnSuspendUser
             // 
-            this.btnSuspendUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSuspendUser.Location = new System.Drawing.Point(92, 68);
-            this.btnSuspendUser.Name = "btnSuspendUser";
-            this.btnSuspendUser.Size = new System.Drawing.Size(127, 43);
-            this.btnSuspendUser.TabIndex = 24;
-            this.btnSuspendUser.Text = "Suspend";
-            this.btnSuspendUser.UseVisualStyleBackColor = true;
+            btnSuspendUser.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSuspendUser.Location = new Point(107, 78);
+            btnSuspendUser.Margin = new Padding(4, 3, 4, 3);
+            btnSuspendUser.Name = "btnSuspendUser";
+            btnSuspendUser.Size = new Size(148, 50);
+            btnSuspendUser.TabIndex = 24;
+            btnSuspendUser.Text = "Suspend";
+            btnSuspendUser.UseVisualStyleBackColor = true;
             // 
             // label20
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(248, 39);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(48, 18);
-            this.label20.TabIndex = 23;
-            this.label20.Text = "days.";
+            label20.AutoSize = true;
+            label20.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label20.Location = new Point(289, 45);
+            label20.Margin = new Padding(4, 0, 4, 0);
+            label20.Name = "label20";
+            label20.Size = new Size(48, 18);
+            label20.TabIndex = 23;
+            label20.Text = "days.";
             // 
             // txtBoxSuspendDays
             // 
-            this.txtBoxSuspendDays.Location = new System.Drawing.Point(148, 39);
-            this.txtBoxSuspendDays.Name = "txtBoxSuspendDays";
-            this.txtBoxSuspendDays.Size = new System.Drawing.Size(100, 26);
-            this.txtBoxSuspendDays.TabIndex = 22;
+            txtBoxSuspendDays.Location = new Point(173, 45);
+            txtBoxSuspendDays.Margin = new Padding(4, 3, 4, 3);
+            txtBoxSuspendDays.Name = "txtBoxSuspendDays";
+            txtBoxSuspendDays.Size = new Size(116, 23);
+            txtBoxSuspendDays.TabIndex = 22;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(9, 39);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(142, 18);
-            this.label13.TabIndex = 21;
-            this.label13.Text = "Suspend user for:";
+            label13.AutoSize = true;
+            label13.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.Location = new Point(10, 45);
+            label13.Margin = new Padding(4, 0, 4, 0);
+            label13.Name = "label13";
+            label13.Size = new Size(142, 18);
+            label13.TabIndex = 21;
+            label13.Text = "Suspend user for:";
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.lblUserBio);
-            this.groupBox3.Controls.Add(this.label23);
-            this.groupBox3.Controls.Add(this.lblUserFlagReason);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.lblUserEmail);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Controls.Add(this.lblUserName);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.pictureBoxUserProfile);
-            this.groupBox3.Location = new System.Drawing.Point(259, 36);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(747, 254);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Information";
+            groupBox3.Controls.Add(lblUserBio);
+            groupBox3.Controls.Add(label23);
+            groupBox3.Controls.Add(lblUserFlagReason);
+            groupBox3.Controls.Add(label15);
+            groupBox3.Controls.Add(lblUserEmail);
+            groupBox3.Controls.Add(label14);
+            groupBox3.Controls.Add(lblUserName);
+            groupBox3.Controls.Add(label12);
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(pictureBoxUserProfile);
+            groupBox3.Location = new Point(302, 42);
+            groupBox3.Margin = new Padding(4, 3, 4, 3);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new Padding(4, 3, 4, 3);
+            groupBox3.Size = new Size(872, 293);
+            groupBox3.TabIndex = 13;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Information";
             // 
             // lblUserBio
             // 
-            this.lblUserBio.AutoSize = true;
-            this.lblUserBio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserBio.Location = new System.Drawing.Point(50, 82);
-            this.lblUserBio.MaximumSize = new System.Drawing.Size(170, 0);
-            this.lblUserBio.Name = "lblUserBio";
-            this.lblUserBio.Size = new System.Drawing.Size(169, 48);
-            this.lblUserBio.TabIndex = 22;
-            this.lblUserBio.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblUserBio.AutoSize = true;
+            lblUserBio.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserBio.Location = new Point(58, 95);
+            lblUserBio.Margin = new Padding(4, 0, 4, 0);
+            lblUserBio.MaximumSize = new Size(198, 0);
+            lblUserBio.Name = "lblUserBio";
+            lblUserBio.Size = new Size(197, 48);
+            lblUserBio.TabIndex = 22;
+            lblUserBio.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
             // 
             // label23
             // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(6, 80);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(38, 18);
-            this.label23.TabIndex = 21;
-            this.label23.Text = "Bio:";
+            label23.AutoSize = true;
+            label23.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label23.Location = new Point(7, 92);
+            label23.Margin = new Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(38, 18);
+            label23.TabIndex = 21;
+            label23.Text = "Bio:";
             // 
             // lblUserFlagReason
             // 
-            this.lblUserFlagReason.AutoSize = true;
-            this.lblUserFlagReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserFlagReason.Location = new System.Drawing.Point(235, 27);
-            this.lblUserFlagReason.MaximumSize = new System.Drawing.Size(300, 0);
-            this.lblUserFlagReason.Name = "lblUserFlagReason";
-            this.lblUserFlagReason.Size = new System.Drawing.Size(297, 32);
-            this.lblUserFlagReason.TabIndex = 20;
-            this.lblUserFlagReason.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblUserFlagReason.AutoSize = true;
+            lblUserFlagReason.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserFlagReason.Location = new Point(274, 31);
+            lblUserFlagReason.Margin = new Padding(4, 0, 4, 0);
+            lblUserFlagReason.MaximumSize = new Size(350, 0);
+            lblUserFlagReason.Name = "lblUserFlagReason";
+            lblUserFlagReason.Size = new Size(344, 32);
+            lblUserFlagReason.TabIndex = 20;
+            lblUserFlagReason.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(172, 25);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(71, 18);
-            this.label15.TabIndex = 19;
-            this.label15.Text = "Reason:";
+            label15.AutoSize = true;
+            label15.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.Location = new Point(201, 29);
+            label15.Margin = new Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(71, 18);
+            label15.TabIndex = 19;
+            label15.Text = "Reason:";
             // 
             // lblUserEmail
             // 
-            this.lblUserEmail.AutoSize = true;
-            this.lblUserEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserEmail.Location = new System.Drawing.Point(69, 55);
-            this.lblUserEmail.Name = "lblUserEmail";
-            this.lblUserEmail.Size = new System.Drawing.Size(57, 16);
-            this.lblUserEmail.TabIndex = 18;
-            this.lblUserEmail.Text = "{value}";
+            lblUserEmail.AutoSize = true;
+            lblUserEmail.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserEmail.Location = new Point(80, 63);
+            lblUserEmail.Margin = new Padding(4, 0, 4, 0);
+            lblUserEmail.Name = "lblUserEmail";
+            lblUserEmail.Size = new Size(57, 16);
+            lblUserEmail.TabIndex = 18;
+            lblUserEmail.Text = "{value}";
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(6, 53);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 18);
-            this.label14.TabIndex = 17;
-            this.label14.Text = "Email:";
+            label14.AutoSize = true;
+            label14.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.Location = new Point(7, 61);
+            label14.Margin = new Padding(4, 0, 4, 0);
+            label14.Name = "label14";
+            label14.Size = new Size(55, 18);
+            label14.TabIndex = 17;
+            label14.Text = "Email:";
             // 
             // lblUserName
             // 
-            this.lblUserName.AutoSize = true;
-            this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserName.Location = new System.Drawing.Point(69, 27);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(57, 16);
-            this.lblUserName.TabIndex = 16;
-            this.lblUserName.Text = "{value}";
+            lblUserName.AutoSize = true;
+            lblUserName.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserName.Location = new Point(80, 31);
+            lblUserName.Margin = new Padding(4, 0, 4, 0);
+            lblUserName.Name = "lblUserName";
+            lblUserName.Size = new Size(57, 16);
+            lblUserName.TabIndex = 16;
+            lblUserName.Text = "{value}";
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(6, 25);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(57, 18);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Name:";
+            label12.AutoSize = true;
+            label12.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.Location = new Point(7, 29);
+            label12.Margin = new Padding(4, 0, 4, 0);
+            label12.Name = "label12";
+            label12.Size = new Size(57, 18);
+            label12.TabIndex = 15;
+            label12.Text = "Name:";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(588, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 18);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Image:";
+            label8.AutoSize = true;
+            label8.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(686, 18);
+            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(58, 18);
+            label8.TabIndex = 15;
+            label8.Text = "Image:";
             // 
             // pictureBoxUserProfile
             // 
-            this.pictureBoxUserProfile.Location = new System.Drawing.Point(591, 38);
-            this.pictureBoxUserProfile.Name = "pictureBoxUserProfile";
-            this.pictureBoxUserProfile.Size = new System.Drawing.Size(150, 150);
-            this.pictureBoxUserProfile.TabIndex = 0;
-            this.pictureBoxUserProfile.TabStop = false;
+            pictureBoxUserProfile.Location = new Point(690, 44);
+            pictureBoxUserProfile.Margin = new Padding(4, 3, 4, 3);
+            pictureBoxUserProfile.Name = "pictureBoxUserProfile";
+            pictureBoxUserProfile.Size = new Size(175, 173);
+            pictureBoxUserProfile.TabIndex = 0;
+            pictureBoxUserProfile.TabStop = false;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 18);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Flagged Users:";
+            label3.AutoSize = true;
+            label3.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(7, 17);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(122, 18);
+            label3.TabIndex = 12;
+            label3.Text = "Flagged Users:";
             // 
             // lstBoxFlaggedUsers
             // 
-            this.lstBoxFlaggedUsers.FormattingEnabled = true;
-            this.lstBoxFlaggedUsers.Location = new System.Drawing.Point(6, 36);
-            this.lstBoxFlaggedUsers.Name = "lstBoxFlaggedUsers";
-            this.lstBoxFlaggedUsers.Size = new System.Drawing.Size(224, 472);
-            this.lstBoxFlaggedUsers.TabIndex = 11;
+            lstBoxFlaggedUsers.FormattingEnabled = true;
+            lstBoxFlaggedUsers.ItemHeight = 15;
+            lstBoxFlaggedUsers.Location = new Point(7, 42);
+            lstBoxFlaggedUsers.Margin = new Padding(4, 3, 4, 3);
+            lstBoxFlaggedUsers.Name = "lstBoxFlaggedUsers";
+            lstBoxFlaggedUsers.Size = new Size(261, 544);
+            lstBoxFlaggedUsers.TabIndex = 11;
+            lstBoxFlaggedUsers.SelectedIndexChanged += lstBoxFlaggedUsers_SelectedIndexChanged;
             // 
             // tabPagePosts
             // 
-            this.tabPagePosts.Controls.Add(this.groupBox5);
-            this.tabPagePosts.Controls.Add(this.groupBox6);
-            this.tabPagePosts.Controls.Add(this.label35);
-            this.tabPagePosts.Controls.Add(this.lstBoxFlaggedPosts);
-            this.tabPagePosts.Location = new System.Drawing.Point(4, 22);
-            this.tabPagePosts.Name = "tabPagePosts";
-            this.tabPagePosts.Size = new System.Drawing.Size(1012, 511);
-            this.tabPagePosts.TabIndex = 2;
-            this.tabPagePosts.Text = "Posts";
-            this.tabPagePosts.UseVisualStyleBackColor = true;
+            tabPagePosts.Controls.Add(groupBox5);
+            tabPagePosts.Controls.Add(groupBox6);
+            tabPagePosts.Controls.Add(label35);
+            tabPagePosts.Controls.Add(lstBoxFlaggedPosts);
+            tabPagePosts.Location = new Point(4, 24);
+            tabPagePosts.Margin = new Padding(4, 3, 4, 3);
+            tabPagePosts.Name = "tabPagePosts";
+            tabPagePosts.Size = new Size(1182, 592);
+            tabPagePosts.TabIndex = 2;
+            tabPagePosts.Text = "Posts";
+            tabPagePosts.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.label26);
-            this.groupBox5.Controls.Add(this.btnRemovePost);
-            this.groupBox5.Controls.Add(this.btnRemoveFlagPost);
-            this.groupBox5.Controls.Add(this.label22);
-            this.groupBox5.Controls.Add(this.btnBanUserFromPost);
-            this.groupBox5.Controls.Add(this.btnSuspendUserFromPost);
-            this.groupBox5.Controls.Add(this.label24);
-            this.groupBox5.Controls.Add(this.txtBoxSuspendDaysPosts);
-            this.groupBox5.Controls.Add(this.label25);
-            this.groupBox5.Location = new System.Drawing.Point(259, 290);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(747, 212);
-            this.groupBox5.TabIndex = 18;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Actions";
+            groupBox5.Controls.Add(label26);
+            groupBox5.Controls.Add(btnRemovePost);
+            groupBox5.Controls.Add(btnRemoveFlagPost);
+            groupBox5.Controls.Add(label22);
+            groupBox5.Controls.Add(btnBanUserFromPost);
+            groupBox5.Controls.Add(btnSuspendUserFromPost);
+            groupBox5.Controls.Add(label24);
+            groupBox5.Controls.Add(txtBoxSuspendDaysPosts);
+            groupBox5.Controls.Add(label25);
+            groupBox5.Location = new Point(302, 335);
+            groupBox5.Margin = new Padding(4, 3, 4, 3);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new Padding(4, 3, 4, 3);
+            groupBox5.Size = new Size(872, 245);
+            groupBox5.TabIndex = 18;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Actions";
             // 
             // label26
             // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(496, 63);
-            this.label26.MaximumSize = new System.Drawing.Size(300, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(167, 15);
-            this.label26.TabIndex = 29;
-            this.label26.Text = "Deleting a post is irreversible.";
-            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label26.AutoSize = true;
+            label26.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label26.Location = new Point(579, 73);
+            label26.Margin = new Padding(4, 0, 4, 0);
+            label26.MaximumSize = new Size(350, 0);
+            label26.Name = "label26";
+            label26.Size = new Size(167, 15);
+            label26.TabIndex = 29;
+            label26.Text = "Deleting a post is irreversible.";
+            label26.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnRemovePost
             // 
-            this.btnRemovePost.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemovePost.Location = new System.Drawing.Point(464, 81);
-            this.btnRemovePost.Name = "btnRemovePost";
-            this.btnRemovePost.Size = new System.Drawing.Size(234, 43);
-            this.btnRemovePost.TabIndex = 28;
-            this.btnRemovePost.Text = "Delete Post";
-            this.btnRemovePost.UseVisualStyleBackColor = true;
+            btnRemovePost.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRemovePost.Location = new Point(541, 93);
+            btnRemovePost.Margin = new Padding(4, 3, 4, 3);
+            btnRemovePost.Name = "btnRemovePost";
+            btnRemovePost.Size = new Size(273, 50);
+            btnRemovePost.TabIndex = 28;
+            btnRemovePost.Text = "Delete Post";
+            btnRemovePost.UseVisualStyleBackColor = true;
             // 
             // btnRemoveFlagPost
             // 
-            this.btnRemoveFlagPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFlagPost.Location = new System.Drawing.Point(464, 148);
-            this.btnRemoveFlagPost.Name = "btnRemoveFlagPost";
-            this.btnRemoveFlagPost.Size = new System.Drawing.Size(234, 43);
-            this.btnRemoveFlagPost.TabIndex = 27;
-            this.btnRemoveFlagPost.Text = "Remove Flag";
-            this.btnRemoveFlagPost.UseVisualStyleBackColor = true;
+            btnRemoveFlagPost.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRemoveFlagPost.Location = new Point(541, 171);
+            btnRemoveFlagPost.Margin = new Padding(4, 3, 4, 3);
+            btnRemoveFlagPost.Name = "btnRemoveFlagPost";
+            btnRemoveFlagPost.Size = new Size(273, 50);
+            btnRemoveFlagPost.TabIndex = 27;
+            btnRemoveFlagPost.Text = "Remove Flag";
+            btnRemoveFlagPost.UseVisualStyleBackColor = true;
             // 
             // label22
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(18, 123);
-            this.label22.MaximumSize = new System.Drawing.Size(300, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(275, 30);
-            this.label22.TabIndex = 26;
-            this.label22.Text = "Banning a user is irreversible. User will be able to view content but nothing els" +
-    "e.";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label22.AutoSize = true;
+            label22.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label22.Location = new Point(21, 142);
+            label22.Margin = new Padding(4, 0, 4, 0);
+            label22.MaximumSize = new Size(350, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(345, 30);
+            label22.TabIndex = 26;
+            label22.Text = "Banning a user is irreversible. User will be able to view content but nothing else.";
+            label22.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnBanUserFromPost
             // 
-            this.btnBanUserFromPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBanUserFromPost.Location = new System.Drawing.Point(92, 163);
-            this.btnBanUserFromPost.Name = "btnBanUserFromPost";
-            this.btnBanUserFromPost.Size = new System.Drawing.Size(127, 43);
-            this.btnBanUserFromPost.TabIndex = 25;
-            this.btnBanUserFromPost.Text = "Ban";
-            this.btnBanUserFromPost.UseVisualStyleBackColor = true;
+            btnBanUserFromPost.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBanUserFromPost.Location = new Point(107, 188);
+            btnBanUserFromPost.Margin = new Padding(4, 3, 4, 3);
+            btnBanUserFromPost.Name = "btnBanUserFromPost";
+            btnBanUserFromPost.Size = new Size(148, 50);
+            btnBanUserFromPost.TabIndex = 25;
+            btnBanUserFromPost.Text = "Ban";
+            btnBanUserFromPost.UseVisualStyleBackColor = true;
             // 
             // btnSuspendUserFromPost
             // 
-            this.btnSuspendUserFromPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSuspendUserFromPost.Location = new System.Drawing.Point(92, 68);
-            this.btnSuspendUserFromPost.Name = "btnSuspendUserFromPost";
-            this.btnSuspendUserFromPost.Size = new System.Drawing.Size(127, 43);
-            this.btnSuspendUserFromPost.TabIndex = 24;
-            this.btnSuspendUserFromPost.Text = "Suspend";
-            this.btnSuspendUserFromPost.UseVisualStyleBackColor = true;
+            btnSuspendUserFromPost.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSuspendUserFromPost.Location = new Point(107, 78);
+            btnSuspendUserFromPost.Margin = new Padding(4, 3, 4, 3);
+            btnSuspendUserFromPost.Name = "btnSuspendUserFromPost";
+            btnSuspendUserFromPost.Size = new Size(148, 50);
+            btnSuspendUserFromPost.TabIndex = 24;
+            btnSuspendUserFromPost.Text = "Suspend";
+            btnSuspendUserFromPost.UseVisualStyleBackColor = true;
             // 
             // label24
             // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(248, 39);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(48, 18);
-            this.label24.TabIndex = 23;
-            this.label24.Text = "days.";
+            label24.AutoSize = true;
+            label24.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.Location = new Point(289, 45);
+            label24.Margin = new Padding(4, 0, 4, 0);
+            label24.Name = "label24";
+            label24.Size = new Size(48, 18);
+            label24.TabIndex = 23;
+            label24.Text = "days.";
             // 
             // txtBoxSuspendDaysPosts
             // 
-            this.txtBoxSuspendDaysPosts.Location = new System.Drawing.Point(148, 39);
-            this.txtBoxSuspendDaysPosts.Name = "txtBoxSuspendDaysPosts";
-            this.txtBoxSuspendDaysPosts.Size = new System.Drawing.Size(100, 26);
-            this.txtBoxSuspendDaysPosts.TabIndex = 22;
+            txtBoxSuspendDaysPosts.Location = new Point(173, 45);
+            txtBoxSuspendDaysPosts.Margin = new Padding(4, 3, 4, 3);
+            txtBoxSuspendDaysPosts.Name = "txtBoxSuspendDaysPosts";
+            txtBoxSuspendDaysPosts.Size = new Size(116, 23);
+            txtBoxSuspendDaysPosts.TabIndex = 22;
             // 
             // label25
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(9, 39);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(142, 18);
-            this.label25.TabIndex = 21;
-            this.label25.Text = "Suspend user for:";
+            label25.AutoSize = true;
+            label25.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label25.Location = new Point(10, 45);
+            label25.Margin = new Padding(4, 0, 4, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(142, 18);
+            label25.TabIndex = 21;
+            label25.Text = "Suspend user for:";
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.lblPostText);
-            this.groupBox6.Controls.Add(this.label29);
-            this.groupBox6.Controls.Add(this.lblUserEmailPost);
-            this.groupBox6.Controls.Add(this.label31);
-            this.groupBox6.Controls.Add(this.lblUserNamePost);
-            this.groupBox6.Controls.Add(this.label33);
-            this.groupBox6.Controls.Add(this.label34);
-            this.groupBox6.Controls.Add(this.pictureBoxPostImage);
-            this.groupBox6.Location = new System.Drawing.Point(259, 30);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(747, 254);
-            this.groupBox6.TabIndex = 17;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Information";
+            groupBox6.Controls.Add(lblPostText);
+            groupBox6.Controls.Add(label29);
+            groupBox6.Controls.Add(lblUserEmailPost);
+            groupBox6.Controls.Add(label31);
+            groupBox6.Controls.Add(lblUserNamePost);
+            groupBox6.Controls.Add(label33);
+            groupBox6.Controls.Add(label34);
+            groupBox6.Controls.Add(pictureBoxPostImage);
+            groupBox6.Location = new Point(302, 35);
+            groupBox6.Margin = new Padding(4, 3, 4, 3);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Padding = new Padding(4, 3, 4, 3);
+            groupBox6.Size = new Size(872, 293);
+            groupBox6.TabIndex = 17;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Information";
             // 
             // lblPostText
             // 
-            this.lblPostText.AutoSize = true;
-            this.lblPostText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPostText.Location = new System.Drawing.Point(293, 27);
-            this.lblPostText.MaximumSize = new System.Drawing.Size(280, 0);
-            this.lblPostText.Name = "lblPostText";
-            this.lblPostText.Size = new System.Drawing.Size(278, 32);
-            this.lblPostText.TabIndex = 20;
-            this.lblPostText.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblPostText.AutoSize = true;
+            lblPostText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblPostText.Location = new Point(342, 31);
+            lblPostText.Margin = new Padding(4, 0, 4, 0);
+            lblPostText.MaximumSize = new Size(327, 0);
+            lblPostText.Name = "lblPostText";
+            lblPostText.Size = new Size(326, 32);
+            lblPostText.TabIndex = 20;
+            lblPostText.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
             // 
             // label29
             // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(202, 27);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(85, 18);
-            this.label29.TabIndex = 19;
-            this.label29.Text = "Post Text:";
+            label29.AutoSize = true;
+            label29.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label29.Location = new Point(236, 31);
+            label29.Margin = new Padding(4, 0, 4, 0);
+            label29.Name = "label29";
+            label29.Size = new Size(85, 18);
+            label29.TabIndex = 19;
+            label29.Text = "Post Text:";
             // 
             // lblUserEmailPost
             // 
-            this.lblUserEmailPost.AutoSize = true;
-            this.lblUserEmailPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserEmailPost.Location = new System.Drawing.Point(110, 55);
-            this.lblUserEmailPost.Name = "lblUserEmailPost";
-            this.lblUserEmailPost.Size = new System.Drawing.Size(57, 16);
-            this.lblUserEmailPost.TabIndex = 18;
-            this.lblUserEmailPost.Text = "{value}";
+            lblUserEmailPost.AutoSize = true;
+            lblUserEmailPost.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserEmailPost.Location = new Point(128, 63);
+            lblUserEmailPost.Margin = new Padding(4, 0, 4, 0);
+            lblUserEmailPost.Name = "lblUserEmailPost";
+            lblUserEmailPost.Size = new Size(57, 16);
+            lblUserEmailPost.TabIndex = 18;
+            lblUserEmailPost.Text = "{value}";
             // 
             // label31
             // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(6, 53);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(96, 18);
-            this.label31.TabIndex = 17;
-            this.label31.Text = "User Email:";
+            label31.AutoSize = true;
+            label31.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label31.Location = new Point(7, 61);
+            label31.Margin = new Padding(4, 0, 4, 0);
+            label31.Name = "label31";
+            label31.Size = new Size(96, 18);
+            label31.TabIndex = 17;
+            label31.Text = "User Email:";
             // 
             // lblUserNamePost
             // 
-            this.lblUserNamePost.AutoSize = true;
-            this.lblUserNamePost.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserNamePost.Location = new System.Drawing.Point(110, 27);
-            this.lblUserNamePost.Name = "lblUserNamePost";
-            this.lblUserNamePost.Size = new System.Drawing.Size(57, 16);
-            this.lblUserNamePost.TabIndex = 16;
-            this.lblUserNamePost.Text = "{value}";
+            lblUserNamePost.AutoSize = true;
+            lblUserNamePost.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserNamePost.Location = new Point(128, 31);
+            lblUserNamePost.Margin = new Padding(4, 0, 4, 0);
+            lblUserNamePost.Name = "lblUserNamePost";
+            lblUserNamePost.Size = new Size(57, 16);
+            lblUserNamePost.TabIndex = 16;
+            lblUserNamePost.Text = "{value}";
             // 
             // label33
             // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(6, 25);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(98, 18);
-            this.label33.TabIndex = 15;
-            this.label33.Text = "User Name:";
+            label33.AutoSize = true;
+            label33.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label33.Location = new Point(7, 29);
+            label33.Margin = new Padding(4, 0, 4, 0);
+            label33.Name = "label33";
+            label33.Size = new Size(98, 18);
+            label33.TabIndex = 15;
+            label33.Text = "User Name:";
             // 
             // label34
             // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(588, 21);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(98, 18);
-            this.label34.TabIndex = 15;
-            this.label34.Text = "Post Image:";
+            label34.AutoSize = true;
+            label34.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label34.Location = new Point(686, 24);
+            label34.Margin = new Padding(4, 0, 4, 0);
+            label34.Name = "label34";
+            label34.Size = new Size(98, 18);
+            label34.TabIndex = 15;
+            label34.Text = "Post Image:";
             // 
             // pictureBoxPostImage
             // 
-            this.pictureBoxPostImage.Location = new System.Drawing.Point(591, 43);
-            this.pictureBoxPostImage.Name = "pictureBoxPostImage";
-            this.pictureBoxPostImage.Size = new System.Drawing.Size(150, 150);
-            this.pictureBoxPostImage.TabIndex = 0;
-            this.pictureBoxPostImage.TabStop = false;
+            pictureBoxPostImage.Location = new Point(690, 50);
+            pictureBoxPostImage.Margin = new Padding(4, 3, 4, 3);
+            pictureBoxPostImage.Name = "pictureBoxPostImage";
+            pictureBoxPostImage.Size = new Size(175, 173);
+            pictureBoxPostImage.TabIndex = 0;
+            pictureBoxPostImage.TabStop = false;
             // 
             // label35
             // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(6, 9);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(121, 18);
-            this.label35.TabIndex = 16;
-            this.label35.Text = "Flagged Posts:";
+            label35.AutoSize = true;
+            label35.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label35.Location = new Point(7, 10);
+            label35.Margin = new Padding(4, 0, 4, 0);
+            label35.Name = "label35";
+            label35.Size = new Size(121, 18);
+            label35.TabIndex = 16;
+            label35.Text = "Flagged Posts:";
             // 
             // lstBoxFlaggedPosts
             // 
-            this.lstBoxFlaggedPosts.FormattingEnabled = true;
-            this.lstBoxFlaggedPosts.Location = new System.Drawing.Point(6, 30);
-            this.lstBoxFlaggedPosts.Name = "lstBoxFlaggedPosts";
-            this.lstBoxFlaggedPosts.Size = new System.Drawing.Size(224, 472);
-            this.lstBoxFlaggedPosts.TabIndex = 15;
+            lstBoxFlaggedPosts.FormattingEnabled = true;
+            lstBoxFlaggedPosts.ItemHeight = 15;
+            lstBoxFlaggedPosts.Location = new Point(7, 35);
+            lstBoxFlaggedPosts.Margin = new Padding(4, 3, 4, 3);
+            lstBoxFlaggedPosts.Name = "lstBoxFlaggedPosts";
+            lstBoxFlaggedPosts.Size = new Size(261, 544);
+            lstBoxFlaggedPosts.TabIndex = 15;
+            lstBoxFlaggedPosts.SelectedIndexChanged += lstBoxFlaggedPosts_SelectedIndexChanged;
             // 
             // tabPageComments
             // 
-            this.tabPageComments.Controls.Add(this.groupBox7);
-            this.tabPageComments.Controls.Add(this.groupBox8);
-            this.tabPageComments.Controls.Add(this.label43);
-            this.tabPageComments.Controls.Add(this.lstBoxFlaggedComments);
-            this.tabPageComments.Location = new System.Drawing.Point(4, 22);
-            this.tabPageComments.Name = "tabPageComments";
-            this.tabPageComments.Size = new System.Drawing.Size(1012, 511);
-            this.tabPageComments.TabIndex = 3;
-            this.tabPageComments.Text = "Comments";
-            this.tabPageComments.UseVisualStyleBackColor = true;
+            tabPageComments.Controls.Add(groupBox7);
+            tabPageComments.Controls.Add(groupBox8);
+            tabPageComments.Controls.Add(label43);
+            tabPageComments.Controls.Add(lstBoxFlaggedComments);
+            tabPageComments.Location = new Point(4, 24);
+            tabPageComments.Margin = new Padding(4, 3, 4, 3);
+            tabPageComments.Name = "tabPageComments";
+            tabPageComments.Size = new Size(1182, 592);
+            tabPageComments.TabIndex = 3;
+            tabPageComments.Text = "Comments";
+            tabPageComments.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.label27);
-            this.groupBox7.Controls.Add(this.btnDeleteComment);
-            this.groupBox7.Controls.Add(this.btnRemoveFlagComment);
-            this.groupBox7.Controls.Add(this.label28);
-            this.groupBox7.Controls.Add(this.btnBanUserFromComment);
-            this.groupBox7.Controls.Add(this.btnSupsendUserFromComment);
-            this.groupBox7.Controls.Add(this.label30);
-            this.groupBox7.Controls.Add(this.txtBoxSuspendDaysComments);
-            this.groupBox7.Controls.Add(this.label32);
-            this.groupBox7.Location = new System.Drawing.Point(259, 290);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(747, 212);
-            this.groupBox7.TabIndex = 22;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Actions";
+            groupBox7.Controls.Add(label27);
+            groupBox7.Controls.Add(btnDeleteComment);
+            groupBox7.Controls.Add(btnRemoveFlagComment);
+            groupBox7.Controls.Add(label28);
+            groupBox7.Controls.Add(btnBanUserFromComment);
+            groupBox7.Controls.Add(btnSupsendUserFromComment);
+            groupBox7.Controls.Add(label30);
+            groupBox7.Controls.Add(txtBoxSuspendDaysComments);
+            groupBox7.Controls.Add(label32);
+            groupBox7.Location = new Point(302, 335);
+            groupBox7.Margin = new Padding(4, 3, 4, 3);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Padding = new Padding(4, 3, 4, 3);
+            groupBox7.Size = new Size(872, 245);
+            groupBox7.TabIndex = 22;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Actions";
             // 
             // label27
             // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(496, 63);
-            this.label27.MaximumSize = new System.Drawing.Size(300, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(196, 15);
-            this.label27.TabIndex = 29;
-            this.label27.Text = "Deleting a comment is irreversible.";
-            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label27.AutoSize = true;
+            label27.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label27.Location = new Point(579, 73);
+            label27.Margin = new Padding(4, 0, 4, 0);
+            label27.MaximumSize = new Size(350, 0);
+            label27.Name = "label27";
+            label27.Size = new Size(196, 15);
+            label27.TabIndex = 29;
+            label27.Text = "Deleting a comment is irreversible.";
+            label27.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnDeleteComment
             // 
-            this.btnDeleteComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteComment.Location = new System.Drawing.Point(464, 81);
-            this.btnDeleteComment.Name = "btnDeleteComment";
-            this.btnDeleteComment.Size = new System.Drawing.Size(234, 43);
-            this.btnDeleteComment.TabIndex = 28;
-            this.btnDeleteComment.Text = "Delete Comment";
-            this.btnDeleteComment.UseVisualStyleBackColor = true;
+            btnDeleteComment.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDeleteComment.Location = new Point(541, 93);
+            btnDeleteComment.Margin = new Padding(4, 3, 4, 3);
+            btnDeleteComment.Name = "btnDeleteComment";
+            btnDeleteComment.Size = new Size(273, 50);
+            btnDeleteComment.TabIndex = 28;
+            btnDeleteComment.Text = "Delete Comment";
+            btnDeleteComment.UseVisualStyleBackColor = true;
             // 
             // btnRemoveFlagComment
             // 
-            this.btnRemoveFlagComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveFlagComment.Location = new System.Drawing.Point(464, 148);
-            this.btnRemoveFlagComment.Name = "btnRemoveFlagComment";
-            this.btnRemoveFlagComment.Size = new System.Drawing.Size(234, 43);
-            this.btnRemoveFlagComment.TabIndex = 27;
-            this.btnRemoveFlagComment.Text = "Remove Flag";
-            this.btnRemoveFlagComment.UseVisualStyleBackColor = true;
+            btnRemoveFlagComment.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRemoveFlagComment.Location = new Point(541, 171);
+            btnRemoveFlagComment.Margin = new Padding(4, 3, 4, 3);
+            btnRemoveFlagComment.Name = "btnRemoveFlagComment";
+            btnRemoveFlagComment.Size = new Size(273, 50);
+            btnRemoveFlagComment.TabIndex = 27;
+            btnRemoveFlagComment.Text = "Remove Flag";
+            btnRemoveFlagComment.UseVisualStyleBackColor = true;
             // 
             // label28
             // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(18, 123);
-            this.label28.MaximumSize = new System.Drawing.Size(300, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(275, 30);
-            this.label28.TabIndex = 26;
-            this.label28.Text = "Banning a user is irreversible. User will be able to view content but nothing els" +
-    "e.";
-            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label28.AutoSize = true;
+            label28.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label28.Location = new Point(21, 142);
+            label28.Margin = new Padding(4, 0, 4, 0);
+            label28.MaximumSize = new Size(350, 0);
+            label28.Name = "label28";
+            label28.Size = new Size(345, 30);
+            label28.TabIndex = 26;
+            label28.Text = "Banning a user is irreversible. User will be able to view content but nothing else.";
+            label28.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnBanUserFromComment
             // 
-            this.btnBanUserFromComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBanUserFromComment.Location = new System.Drawing.Point(92, 163);
-            this.btnBanUserFromComment.Name = "btnBanUserFromComment";
-            this.btnBanUserFromComment.Size = new System.Drawing.Size(127, 43);
-            this.btnBanUserFromComment.TabIndex = 25;
-            this.btnBanUserFromComment.Text = "Ban";
-            this.btnBanUserFromComment.UseVisualStyleBackColor = true;
+            btnBanUserFromComment.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBanUserFromComment.Location = new Point(107, 188);
+            btnBanUserFromComment.Margin = new Padding(4, 3, 4, 3);
+            btnBanUserFromComment.Name = "btnBanUserFromComment";
+            btnBanUserFromComment.Size = new Size(148, 50);
+            btnBanUserFromComment.TabIndex = 25;
+            btnBanUserFromComment.Text = "Ban";
+            btnBanUserFromComment.UseVisualStyleBackColor = true;
             // 
             // btnSupsendUserFromComment
             // 
-            this.btnSupsendUserFromComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSupsendUserFromComment.Location = new System.Drawing.Point(92, 68);
-            this.btnSupsendUserFromComment.Name = "btnSupsendUserFromComment";
-            this.btnSupsendUserFromComment.Size = new System.Drawing.Size(127, 43);
-            this.btnSupsendUserFromComment.TabIndex = 24;
-            this.btnSupsendUserFromComment.Text = "Suspend";
-            this.btnSupsendUserFromComment.UseVisualStyleBackColor = true;
+            btnSupsendUserFromComment.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSupsendUserFromComment.Location = new Point(107, 78);
+            btnSupsendUserFromComment.Margin = new Padding(4, 3, 4, 3);
+            btnSupsendUserFromComment.Name = "btnSupsendUserFromComment";
+            btnSupsendUserFromComment.Size = new Size(148, 50);
+            btnSupsendUserFromComment.TabIndex = 24;
+            btnSupsendUserFromComment.Text = "Suspend";
+            btnSupsendUserFromComment.UseVisualStyleBackColor = true;
             // 
             // label30
             // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(248, 39);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(48, 18);
-            this.label30.TabIndex = 23;
-            this.label30.Text = "days.";
+            label30.AutoSize = true;
+            label30.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label30.Location = new Point(289, 45);
+            label30.Margin = new Padding(4, 0, 4, 0);
+            label30.Name = "label30";
+            label30.Size = new Size(48, 18);
+            label30.TabIndex = 23;
+            label30.Text = "days.";
             // 
             // txtBoxSuspendDaysComments
             // 
-            this.txtBoxSuspendDaysComments.Location = new System.Drawing.Point(148, 39);
-            this.txtBoxSuspendDaysComments.Name = "txtBoxSuspendDaysComments";
-            this.txtBoxSuspendDaysComments.Size = new System.Drawing.Size(100, 26);
-            this.txtBoxSuspendDaysComments.TabIndex = 22;
+            txtBoxSuspendDaysComments.Location = new Point(173, 45);
+            txtBoxSuspendDaysComments.Margin = new Padding(4, 3, 4, 3);
+            txtBoxSuspendDaysComments.Name = "txtBoxSuspendDaysComments";
+            txtBoxSuspendDaysComments.Size = new Size(116, 23);
+            txtBoxSuspendDaysComments.TabIndex = 22;
             // 
             // label32
             // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(9, 39);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(142, 18);
-            this.label32.TabIndex = 21;
-            this.label32.Text = "Suspend user for:";
+            label32.AutoSize = true;
+            label32.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label32.Location = new Point(10, 45);
+            label32.Margin = new Padding(4, 0, 4, 0);
+            label32.Name = "label32";
+            label32.Size = new Size(142, 18);
+            label32.TabIndex = 21;
+            label32.Text = "Suspend user for:";
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.lbCommentText);
-            this.groupBox8.Controls.Add(this.label37);
-            this.groupBox8.Controls.Add(this.lblUserEmailComment);
-            this.groupBox8.Controls.Add(this.label39);
-            this.groupBox8.Controls.Add(this.lblUserNameComment);
-            this.groupBox8.Controls.Add(this.label41);
-            this.groupBox8.Location = new System.Drawing.Point(259, 30);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(747, 254);
-            this.groupBox8.TabIndex = 21;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Information";
+            groupBox8.Controls.Add(lbCommentText);
+            groupBox8.Controls.Add(label37);
+            groupBox8.Controls.Add(lblUserEmailComment);
+            groupBox8.Controls.Add(label39);
+            groupBox8.Controls.Add(lblUserNameComment);
+            groupBox8.Controls.Add(label41);
+            groupBox8.Location = new Point(302, 35);
+            groupBox8.Margin = new Padding(4, 3, 4, 3);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Padding = new Padding(4, 3, 4, 3);
+            groupBox8.Size = new Size(872, 293);
+            groupBox8.TabIndex = 21;
+            groupBox8.TabStop = false;
+            groupBox8.Text = "Information";
             // 
             // lbCommentText
             // 
-            this.lbCommentText.AutoSize = true;
-            this.lbCommentText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCommentText.Location = new System.Drawing.Point(331, 27);
-            this.lbCommentText.MaximumSize = new System.Drawing.Size(280, 0);
-            this.lbCommentText.Name = "lbCommentText";
-            this.lbCommentText.Size = new System.Drawing.Size(278, 32);
-            this.lbCommentText.TabIndex = 20;
-            this.lbCommentText.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lbCommentText.AutoSize = true;
+            lbCommentText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lbCommentText.Location = new Point(386, 31);
+            lbCommentText.Margin = new Padding(4, 0, 4, 0);
+            lbCommentText.MaximumSize = new Size(327, 0);
+            lbCommentText.Name = "lbCommentText";
+            lbCommentText.Size = new Size(326, 32);
+            lbCommentText.TabIndex = 20;
+            lbCommentText.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
             // 
             // label37
             // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(202, 27);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(123, 18);
-            this.label37.TabIndex = 19;
-            this.label37.Text = "Comment Text:";
+            label37.AutoSize = true;
+            label37.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label37.Location = new Point(236, 31);
+            label37.Margin = new Padding(4, 0, 4, 0);
+            label37.Name = "label37";
+            label37.Size = new Size(123, 18);
+            label37.TabIndex = 19;
+            label37.Text = "Comment Text:";
             // 
             // lblUserEmailComment
             // 
-            this.lblUserEmailComment.AutoSize = true;
-            this.lblUserEmailComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserEmailComment.Location = new System.Drawing.Point(110, 55);
-            this.lblUserEmailComment.Name = "lblUserEmailComment";
-            this.lblUserEmailComment.Size = new System.Drawing.Size(57, 16);
-            this.lblUserEmailComment.TabIndex = 18;
-            this.lblUserEmailComment.Text = "{value}";
+            lblUserEmailComment.AutoSize = true;
+            lblUserEmailComment.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserEmailComment.Location = new Point(128, 63);
+            lblUserEmailComment.Margin = new Padding(4, 0, 4, 0);
+            lblUserEmailComment.Name = "lblUserEmailComment";
+            lblUserEmailComment.Size = new Size(57, 16);
+            lblUserEmailComment.TabIndex = 18;
+            lblUserEmailComment.Text = "{value}";
             // 
             // label39
             // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(6, 53);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(96, 18);
-            this.label39.TabIndex = 17;
-            this.label39.Text = "User Email:";
+            label39.AutoSize = true;
+            label39.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label39.Location = new Point(7, 61);
+            label39.Margin = new Padding(4, 0, 4, 0);
+            label39.Name = "label39";
+            label39.Size = new Size(96, 18);
+            label39.TabIndex = 17;
+            label39.Text = "User Email:";
             // 
             // lblUserNameComment
             // 
-            this.lblUserNameComment.AutoSize = true;
-            this.lblUserNameComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserNameComment.Location = new System.Drawing.Point(110, 27);
-            this.lblUserNameComment.Name = "lblUserNameComment";
-            this.lblUserNameComment.Size = new System.Drawing.Size(57, 16);
-            this.lblUserNameComment.TabIndex = 16;
-            this.lblUserNameComment.Text = "{value}";
+            lblUserNameComment.AutoSize = true;
+            lblUserNameComment.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserNameComment.Location = new Point(128, 31);
+            lblUserNameComment.Margin = new Padding(4, 0, 4, 0);
+            lblUserNameComment.Name = "lblUserNameComment";
+            lblUserNameComment.Size = new Size(57, 16);
+            lblUserNameComment.TabIndex = 16;
+            lblUserNameComment.Text = "{value}";
             // 
             // label41
             // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(6, 25);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(98, 18);
-            this.label41.TabIndex = 15;
-            this.label41.Text = "User Name:";
+            label41.AutoSize = true;
+            label41.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label41.Location = new Point(7, 29);
+            label41.Margin = new Padding(4, 0, 4, 0);
+            label41.Name = "label41";
+            label41.Size = new Size(98, 18);
+            label41.TabIndex = 15;
+            label41.Text = "User Name:";
             // 
             // label43
             // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(6, 9);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(159, 18);
-            this.label43.TabIndex = 20;
-            this.label43.Text = "Flagged Comments:";
+            label43.AutoSize = true;
+            label43.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label43.Location = new Point(7, 10);
+            label43.Margin = new Padding(4, 0, 4, 0);
+            label43.Name = "label43";
+            label43.Size = new Size(159, 18);
+            label43.TabIndex = 20;
+            label43.Text = "Flagged Comments:";
             // 
             // lstBoxFlaggedComments
             // 
-            this.lstBoxFlaggedComments.FormattingEnabled = true;
-            this.lstBoxFlaggedComments.Location = new System.Drawing.Point(6, 30);
-            this.lstBoxFlaggedComments.Name = "lstBoxFlaggedComments";
-            this.lstBoxFlaggedComments.Size = new System.Drawing.Size(224, 472);
-            this.lstBoxFlaggedComments.TabIndex = 19;
+            lstBoxFlaggedComments.FormattingEnabled = true;
+            lstBoxFlaggedComments.ItemHeight = 15;
+            lstBoxFlaggedComments.Location = new Point(7, 35);
+            lstBoxFlaggedComments.Margin = new Padding(4, 3, 4, 3);
+            lstBoxFlaggedComments.Name = "lstBoxFlaggedComments";
+            lstBoxFlaggedComments.Size = new Size(261, 544);
+            lstBoxFlaggedComments.TabIndex = 19;
+            lstBoxFlaggedComments.SelectedIndexChanged += lstBoxFlaggedComments_SelectedIndexChanged;
             // 
             // AdminDashboard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1044, 561);
-            this.Controls.Add(this.tabControl1);
-            this.Name = "AdminDashboard";
-            this.Text = "Admin Dashboard - TalkToMe";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageDashboard.ResumeLayout(false);
-            this.tabPageDashboard.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabPageUsers.ResumeLayout(false);
-            this.tabPageUsers.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserProfile)).EndInit();
-            this.tabPagePosts.ResumeLayout(false);
-            this.tabPagePosts.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPostImage)).EndInit();
-            this.tabPageComments.ResumeLayout(false);
-            this.tabPageComments.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1218, 647);
+            Controls.Add(tabControl1);
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "AdminDashboard";
+            Text = "Admin Dashboard - TalkToMe";
+            tabControl1.ResumeLayout(false);
+            tabPageDashboard.ResumeLayout(false);
+            tabPageDashboard.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            tabPageUsers.ResumeLayout(false);
+            tabPageUsers.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxUserProfile).EndInit();
+            tabPagePosts.ResumeLayout(false);
+            tabPagePosts.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPostImage).EndInit();
+            tabPageComments.ResumeLayout(false);
+            tabPageComments.PerformLayout();
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
+            groupBox8.ResumeLayout(false);
+            groupBox8.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -1164,11 +1268,11 @@
         private System.Windows.Forms.ListBox lstBoxFlaggedCommentsDashboard;
         private System.Windows.Forms.ListBox lstBoxFlaggedPostsDashboard;
         private System.Windows.Forms.ListBox lstBoxFlaggedUsersDashboard;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblFlaggedCommentsTotal;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label lblFlaggedUsersTotal;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblFlaggedPostsTotal;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label lblCommentsTotal;
         private System.Windows.Forms.Label label7;
