@@ -20,6 +20,11 @@ namespace talktomeweb.Pages
 
         public void OnGet(string query)
         {
+            var currentUser = _userService.GetCurrentlyLoggedInUser();
+            if (currentUser == null)
+            {
+                RedirectToPage("/Login");
+            }
             Users = _userService.SearchUsers(query);
             Posts = _postService.SearchPosts(query);
         }

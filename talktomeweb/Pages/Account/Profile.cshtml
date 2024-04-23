@@ -20,11 +20,12 @@
                     <div>
                         <div class="flex flex-row gap-2">
                             <h2 class="text-lg lg:text-2xl font-bold">@Model.SelectedUser.Username</h2>
-                            @if (Model.SelectedUser.UserId != Model.CurrentUser.UserId){
+                            @if (Model.CurrentUser != null && Model.SelectedUser.UserId != Model.CurrentUser.UserId)
+                            {
                                 <button onclick="
                                 document.getElementById('flagModal').style.display='block'
                                 document.getElementById('profile-body').classList.toggle('blur-lg')
-                                                                            " title="Flag User"
+                                                                                    " title="Flag User"
                                     class="text-yellow-500 hover:text-yellow-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                         stroke="currentColor" class="w-5 h-5">
