@@ -145,6 +145,25 @@ namespace SharedLibrary.Services
             return false;
         }
 
+        public bool LoginAdmin(string email, string password)
+        {
+            var user = _users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null && user is Admin admin)
+            {
+                string enteredPasswordHash = HashPassword(password, Convert.FromBase64String(admin.Salt));
+
+                if (enteredPasswordHash == admin.PasswordHash)
+                {
+                    CurrentlyLoggedInUser = admin;
+                    _userContext.SetCurrentUserEmail(email);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void Logout()
         {
             CurrentlyLoggedInUser = null;

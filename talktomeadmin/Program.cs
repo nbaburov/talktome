@@ -32,7 +32,19 @@ namespace talktomeadmin
             PostService = new PostService(ServiceConfig, UserService);
             ModerationService = new ModerationService(ServiceConfig, UserService, PostService);
 
-            Application.Run(new AdminDashboard(ModerationService)); 
+            using (AdminLogin loginForm = new AdminLogin(UserService))
+            {
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    Application.Run(new AdminDashboard(ModerationService));
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
+
+            
         }
     }
 }

@@ -24,7 +24,7 @@ namespace talktomeadmin
             lblLikesTotal.Text = insights[5].ToString();
 
             var flaggedUsers = _moderationService.FlaggedUsers;
-            lblFlaggedPostsTotal.Text = flaggedUsers.Count.ToString();
+            lblFlaggedUsersTotal.Text = flaggedUsers.Count.ToString();
             lstBoxFlaggedUsersDashboard.Items.Clear();
             foreach (var flag in flaggedUsers)
             {
@@ -64,16 +64,16 @@ namespace talktomeadmin
 
         private int ParseFlagIdFromDisplayInfo(string displayInfo)
         {
-            int flagId = int.Parse(displayInfo.Split('-')[0]);
-            return flagId;
+            var flagId = displayInfo.Split('-');
+            return Int32.Parse(flagId[0]);
         }
 
 
         private void lstBoxFlaggedUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstBoxFlaggedUsersDashboard.SelectedIndex != -1)
+            if (lstBoxFlaggedUsers.SelectedIndex != -1)
             {
-                string selectedItem = lstBoxFlaggedUsersDashboard.SelectedItem.ToString();
+                string selectedItem = lstBoxFlaggedUsers.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagUser flagUser = _moderationService.GetFlagUserById(flagId);
                 lblUserName.Text = flagUser.ToUser.Username;
@@ -87,23 +87,23 @@ namespace talktomeadmin
 
         private void lstBoxFlaggedPosts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstBoxFlaggedPostsDashboard.SelectedIndex != -1)
+            if (lstBoxFlaggedPosts.SelectedIndex != -1)
             {
-                string selectedItem = lstBoxFlaggedPostsDashboard.SelectedItem.ToString();
+                string selectedItem = lstBoxFlaggedPosts.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagPost flagPost = _moderationService.GetFlagPostById(flagId);
                 lblUserNamePost.Text = flagPost.Post.User.Username;
                 lblUserEmailPost.Text = flagPost.Post.User.Email;
                 lblPostText.Text = flagPost.Post.Text;
-                pictureBoxPostImage.Image = new Bitmap($"");
+                // pictureBoxPostImage.Image = new Bitmap($"");
             }
         }
 
         private void lstBoxFlaggedComments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstBoxFlaggedCommentsDashboard.SelectedIndex != -1)
+            if (lstBoxFlaggedComments.SelectedIndex != -1)
             {
-                string selectedItem = lstBoxFlaggedCommentsDashboard.SelectedItem.ToString();
+                string selectedItem = lstBoxFlaggedComments.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagComment flagComment = _moderationService.GetFlagCommentById(flagId);
                 lblUserNameComment.Text = flagComment.Comment.User.Username;
