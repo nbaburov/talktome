@@ -29,7 +29,7 @@ namespace SharedLibrary.Services
             _userContext = config.UserContext; // This replaces direct IHttpContextAccessor usage
 
             LoadAllDataAsync().Wait();
-            CheckAndSetCurrentlyLoggedInUser(); // Adjust this method to use _userContext
+            CheckAndSetCurrentlyLoggedInUser();
         }
 
 
@@ -305,7 +305,7 @@ namespace SharedLibrary.Services
             // Create an instance of Rfc2898DeriveBytes to hash the password using PBKDF2 algorithm
             using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000))
             {
-                byte[] hash = pbkdf2.GetBytes(20); // Generate a 20-byte hash using PBKDF2
+                byte[] hash = pbkdf2.GetBytes(20); // secret message that's 20 characters long
                 byte[] hashBytes = new byte[36]; // Create an array to store the combined salt and hash bytes
 
                 // Copy the salt bytes to the beginning of the hashBytes array
