@@ -80,7 +80,14 @@ namespace talktomeadmin
                 lblUserEmail.Text = flagUser.ToUser.Email;
                 // figure out bio
                 lblUserFlagReason.Text = flagUser.Reason;
-                pictureBoxUserProfile.Image = new Bitmap($""); // how do I get image from website
+                try
+                {
+                    pictureBoxUserProfile.Image = Image.FromFile(@$"D:\talktome\talktomeweb\wwwroot\images\posts\{flagUser.ToUser.ImagePath}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to load user image: {ex.Message}");
+                }
             }
         }
 
@@ -95,7 +102,15 @@ namespace talktomeadmin
                 lblUserNamePost.Text = flagPost.Post.User.Username;
                 lblUserEmailPost.Text = flagPost.Post.User.Email;
                 lblPostText.Text = flagPost.Post.Text;
-                // pictureBoxPostImage.Image = new Bitmap($"");
+                try
+                {
+                    pictureBoxPostImage.Image = Image.FromFile(@$"D:\talktome\talktomeweb\wwwroot\images\posts\{flagPost.Post.ImagePath}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to load post image: {ex.Message}");
+                }
+
             }
         }
 
@@ -112,5 +127,61 @@ namespace talktomeadmin
             }
         }
 
+        private void btnNewAdmin_Click(object sender, EventArgs e)
+        {
+            var username = txtAdminUsername.Text;
+            var email = txtAdminEmail.Text;
+            var password = txtAdminPassword.Text;
+            var image = "";
+        }
+
+        private void btnEditAdmin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemoveAdmin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAdminAttachImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";  // Default directory when the dialog opens
+                openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";  // Filter to only show image files
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Get the path of specified file
+                    string filePath = openFileDialog.FileName;
+
+                    // Copy the file to the new path
+                    try
+                    {
+                        string targetPath = @"D:\talktome\talktomeweb\wwwroot\images\users";
+                        string destFile = Path.Combine(targetPath, Path.GetFileName(filePath));
+
+                        // Ensure that the target directory exists; if not, create it
+                        if (!Directory.Exists(targetPath))
+                        {
+                            Directory.CreateDirectory(targetPath);
+                        }
+
+                        // Copy the file to destination path
+                        File.Copy(filePath, destFile, true);  // 'true' allows the file to be overwritten if it already exists
+
+                        // Optionally, load the image into a PictureBox
+                        pictureBoxAdminImage.Image = new Bitmap(destFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: Could not save the file. Original error: " + ex.Message);
+                    }
+                }
+            }
+        }
     }
 }
