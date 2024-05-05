@@ -36,7 +36,7 @@ namespace talktomeadmin
             {
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
-                    Application.Run(new AdminDashboard(ModerationService));
+                    Application.Run(new AdminDashboard(UserService,ModerationService));
                 }
                 else
                 {

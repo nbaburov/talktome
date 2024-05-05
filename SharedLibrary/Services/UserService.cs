@@ -280,6 +280,12 @@ namespace SharedLibrary.Services
             return _users.Count(u => u.RegistrationDate.Date == DateTime.Today);
         }
 
+        public List<Admin> GetAllAdmins()
+        {
+            return _users.OfType<Admin>().ToList();
+        }
+
+
 
 
         //* Helper Methods

@@ -6,10 +6,13 @@ namespace talktomeadmin
     public partial class AdminDashboard : Form
     {
         private readonly ModerationService _moderationService;
-        public AdminDashboard(ModerationService moderationService)
+        private readonly UserService _userService;
+        private string _adminImage;
+        public AdminDashboard(UserService userService, ModerationService moderationService)
         {
             InitializeComponent();
             _moderationService = moderationService;
+            _userService = userService;
             LoadInfo();
         }
 
@@ -58,6 +61,25 @@ namespace talktomeadmin
                     lstBoxFlaggedComments.Items.Add(displayInfo);
                 }
             }
+
+            // Load all admins
+            List<Admin> admins = _userService.GetAllAdmins();
+            lstBoxAdmins.Items.Clear();
+            foreach (var admin in admins)
+            {
+                lstBoxAdmins.Items.Add($"ID: {admin.UserId} - Name: {admin.Username}");
+            }
+
+            // Load Perms
+            cmBxAdminPerms.Items.Clear();
+
+            var permissions = Enum.GetNames(typeof(Permission));
+            foreach (var permission in permissions)
+            {
+                cmBxAdminPerms.Items.Add(permission);
+            }
+
+            cmBxAdminPerms.SelectedIndex = 0;
 
         }
 
@@ -127,13 +149,47 @@ namespace talktomeadmin
             }
         }
 
-        private void btnNewAdmin_Click(object sender, EventArgs e)
+        private async void btnNewAdmin_Click(object sender, EventArgs e)
         {
             var username = txtAdminUsername.Text;
             var email = txtAdminEmail.Text;
             var password = txtAdminPassword.Text;
-            var image = "";
+            var imagePath = _adminImage; 
+            var selectedPermissionString = cmBxAdminPerms.SelectedItem?.ToString();
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(imagePath) ||
+                string.IsNullOrWhiteSpace(selectedPermissionString))
+            {
+                MessageBox.Show("All fields must be filled and an image must be selected.", "Missing Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Enum.TryParse(selectedPermissionString, out Permission selectedPermission))
+            {
+                MessageBox.Show("Invalid permission selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                bool success = await _userService.RegisterUserAsync(username, email, imagePath, password, DateTime.Now, "Admin", null, null, (int)selectedPermission);
+                if (success)
+                {
+                    MessageBox.Show("Admin registered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadInfo();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to register admin.", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnEditAdmin_Click(object sender, EventArgs e)
         {
@@ -174,7 +230,8 @@ namespace talktomeadmin
                         File.Copy(filePath, destFile, true);  // 'true' allows the file to be overwritten if it already exists
 
                         // Optionally, load the image into a PictureBox
-                        pictureBoxAdminImage.Image = new Bitmap(destFile);
+                        pictureBoxAdminImage.Image = Image.FromFile(destFile);
+                        _adminImage = filePath;
                     }
                     catch (Exception ex)
                     {
@@ -182,6 +239,11 @@ namespace talktomeadmin
                     }
                 }
             }
+        }
+
+        private void lstBoxAdmins_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

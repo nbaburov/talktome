@@ -916,6 +916,7 @@
             lstBoxAdmins.Name = "lstBoxAdmins";
             lstBoxAdmins.Size = new Size(371, 904);
             lstBoxAdmins.TabIndex = 13;
+            lstBoxAdmins.SelectedIndexChanged += lstBoxAdmins_SelectedIndexChanged;
             // 
             // tabPagePosts
             // 
