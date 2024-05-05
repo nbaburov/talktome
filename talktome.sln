@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "SharedLibr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "talktomeadmin", "talktomeadmin\talktomeadmin.csproj", "{5418BF45-77DE-40DB-93C7-D304CB37EA58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "talktometest", "talktometest\talktometest.csproj", "{F612FEB6-83F9-4BDA-84D2-7BC467286AD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5418BF45-77DE-40DB-93C7-D304CB37EA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5418BF45-77DE-40DB-93C7-D304CB37EA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5418BF45-77DE-40DB-93C7-D304CB37EA58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F612FEB6-83F9-4BDA-84D2-7BC467286AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F612FEB6-83F9-4BDA-84D2-7BC467286AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F612FEB6-83F9-4BDA-84D2-7BC467286AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F612FEB6-83F9-4BDA-84D2-7BC467286AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
