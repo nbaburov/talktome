@@ -59,11 +59,10 @@
             btnRemoveFlagUser = new Button();
             label21 = new Label();
             btnBanUser = new Button();
-            btnSuspendUser = new Button();
-            label20 = new Label();
-            txtBoxSuspendDays = new TextBox();
-            label13 = new Label();
+            btnUnbanUser = new Button();
             groupBox3 = new GroupBox();
+            lblUserStatus = new Label();
+            label44 = new Label();
             lblUserBio = new Label();
             label23 = new Label();
             lblUserFlagReason = new Label();
@@ -78,7 +77,6 @@
             lstBoxFlaggedUsers = new ListBox();
             tabPageAdmins = new TabPage();
             groupBox9 = new GroupBox();
-            lblAdminStatus = new Label();
             btnRemoveAdmin = new Button();
             btnEditAdmin = new Button();
             btnNewAdmin = new Button();
@@ -102,10 +100,6 @@
             btnRemoveFlagPost = new Button();
             label22 = new Label();
             btnBanUserFromPost = new Button();
-            btnSuspendUserFromPost = new Button();
-            label24 = new Label();
-            txtBoxSuspendDaysPosts = new TextBox();
-            label25 = new Label();
             groupBox6 = new GroupBox();
             lblPostText = new Label();
             label29 = new Label();
@@ -124,10 +118,6 @@
             btnRemoveFlagComment = new Button();
             label28 = new Label();
             btnBanUserFromComment = new Button();
-            btnSupsendUserFromComment = new Button();
-            label30 = new Label();
-            txtBoxSuspendDaysComments = new TextBox();
-            label32 = new Label();
             groupBox8 = new GroupBox();
             lbCommentText = new Label();
             label37 = new Label();
@@ -487,10 +477,7 @@
             groupBox4.Controls.Add(btnRemoveFlagUser);
             groupBox4.Controls.Add(label21);
             groupBox4.Controls.Add(btnBanUser);
-            groupBox4.Controls.Add(btnSuspendUser);
-            groupBox4.Controls.Add(label20);
-            groupBox4.Controls.Add(txtBoxSuspendDays);
-            groupBox4.Controls.Add(label13);
+            groupBox4.Controls.Add(btnUnbanUser);
             groupBox4.Location = new Point(431, 570);
             groupBox4.Margin = new Padding(6, 5, 6, 5);
             groupBox4.Name = "groupBox4";
@@ -510,6 +497,7 @@
             btnRemoveFlagUser.TabIndex = 27;
             btnRemoveFlagUser.Text = "Remove Flag";
             btnRemoveFlagUser.UseVisualStyleBackColor = true;
+            btnRemoveFlagUser.Click += btnRemoveFlagUser_Click;
             // 
             // label21
             // 
@@ -534,50 +522,24 @@
             btnBanUser.TabIndex = 25;
             btnBanUser.Text = "Ban";
             btnBanUser.UseVisualStyleBackColor = true;
+            btnBanUser.Click += btnBanUser_Click;
             // 
-            // btnSuspendUser
+            // btnUnbanUser
             // 
-            btnSuspendUser.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSuspendUser.Location = new Point(153, 130);
-            btnSuspendUser.Margin = new Padding(6, 5, 6, 5);
-            btnSuspendUser.Name = "btnSuspendUser";
-            btnSuspendUser.Size = new Size(211, 83);
-            btnSuspendUser.TabIndex = 24;
-            btnSuspendUser.Text = "Suspend";
-            btnSuspendUser.UseVisualStyleBackColor = true;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label20.Location = new Point(413, 75);
-            label20.Margin = new Padding(6, 0, 6, 0);
-            label20.Name = "label20";
-            label20.Size = new Size(74, 29);
-            label20.TabIndex = 23;
-            label20.Text = "days.";
-            // 
-            // txtBoxSuspendDays
-            // 
-            txtBoxSuspendDays.Location = new Point(247, 75);
-            txtBoxSuspendDays.Margin = new Padding(6, 5, 6, 5);
-            txtBoxSuspendDays.Name = "txtBoxSuspendDays";
-            txtBoxSuspendDays.Size = new Size(164, 31);
-            txtBoxSuspendDays.TabIndex = 22;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.Location = new Point(14, 75);
-            label13.Margin = new Padding(6, 0, 6, 0);
-            label13.Name = "label13";
-            label13.Size = new Size(219, 29);
-            label13.TabIndex = 21;
-            label13.Text = "Suspend user for:";
+            btnUnbanUser.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnUnbanUser.Location = new Point(153, 130);
+            btnUnbanUser.Margin = new Padding(6, 5, 6, 5);
+            btnUnbanUser.Name = "btnUnbanUser";
+            btnUnbanUser.Size = new Size(211, 83);
+            btnUnbanUser.TabIndex = 24;
+            btnUnbanUser.Text = "Unban";
+            btnUnbanUser.UseVisualStyleBackColor = true;
+            btnUnbanUser.Click += btnUnbanUser_Click;
             // 
             // groupBox3
             // 
+            groupBox3.Controls.Add(lblUserStatus);
+            groupBox3.Controls.Add(label44);
             groupBox3.Controls.Add(lblUserBio);
             groupBox3.Controls.Add(label23);
             groupBox3.Controls.Add(lblUserFlagReason);
@@ -596,6 +558,28 @@
             groupBox3.TabIndex = 13;
             groupBox3.TabStop = false;
             groupBox3.Text = "Information";
+            // 
+            // lblUserStatus
+            // 
+            lblUserStatus.AutoSize = true;
+            lblUserStatus.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblUserStatus.Location = new Point(116, 440);
+            lblUserStatus.Margin = new Padding(6, 0, 6, 0);
+            lblUserStatus.Name = "lblUserStatus";
+            lblUserStatus.Size = new Size(80, 25);
+            lblUserStatus.TabIndex = 24;
+            lblUserStatus.Text = "{value}";
+            // 
+            // label44
+            // 
+            label44.AutoSize = true;
+            label44.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label44.Location = new Point(12, 437);
+            label44.Margin = new Padding(6, 0, 6, 0);
+            label44.Name = "label44";
+            label44.Size = new Size(92, 29);
+            label44.TabIndex = 23;
+            label44.Text = "Status:";
             // 
             // lblUserBio
             // 
@@ -743,7 +727,6 @@
             // 
             // groupBox9
             // 
-            groupBox9.Controls.Add(lblAdminStatus);
             groupBox9.Controls.Add(btnRemoveAdmin);
             groupBox9.Controls.Add(btnEditAdmin);
             groupBox9.Controls.Add(btnNewAdmin);
@@ -764,15 +747,6 @@
             groupBox9.TabIndex = 15;
             groupBox9.TabStop = false;
             groupBox9.Text = "Manage";
-            // 
-            // lblAdminStatus
-            // 
-            lblAdminStatus.AutoSize = true;
-            lblAdminStatus.Location = new Point(321, 134);
-            lblAdminStatus.Name = "lblAdminStatus";
-            lblAdminStatus.Size = new Size(69, 25);
-            lblAdminStatus.TabIndex = 15;
-            lblAdminStatus.Text = "Status: ";
             // 
             // btnRemoveAdmin
             // 
@@ -939,10 +913,6 @@
             groupBox5.Controls.Add(btnRemoveFlagPost);
             groupBox5.Controls.Add(label22);
             groupBox5.Controls.Add(btnBanUserFromPost);
-            groupBox5.Controls.Add(btnSuspendUserFromPost);
-            groupBox5.Controls.Add(label24);
-            groupBox5.Controls.Add(txtBoxSuspendDaysPosts);
-            groupBox5.Controls.Add(label25);
             groupBox5.Location = new Point(431, 558);
             groupBox5.Margin = new Padding(6, 5, 6, 5);
             groupBox5.Name = "groupBox5";
@@ -975,6 +945,7 @@
             btnRemovePost.TabIndex = 28;
             btnRemovePost.Text = "Delete Post";
             btnRemovePost.UseVisualStyleBackColor = true;
+            btnRemovePost.Click += btnRemovePost_Click;
             // 
             // btnRemoveFlagPost
             // 
@@ -986,6 +957,7 @@
             btnRemoveFlagPost.TabIndex = 27;
             btnRemoveFlagPost.Text = "Remove Flag";
             btnRemoveFlagPost.UseVisualStyleBackColor = true;
+            btnRemoveFlagPost.Click += btnRemoveFlagPost_Click;
             // 
             // label22
             // 
@@ -1010,47 +982,7 @@
             btnBanUserFromPost.TabIndex = 25;
             btnBanUserFromPost.Text = "Ban";
             btnBanUserFromPost.UseVisualStyleBackColor = true;
-            // 
-            // btnSuspendUserFromPost
-            // 
-            btnSuspendUserFromPost.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSuspendUserFromPost.Location = new Point(153, 130);
-            btnSuspendUserFromPost.Margin = new Padding(6, 5, 6, 5);
-            btnSuspendUserFromPost.Name = "btnSuspendUserFromPost";
-            btnSuspendUserFromPost.Size = new Size(211, 83);
-            btnSuspendUserFromPost.TabIndex = 24;
-            btnSuspendUserFromPost.Text = "Suspend";
-            btnSuspendUserFromPost.UseVisualStyleBackColor = true;
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label24.Location = new Point(413, 75);
-            label24.Margin = new Padding(6, 0, 6, 0);
-            label24.Name = "label24";
-            label24.Size = new Size(74, 29);
-            label24.TabIndex = 23;
-            label24.Text = "days.";
-            // 
-            // txtBoxSuspendDaysPosts
-            // 
-            txtBoxSuspendDaysPosts.Location = new Point(247, 75);
-            txtBoxSuspendDaysPosts.Margin = new Padding(6, 5, 6, 5);
-            txtBoxSuspendDaysPosts.Name = "txtBoxSuspendDaysPosts";
-            txtBoxSuspendDaysPosts.Size = new Size(164, 31);
-            txtBoxSuspendDaysPosts.TabIndex = 22;
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label25.Location = new Point(14, 75);
-            label25.Margin = new Padding(6, 0, 6, 0);
-            label25.Name = "label25";
-            label25.Size = new Size(219, 29);
-            label25.TabIndex = 21;
-            label25.Text = "Suspend user for:";
+            btnBanUserFromPost.Click += btnBanUserFromPost_Click;
             // 
             // groupBox6
             // 
@@ -1201,10 +1133,6 @@
             groupBox7.Controls.Add(btnRemoveFlagComment);
             groupBox7.Controls.Add(label28);
             groupBox7.Controls.Add(btnBanUserFromComment);
-            groupBox7.Controls.Add(btnSupsendUserFromComment);
-            groupBox7.Controls.Add(label30);
-            groupBox7.Controls.Add(txtBoxSuspendDaysComments);
-            groupBox7.Controls.Add(label32);
             groupBox7.Location = new Point(431, 558);
             groupBox7.Margin = new Padding(6, 5, 6, 5);
             groupBox7.Name = "groupBox7";
@@ -1237,6 +1165,7 @@
             btnDeleteComment.TabIndex = 28;
             btnDeleteComment.Text = "Delete Comment";
             btnDeleteComment.UseVisualStyleBackColor = true;
+            btnDeleteComment.Click += btnDeleteComment_Click;
             // 
             // btnRemoveFlagComment
             // 
@@ -1248,6 +1177,7 @@
             btnRemoveFlagComment.TabIndex = 27;
             btnRemoveFlagComment.Text = "Remove Flag";
             btnRemoveFlagComment.UseVisualStyleBackColor = true;
+            btnRemoveFlagComment.Click += btnRemoveFlagComment_Click;
             // 
             // label28
             // 
@@ -1272,47 +1202,7 @@
             btnBanUserFromComment.TabIndex = 25;
             btnBanUserFromComment.Text = "Ban";
             btnBanUserFromComment.UseVisualStyleBackColor = true;
-            // 
-            // btnSupsendUserFromComment
-            // 
-            btnSupsendUserFromComment.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSupsendUserFromComment.Location = new Point(153, 130);
-            btnSupsendUserFromComment.Margin = new Padding(6, 5, 6, 5);
-            btnSupsendUserFromComment.Name = "btnSupsendUserFromComment";
-            btnSupsendUserFromComment.Size = new Size(211, 83);
-            btnSupsendUserFromComment.TabIndex = 24;
-            btnSupsendUserFromComment.Text = "Suspend";
-            btnSupsendUserFromComment.UseVisualStyleBackColor = true;
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label30.Location = new Point(413, 75);
-            label30.Margin = new Padding(6, 0, 6, 0);
-            label30.Name = "label30";
-            label30.Size = new Size(74, 29);
-            label30.TabIndex = 23;
-            label30.Text = "days.";
-            // 
-            // txtBoxSuspendDaysComments
-            // 
-            txtBoxSuspendDaysComments.Location = new Point(247, 75);
-            txtBoxSuspendDaysComments.Margin = new Padding(6, 5, 6, 5);
-            txtBoxSuspendDaysComments.Name = "txtBoxSuspendDaysComments";
-            txtBoxSuspendDaysComments.Size = new Size(164, 31);
-            txtBoxSuspendDaysComments.TabIndex = 22;
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label32.Location = new Point(14, 75);
-            label32.Margin = new Padding(6, 0, 6, 0);
-            label32.Name = "label32";
-            label32.Size = new Size(219, 29);
-            label32.TabIndex = 21;
-            label32.Text = "Suspend user for:";
+            btnBanUserFromComment.Click += btnBanUserFromComment_Click;
             // 
             // groupBox8
             // 
@@ -1543,7 +1433,7 @@
         private System.Windows.Forms.Button btnRemoveFlagComment;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Button btnBanUserFromComment;
-        private System.Windows.Forms.Button btnSupsendUserFromComment;
+        private System.Windows.Forms.Button btnUnbanUser;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox txtBoxSuspendDaysComments;
         private System.Windows.Forms.Label label32;
@@ -1576,10 +1466,11 @@
         private TextBox textBox2;
         private Label label16;
         private TextBox txtAdminUsername;
-        private Label lblAdminStatus;
         private Button btnRemoveAdmin;
         private Button btnEditAdmin;
         private Button btnNewAdmin;
+        private Label lblUserStatus;
+        private Label label44;
     }
 }
 
