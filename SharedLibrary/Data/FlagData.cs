@@ -297,5 +297,22 @@ namespace SharedLibrary.Data
                 }
             }
         }
+
+        public async Task<bool> MarkFlagAsResolved(int flagId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "UPDATE Flags SET Resolved = 1 WHERE FlagId = @FlagId";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FlagId", flagId);
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
     }
 }

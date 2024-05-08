@@ -151,6 +151,21 @@ namespace SharedLibrary.Services
             return false;
         }
 
+        public async Task<bool> DeleteFlaggedPost(int flagId)
+        {
+            var flagPost = FlaggedPosts.Find(p => p.FlagId == flagId);
+            if (flagPost != null)
+            {
+                FlaggedPosts.Remove(flagPost);
+                await _flagData.RemoveFlagPost(flagId);
+                await _postService.DeletePostAsync(flagPost.PostId);
+                return true;
+            }
+            return false;
+        }
+
+
+
         // Remove flagged comment by flag ID
         public async Task<bool> RemoveFlaggedComment(int flagId)
         {
@@ -162,6 +177,23 @@ namespace SharedLibrary.Services
             }
             return false;
         }
+
+        public async Task<bool> DeleteFlaggedComment(int flagId)
+        {
+            var flagComment = FlaggedComments.Find(c => c.FlagId == flagId);
+            if (flagComment != null)
+            {
+                FlaggedComments.Remove(flagComment);
+                await _flagData.RemoveFlagComment(flagId);
+                await _postService.DeleteCommentAsync(flagComment.CommentId);
+                return true;
+            }
+            return false;
+        }
+
+
+
+
 
         public int[] GetInsights()
         {
@@ -197,6 +229,47 @@ namespace SharedLibrary.Services
         {
             return FlaggedComments.FirstOrDefault(f => f.FlagId == id);
         }
+
+        public async Task<bool> BanUser(int userId)
+        {
+            var user = _userService.GetUserById(userId);
+            if (user != null && user.Status != Status.Suspended)
+            {
+                await _userService.EditUser(user.UserId, user.Username, user.Email, user.ImagePath, null, user.RegistrationDate, user is Admin ? "Admin" : "Client", (user as Client)?.Bio, (int?)Status.Suspended, (int?)((user as Admin)?.Permission));
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> UnBanUser(int userId)
+        {
+            var user = _userService.GetUserById(userId);
+            if (user != null && user.Status == Status.Suspended)
+            {
+                await _userService.EditUser(user.UserId, user.Username, user.Email, user.ImagePath, null, user.RegistrationDate, user is Admin ? "Admin" : "Client", (user as Client)?.Bio, (int?)Status.Active, (int?)((user as Admin)?.Permission));
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> ResolveFlag(int flagId)
+        {
+            var flag = FlaggedUsers.Find(f => f.FlagId == flagId) ??
+                       (Flag)FlaggedPosts.Find(p => p.FlagId == flagId) ??
+                       FlaggedComments.Find(c => c.FlagId == flagId);
+
+            if (flag != null && !flag.Resolved)
+            {
+                bool result = await _flagData.MarkFlagAsResolved(flagId);
+                if (result)
+                {
+                    flag.Resolved = true;
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
     }
 }
