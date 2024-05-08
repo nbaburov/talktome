@@ -132,7 +132,7 @@ namespace SharedLibrary.Services
         {
             var user = _users.FirstOrDefault(u => u.Email == email);
 
-            if (user != null)
+            if (user != null && !(user is Admin)) // Check if user is not an admin
             {
                 string enteredPasswordHash = HashPassword(password, Convert.FromBase64String(user.Salt));
 
@@ -146,6 +146,7 @@ namespace SharedLibrary.Services
 
             return false;
         }
+
 
         public bool LoginAdmin(string email, string password)
         {
