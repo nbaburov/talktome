@@ -1,4 +1,5 @@
 ﻿@page
+@using SharedLibrary.Models
 @model IndexModel
 @{
     ViewData["Title"] = "TalkToMe";
@@ -8,7 +9,24 @@
     @* Main Part - Posts & Actions *@
     <div class="flex flex-col gap-12 w-full lg:col-span-3">
         @* Post Action *@
-        @if (Model.CurrentUser != null)
+        @if (Model.CurrentUser != null && Model.CurrentUser.Status == Status.Suspended)
+        {
+            var imagePath = "/images/users/" + Model.CurrentUser.ImagePath ??
+            "/images/default-profile.png";
+            <a aria-disabled="true" class="cursor-not-allowed">
+                <div class="flex flex-row w-full h-10 items-end">
+                    <div class="rounded-lg min-w-fit">
+                        <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                    </div>
+                    <button
+                        class="border-b-2 border-gray-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
+                    <button class="bg-gradient-to-tl from-gray-500 to-gray-500 py-1 px-4 text-white font-bold rounded">
+                        Post
+                    </button>
+                </div>
+            </a>
+        }
+        else if (Model.CurrentUser != null && Model.CurrentUser.Status == Status.Active)
         {
             var imagePath = "/images/users/" + Model.CurrentUser.ImagePath ??
             "/images/default-profile.png";

@@ -1,4 +1,5 @@
 ﻿@page
+@using SharedLibrary.Models
 @model talktomeweb.Pages.Account.ManageModel
 @{
 }
@@ -29,36 +30,75 @@
                             <span class="text-xs lg:text-sm">Posts: @Model.CurrentUser.Posts.Count</span>
                         </div>
                     </div>
-                    <div class="flex w-full gap-6">
-                        <a href='@myProfileLink'
-                            class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">
-                            View Profile
-                        </a>
-                        <a href='/Account/EditProfile'
-                            class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">
-                            Edit Profile
-                        </a>
-                        <form method="post">
-                            <button type="submit" asp-page-handler="Logout"
-                                class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">Log
-                                out</button>
-                        </form>
-                    </div>
+                    @if (Model.CurrentUser.Status == Status.Suspended)
+                    {
+                        <div class="flex w-full gap-6">
+                            <a href='@myProfileLink'
+                                class="border border-pink-500  cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">
+                                View Profile
+                            </a>
+                            <span
+                                class="border border-slate-500 cursor-pointer text-sm lg:text-base font-normal py-1 px-4 lg:py-1.5 lg:px-6 text-slate-500 rounded transition-all duration-50 ease-in-out">
+                                Edit Profile
+                            </span>
+                            <form method="post">
+                                <button type="submit" asp-page-handler="Logout"
+                                    class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">Log
+                                    out</button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="flex w-full gap-6">
+                            <a href='@myProfileLink' @(Model.CurrentUser.Status == Status.Suspended ? "disabled" : "")
+                                class="border border-pink-500  cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">
+                                View Profile
+                            </a>
+                            <a href='/Account/EditProfile' @(Model.CurrentUser.Status == Status.Suspended ? "disabled" : "")
+                                class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">
+                                Edit Profile
+                            </a>
+                            <form method="post">
+                                <button type="submit" asp-page-handler="Logout"
+                                    class="border border-pink-500 cursor-pointer text-sm lg:text-base font-normal hover:border-2 hover:font-bold py-1 px-4 lg:py-1.5 lg:px-6 text-pink-500 rounded transition-all duration-50 ease-in-out">Log
+                                    out</button>
+                            </form>
+                        </div>
+                    }
                 </div>
             </div>
             <div>
-                <a asp-page="/Post/Create" class="cursor-pointer">
-                    <div class="flex flex-row w-full h-10 items-end">
-                        <div class="rounded-lg min-w-fit">
-                            <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                @if (Model.CurrentUser.Status == Status.Suspended)
+                {
+                    <a aria-disabled="true" class="cursor-not-allowed">
+                        <div class="flex flex-row w-full h-10 items-end">
+                            <div class="rounded-lg min-w-fit">
+                                <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                            </div>
+                            <button
+                                class="border-b-2 border-gray-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
+                            <button class="bg-gradient-to-tl from-gray-500 to-gray-500 py-1 px-4 text-white font-bold rounded">
+                                Post
+                            </button>
                         </div>
-                        <button
-                            class="border-b-2 border-pink-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
-                        <button class="bg-gradient-to-tl from-pink-500 to-rose-500 py-1 px-4 text-white font-bold rounded">
-                            Post
-                        </button>
-                    </div>
-                </a>
+                    </a>
+                }
+                else
+                {
+                    <a asp-page="/Post/Create" class="cursor-pointer">
+                        <div class="flex flex-row w-full h-10 items-end">
+                            <div class="rounded-lg min-w-fit">
+                                <img src="@imagePath" alt="Profile Image" class="w-10 h-10 rounded-full object-cover">
+                            </div>
+                            <button
+                                class="border-b-2 border-pink-500 w-full focus:border-b-4 focus:outline-none transition-all duration-150 px-4 py-2"></button>
+                            <button class="bg-gradient-to-tl from-pink-500 to-rose-500 py-1 px-4 text-white font-bold rounded">
+                                Post
+                            </button>
+                        </div>
+                    </a>
+                }
             </div>
         }
 
