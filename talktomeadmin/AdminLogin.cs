@@ -26,7 +26,7 @@ namespace talktomeadmin
             //string email = txtEmail.Text;
             //string password = txtPassword.Text;
             string email = "admin@email.com";
-            string password = "123456";
+            string password = "123";
 
             var loginSuccess = _userService.LoginAdmin(email, password);
 
