@@ -25,7 +25,7 @@ namespace SharedLibrary.Data
                 BEGIN
                     CREATE TABLE Users (
                         UserId INT PRIMARY KEY IDENTITY(1,1),
-                        Username VARCHAR(255) NOT NULL,
+                        Username VARCHAR(50) NOT NULL,
                         Email VARCHAR(255) NOT NULL,
                         ImagePath VARCHAR(255),
                         PasswordHash VARCHAR(255) NOT NULL,

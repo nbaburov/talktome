@@ -24,7 +24,7 @@ namespace SharedLibrary.Data
                     CREATE TABLE Posts (
                         PostId INT PRIMARY KEY IDENTITY, 
                         Text TEXT NULL, 
-                        ImagePath NVARCHAR(255) NULL, 
+                        ImagePath VARCHAR(255) NULL, 
                         UserId INT, 
                         CategoryId INT,
                         CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
