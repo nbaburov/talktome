@@ -77,6 +77,10 @@ namespace SharedLibrary.Services
 
         public async Task<bool> RegisterUserAsync(string username, string email, string imagePath, string password, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
         {
+            if (_users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) || u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new InvalidOperationException("A user with the same username or email already exists.");
+            }
             try
             {
                 byte[] salt = GenerateSalt();
@@ -179,39 +183,52 @@ namespace SharedLibrary.Services
         public async Task EditUser(int userId, string username, string email, string imagePath, string? password, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
         {
             var user = _users.FirstOrDefault(u => u.UserId == userId);
-            if (user != null)
-            {
-                if (password != null)
-                {
-                    byte[] salt = GenerateSalt();
-
-                    string passwordHash = HashPassword(password, salt);
-                    user.PasswordHash = passwordHash;
-                    user.Salt = Convert.ToBase64String(salt);
-                }
-
-                user.Username = username;
-                user.Email = email;
-                user.ImagePath = imagePath;
-
-                user.RegistrationDate = registrationDate;
-
-                if (user is Admin admin)
-                {
-                    admin.Permission = permission.HasValue ? (Permission)permission.Value : admin.Permission;
-                }
-                else if (user is Client client)
-                {
-                    client.Bio = bio;
-                    client.Status = status.HasValue ? (Status)status.Value : client.Status;
-                }
-
-                await _userData.UpdateUser(userId, username, email, imagePath, user.PasswordHash, user.Salt, registrationDate, userType, bio, status, permission);
-            }
-            else
+            if (user == null)
             {
                 throw new Exception("User not found.");
             }
+
+            if (_users.Any(u => (u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) || u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)) && u.UserId != userId))
+            {
+                throw new InvalidOperationException("Another user with the same username or email already exists.");
+            }
+
+            bool changesDetected = false;
+
+            if (user.Username != username) { user.Username = username; changesDetected = true; }
+            if (user.Email != email) { user.Email = email; changesDetected = true; }
+            if (user.ImagePath != imagePath) { user.ImagePath = imagePath; changesDetected = true; }
+            if (user.RegistrationDate != registrationDate) { user.RegistrationDate = registrationDate; changesDetected = true; }
+
+            if (user is Admin admin && permission.HasValue && admin.Permission != (Permission)permission.Value)
+            {
+                admin.Permission = (Permission)permission.Value;
+                changesDetected = true;
+            }
+            else if (user is Client client)
+            {
+                if (bio != null && client.Bio != bio) { client.Bio = bio; changesDetected = true; }
+                if (status.HasValue && client.Status != (Status)status.Value) { client.Status = (Status)status.Value; changesDetected = true; }
+            }
+
+            if (password != null)
+            {
+                byte[] salt = GenerateSalt();
+                string newPasswordHash = HashPassword(password, salt);
+                if (user.PasswordHash != newPasswordHash)
+                {
+                    user.PasswordHash = newPasswordHash;
+                    user.Salt = Convert.ToBase64String(salt);
+                    changesDetected = true;
+                }
+            }
+
+            if (!changesDetected)
+            {
+                throw new Exception("No changes detected.");
+            }
+
+            await _userData.UpdateUser(userId, username, email, imagePath, user.PasswordHash, user.Salt, registrationDate, userType, bio, status, permission);
         }
 
 

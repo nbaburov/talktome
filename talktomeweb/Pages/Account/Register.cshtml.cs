@@ -64,35 +64,38 @@ namespace talktomeweb.Pages.Account
             }
 
             string imagePath = ProcessUploadedFile(Input.Image);
-
-            var registrationSuccess = await _userService.RegisterUserAsync(
-               Input.Username,
-               Input.Email,
-               imagePath,
-               Input.Password,
-               DateTime.UtcNow,
-               "Client",
-               Input.Bio,
-               (int?)Status.Active,
-               null);
-
-            if (registrationSuccess)
+            try
             {
-                var loginSuccess = _userService.LoginUser(Input.Email, Input.Password); 
+                var registrationSuccess = await _userService.RegisterUserAsync(
+                   Input.Username,
+                   Input.Email,
+                   imagePath,
+                   Input.Password,
+                   DateTime.UtcNow,
+                   "Client",
+                   Input.Bio,
+                   (int?)Status.Active,
+                   null);
 
-                if (loginSuccess)
+                if (registrationSuccess)
                 {
-                    // var cookieOptions = new CookieOptions
-                    // {
-                    //     Expires = DateTime.Now.AddDays(7), 
-                    //     HttpOnly = true, 
-                    //     Secure = true, 
-                    // };
-                    // Response.Cookies.Append("UserEmail", Input.Email, cookieOptions);
+                    var loginSuccess = _userService.LoginUser(Input.Email, Input.Password);
 
-                    return RedirectToPage("/Index");
+                    if (loginSuccess)
+                    {
+
+                        return RedirectToPage("/Index");
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage("/Account/Register");
+            }
+
 
             return RedirectToPage("/Account/Login");
         }

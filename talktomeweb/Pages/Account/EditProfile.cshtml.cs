@@ -77,27 +77,22 @@ namespace talktomeweb.Pages.Account
                 return RedirectToPage("/Account/Register");
             }
 
-            bool hasChanged =
-                Input.Username != CurrentUser.Username ||
-                Input.Email != CurrentUser.Email ||
-                Input.Bio != CurrentUser.Bio ||
-                (Input.Password != null && !string.IsNullOrWhiteSpace(Input.Password)) ||
-                Input.Image != null;
-
-            if (!hasChanged)
-            {
-                TempData["AlertTitle"] = "No changes.";
-                TempData["AlertText"] = "No changes were detected in your profile.";
-                TempData["AlertColor"] = "red";
-
-                return RedirectToPage();
-            }
-
             string imagePath = Input.Image != null ? ProcessUploadedFile(Input.Image) : CurrentUser.ImagePath;
 
             string passwordChange = string.IsNullOrEmpty(Input.Password) ? null : Input.Password;
+            try
+            {
 
-            await _userService.EditUser(CurrentUser.UserId, Input.Username, Input.Email, imagePath, passwordChange, CurrentUser.RegistrationDate, CurrentUser is Admin ? "Admin" : "Client", Input.Bio, 1);
+                await _userService.EditUser(CurrentUser.UserId, Input.Username, Input.Email, imagePath, passwordChange, CurrentUser.RegistrationDate, CurrentUser is Admin ? "Admin" : "Client", Input.Bio, 1);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage("/Account/EditProfile");
+            }
 
             return RedirectToPage("/Account/Manage");
         }
