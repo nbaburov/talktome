@@ -23,10 +23,10 @@ namespace talktomeadmin
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            //string email = txtEmail.Text;
-            //string password = txtPassword.Text;
-            string email = "admin@email.com";
-            string password = "123";
+            string email = txtEmail.Text;
+            string password = txtPassword.Text;
+            // string email = "admin@email.com";
+            // string password = "123";
 
             var loginSuccess = _userService.LoginAdmin(email, password);
 

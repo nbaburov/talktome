@@ -15,10 +15,13 @@ namespace SharedLibrary.Data
 
         private async Task EnsureTablesCreatedAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            try
+            {
 
-            var createPostTable = @"
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+
+                var createPostTable = @"
                 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Posts') 
                 BEGIN 
                     CREATE TABLE Posts (
@@ -33,9 +36,15 @@ namespace SharedLibrary.Data
                     ) 
                 END";
 
-            using (var command = new SqlCommand(createPostTable, connection))
+                using (var command = new SqlCommand(createPostTable, connection))
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (SqlException ex)
             {
-                await command.ExecuteNonQueryAsync();
+                Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
+                throw;
             }
         }
 

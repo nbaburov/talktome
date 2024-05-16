@@ -28,10 +28,10 @@ namespace talktomeweb.Pages
             Posts = _postService.Posts;
             Categories = _postService.Categories;
             CurrentUser = _userService.GetCurrentlyLoggedInUser();
-            if (CurrentUser == null)
-            {
-                return RedirectToPage("/Account/Register");
-            }
+            // if (CurrentUser == null)
+            // {
+            //     return RedirectToPage("/Account/Register");
+            // }
 
             return Page();
         }

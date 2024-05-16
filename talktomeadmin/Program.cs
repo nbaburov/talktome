@@ -16,35 +16,44 @@ namespace talktomeadmin
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-
-            IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
-
-            var userContext = new WinFormUserContext();
-            ServiceConfig = new WinFormServiceConfig(configuration.GetConnectionString("DefaultConnection"), userContext);
-
-            UserService = new UserService(ServiceConfig);
-            PostService = new PostService(ServiceConfig, UserService);
-            ModerationService = new ModerationService(ServiceConfig, UserService, PostService);
-
-            using (AdminLogin loginForm = new AdminLogin(UserService))
+            try
             {
-                if (loginForm.ShowDialog() == DialogResult.OK)
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+
+                IConfiguration configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
+
+                var userContext = new WinFormUserContext();
+                ServiceConfig = new WinFormServiceConfig(configuration.GetConnectionString("DefaultConnection"), userContext);
+
+                UserService = new UserService(ServiceConfig);
+                PostService = new PostService(ServiceConfig, UserService);
+                ModerationService = new ModerationService(ServiceConfig, UserService, PostService);
+
+                using (AdminLogin loginForm = new AdminLogin(UserService))
                 {
-                    Application.Run(new AdminDashboard(UserService,ModerationService));
-                }
-                else
-                {
-                    Application.Exit();
+                    if (loginForm.ShowDialog() == DialogResult.OK)
+                    {
+                        Application.Run(new AdminDashboard(UserService, ModerationService));
+                    }
+                    else
+                    {
+                        Application.Exit();
+                    }
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("☠️ Shutting down Windows Forms application.");
+                Application.Exit();
+            }
 
-            
+
+
         }
     }
 }

@@ -9,23 +9,3 @@ public abstract class Flag
     public DateTime CreationDate { get; set; }
 
 }
-
-public class FlagUser : Flag
-{
-    public int ToUserId { get; set; }
-    public virtual User ToUser { get; set; }
-    public string Reason { get; set; }
-}
-
-public class FlagPost : Flag
-{
-    public int PostId { get; set; }
-    public virtual Post Post { get; set; }
-
-}
-public class FlagComment : Flag
-{
-    public int CommentId { get; set; }
-    public virtual Comment Comment { get; set; }
-
-}

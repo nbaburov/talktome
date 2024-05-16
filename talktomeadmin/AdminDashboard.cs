@@ -162,7 +162,7 @@ namespace talktomeadmin
 
         }
         // Helpers
-        private int ParseFlagIdFromDisplayInfo(string displayInfo)
+        private int ParseFlagIdFromDisplayInfo(string displayInfo) // ! String Manipulation
         {
             var flagId = displayInfo.Split('-');
             return Int32.Parse(flagId[0]);
@@ -185,7 +185,8 @@ namespace talktomeadmin
                 lblUserStatus.Text = flaggedUser.Status.ToString();
                 try
                 {
-                    pictureBoxUserProfile.Image = Image.FromFile(@$"D:\talktome\talktomeweb\wwwroot\images\users\{flagUser.ToUser.ImagePath}");
+                    string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "users", flagUser.ToUser.ImagePath);
+                    pictureBoxUserProfile.Image = Image.FromFile(imagePath);
                 }
                 catch (Exception ex)
                 {
@@ -287,14 +288,14 @@ namespace talktomeadmin
                 {
                     try
                     {
-                        pictureBoxPostImage.Image = Image.FromFile(@$"D:\talktome\talktomeweb\wwwroot\images\posts\{flagPost.Post.ImagePath}");
+                        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "posts", flagPost.Post.ImagePath);
+                        pictureBoxPostImage.Image = Image.FromFile(imagePath);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Failed to load post image: {ex.Message}");
                     }
                 }
-
             }
         }
 
@@ -470,51 +471,51 @@ namespace talktomeadmin
 
         // Admins Tab
         private void lstBoxAdmins_SelectedIndexChanged(object sender, EventArgs e)
+{
+    if (lstBoxAdmins.SelectedItem != null)
+    {
+        int selectedUserId = Convert.ToInt32(lstBoxAdmins.SelectedItem.ToString().Split('-')[0]);
+        var selectedAdmin = _userService.GetUserById(selectedUserId) as Admin;
+
+        if (selectedAdmin != null)
         {
-            if (lstBoxAdmins.SelectedItem != null)
+            txtAdminUsername.Text = selectedAdmin.Username;
+            txtAdminEmail.Text = selectedAdmin.Email;
+            txtAdminPassword.Clear();
+            if (!string.IsNullOrWhiteSpace(selectedAdmin.ImagePath))
             {
-                int selectedUserId = Convert.ToInt32(lstBoxAdmins.SelectedItem.ToString().Split('-')[0]);
-                var selectedAdmin = _userService.GetUserById(selectedUserId) as Admin;
-
-                if (selectedAdmin != null)
+                try
                 {
-                    txtAdminUsername.Text = selectedAdmin.Username;
-                    txtAdminEmail.Text = selectedAdmin.Email;
-                    txtAdminPassword.Clear();
-                    if (!string.IsNullOrWhiteSpace(selectedAdmin.ImagePath))
-                    {
-                        try
-                        {
-                            _adminImage = selectedAdmin.ImagePath;
-                            pictureBoxAdminImage.Image = Image.FromFile(@$"D:\talktome\talktomeweb\wwwroot\images\users\{selectedAdmin.ImagePath}");
-                        }
-                        catch
-                        {
-                            pictureBoxAdminImage.Image = null;
-                        }
-                    }
-                    else
-                    {
-                        pictureBoxAdminImage.Image = null;
-                    }
-
-                    if (selectedAdmin.Permission != null)
-                    {
-                        cmBxAdminPerms.SelectedItem = selectedAdmin.Permission.ToString();
-                    }
+                    string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "users", selectedAdmin.ImagePath);
+                    _adminImage = selectedAdmin.ImagePath;
+                    pictureBoxAdminImage.Image = Image.FromFile(imagePath);
+                }
+                catch
+                {
+                    pictureBoxAdminImage.Image = null;
                 }
             }
             else
             {
-
-                txtAdminUsername.Clear();
-                txtAdminEmail.Clear();
-                txtAdminPassword.Clear();
-                _adminImage = null;
                 pictureBoxAdminImage.Image = null;
-                cmBxAdminPerms.SelectedIndex = -1;
+            }
+
+            if (selectedAdmin.Permission != null)
+            {
+                cmBxAdminPerms.SelectedItem = selectedAdmin.Permission.ToString();
             }
         }
+    }
+    else
+    {
+        txtAdminUsername.Clear();
+        txtAdminEmail.Clear();
+        txtAdminPassword.Clear();
+        _adminImage = null;
+        pictureBoxAdminImage.Image = null;
+        cmBxAdminPerms.SelectedIndex = -1;
+    }
+}
 
         private async void btnNewAdmin_Click(object sender, EventArgs e)
         {
@@ -640,7 +641,7 @@ namespace talktomeadmin
 
                     try
                     {
-                        string targetPath = @"D:\talktome\talktomeweb\wwwroot\images\users";
+                        string targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "users");
                         string destFile = Path.Combine(targetPath, Path.GetFileName(filePath));
 
                         if (!Directory.Exists(targetPath))
