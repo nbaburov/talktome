@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using SharedLibrary.Interface;
+using System.Text.RegularExpressions;
 
 
 namespace SharedLibrary.Services
@@ -77,6 +78,13 @@ namespace SharedLibrary.Services
 
         public async Task<bool> RegisterUserAsync(string username, string email, string imagePath, string password, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
         {
+            //! Regular expression pattern for email validation
+            string emailPattern = @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
+
+            if (!Regex.IsMatch(email, emailPattern))
+            {
+                throw new ArgumentException("Invalid email format.");
+            }
             if (_users.Any(u => u.Username.Equals(username, StringComparison.OrdinalIgnoreCase) || u.Email.Equals(email, StringComparison.OrdinalIgnoreCase)))
             {
                 throw new InvalidOperationException("A user with the same username or email already exists.");
@@ -182,6 +190,14 @@ namespace SharedLibrary.Services
 
         public async Task EditUser(int userId, string username, string email, string imagePath, string? password, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
         {
+
+            //! Regular expression pattern for email validation
+            string emailPattern = @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
+
+            if (!Regex.IsMatch(email, emailPattern))
+            {
+                throw new ArgumentException("Invalid email format.");
+            }
             var user = _users.FirstOrDefault(u => u.UserId == userId);
             if (user == null)
             {
