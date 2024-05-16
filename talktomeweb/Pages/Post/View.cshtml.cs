@@ -33,7 +33,11 @@ namespace talktomeweb.Pages.Post
         {
             Post = _postService.GetPostById(id);
             CurrentUser = _userService.GetCurrentlyLoggedInUser();
-            if (CurrentUser == null || Post == null)
+            if (CurrentUser == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+            if (Post == null)
             {
                 return RedirectToPage("/Index");
             }

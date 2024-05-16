@@ -14,27 +14,5 @@ namespace SharedLibrary.Models
         public DateTime RegistrationDate { get; set; }
         public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
     }
-    public class Client : User
-    {
-        public string Bio { get; set; }
-        public Status Status { get; set; }
-    }
-    public class Admin : User
-    {
-        public Permission Permission { get; set; }
-
-    }
-
-    public enum Status
-    {
-        Active,
-        Suspended
-    }
-    public enum Permission
-    {
-        Basic,
-        Moderate,
-        Full
-    }
 }
 

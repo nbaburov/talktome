@@ -15,10 +15,12 @@ namespace SharedLibrary.Data
 
         private async Task EnsureTablesCreatedAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
 
-            var createCommentTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Comments') BEGIN CREATE TABLE 
+                var createCommentTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Comments') BEGIN CREATE TABLE 
             Comments (CommentId INT PRIMARY KEY IDENTITY, 
             Text TEXT NOT NULL, 
             UserId INT, 
@@ -29,9 +31,15 @@ namespace SharedLibrary.Data
             FOREIGN KEY (PostId) REFERENCES Posts(PostId) ON DELETE CASCADE
             ) END";
 
-            using (var command = new SqlCommand(createCommentTable, connection))
+                using (var command = new SqlCommand(createCommentTable, connection))
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (SqlException ex)
             {
-                await command.ExecuteNonQueryAsync();
+                Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
+                throw;
             }
         }
 

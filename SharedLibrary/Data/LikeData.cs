@@ -15,10 +15,13 @@ namespace SharedLibrary.Data
 
         private async Task EnsureTablesCreatedAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            try
+            {
 
-            var createLikeTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Likes')
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
+
+                var createLikeTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Likes')
                         BEGIN 
                             CREATE TABLE Likes (
                                 LikeId INT PRIMARY KEY IDENTITY, 
@@ -30,9 +33,15 @@ namespace SharedLibrary.Data
                             ) 
                         END";
 
-            using (var command = new SqlCommand(createLikeTable, connection))
+                using (var command = new SqlCommand(createLikeTable, connection))
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (SqlException ex)
             {
-                await command.ExecuteNonQueryAsync();
+                Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
+                throw;
             }
         }
 

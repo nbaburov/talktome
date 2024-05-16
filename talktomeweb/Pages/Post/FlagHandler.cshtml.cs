@@ -13,7 +13,10 @@ namespace talktomeweb.Pages.Post
         }
         public async Task<IActionResult> OnPostAsync(int fromUserId, int postId)
         {
-
+            if (fromUserId == 0)
+            {
+                return RedirectToPage("/Account/Login");
+            }
             var result = await _moderationService.FlagPost(fromUserId, postId);
             if (result)
             {

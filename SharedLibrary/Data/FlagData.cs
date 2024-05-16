@@ -18,15 +18,17 @@ namespace SharedLibrary.Data
 
         private async Task EnsureTablesCreatedAsync()
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            try
+            {
+                using var connection = new SqlConnection(_connectionString);
+                await connection.OpenAsync();
 
-            //! Ask teacher I want to delete flag when post or comment is deleted but I cant set them both cascade
-            //! I tried triggers and the logic should work but I get
-            // SqlException: The DELETE statement conflicted with the REFERENCE constraint "FK__Flags__PostId__269AB60B". The conflict occurred in database "dbi530788_talktome", table "dbo.Flags", column 'PostId'.
-            //! I get that because the post needs to be deleted firstly before trying to delete flag, i think
-            // Create Flags table
-            var createFlagTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Flags')
+                //! Ask teacher I want to delete flag when post or comment is deleted but I cant set them both cascade
+                //! I tried triggers and the logic should work but I get
+                // SqlException: The DELETE statement conflicted with the REFERENCE constraint "FK__Flags__PostId__269AB60B". The conflict occurred in database "dbi530788_talktome", table "dbo.Flags", column 'PostId'.
+                //! I get that because the post needs to be deleted firstly before trying to delete flag, i think
+                // Create Flags table
+                var createFlagTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Flags')
         BEGIN
             CREATE TABLE Flags (
                 FlagId INT PRIMARY KEY IDENTITY(1,1),
@@ -45,9 +47,15 @@ namespace SharedLibrary.Data
             )
         END";
 
-            using (var command = new SqlCommand(createFlagTable, connection))
+                using (var command = new SqlCommand(createFlagTable, connection))
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+            catch (SqlException ex)
             {
-                await command.ExecuteNonQueryAsync();
+                Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
+                throw;
             }
         }
 

@@ -17,10 +17,12 @@ namespace SharedLibrary.Data
 
         private async Task EnsureTablesCreatedAsync()
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-                var query = @"
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    await connection.OpenAsync();
+                    var query = @"
                 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
                 BEGIN
                     CREATE TABLE Users (
@@ -38,10 +40,16 @@ namespace SharedLibrary.Data
                     )
                 END";
 
-                using (var command = new SqlCommand(query, connection))
-                {
-                    await command.ExecuteNonQueryAsync();
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        await command.ExecuteNonQueryAsync();
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
+                throw;
             }
         }
 
