@@ -161,7 +161,7 @@ namespace SharedLibrary.Data
 
 
         // Update a User
-        public async Task UpdateUser(int userId, string username, string email, string imagePath, string passwordHash, string salt, DateTime registrationDate, string userType, string bio = null, int? status = null, int? permission = null)
+        public async Task UpdateUser(int userId, string username, string email, string imagePath, string passwordHash, string salt, DateTime registrationDate, string userType, string? bio = null, int? status = null, int? permission = null)
         {
             using (var connection = new SqlConnection(_connectionString))
             {

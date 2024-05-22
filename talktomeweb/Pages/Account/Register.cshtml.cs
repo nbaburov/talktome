@@ -9,14 +9,14 @@ namespace talktomeweb.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public RegisterModel(UserService userService)
+        public RegisterModel(AuthService authService)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         public class InputModel
@@ -48,7 +48,7 @@ namespace talktomeweb.Pages.Account
 
         public IActionResult OnGet()
         {
-            if (_userService.CurrentlyLoggedInUser != null)
+            if (_authService.CurrentlyLoggedInUser != null)
             {
                 return RedirectToPage("/Account/Manage");
             }
@@ -66,7 +66,7 @@ namespace talktomeweb.Pages.Account
             string imagePath = ProcessUploadedFile(Input.Image);
             try
             {
-                var registrationSuccess = await _userService.RegisterUserAsync(
+                var registrationSuccess = await _authService.RegisterUserAsync(
                    Input.Username,
                    Input.Email,
                    imagePath,
@@ -79,7 +79,7 @@ namespace talktomeweb.Pages.Account
 
                 if (registrationSuccess)
                 {
-                    var loginSuccess = _userService.LoginUser(Input.Email, Input.Password);
+                    var loginSuccess = _authService.LoginUser(Input.Email, Input.Password);
 
                     if (loginSuccess)
                     {

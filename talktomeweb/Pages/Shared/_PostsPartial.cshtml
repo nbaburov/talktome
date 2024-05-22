@@ -1,7 +1,6 @@
 @using SharedLibrary.Models
 @model IEnumerable<Post>
-@inject SharedLibrary.Services.UserService UserService
-@inject SharedLibrary.Services.ModerationService ModerationService
+@inject SharedLibrary.Services.AuthService AuthService
 
 <div>
 
@@ -12,7 +11,7 @@
         var postPath = "/images/posts/" + post.ImagePath;
         var profileLink = Url.Page("/Account/Profile", new { userId = post.User.UserId });
         var commentLink = Url.Page("/Post/View", new { id = post.PostId });
-        bool isLikedByCurrentUser = post.Likes.Any(l => l.UserId == UserService.GetCurrentlyLoggedInUser()?.UserId);
+        bool isLikedByCurrentUser = post.Likes.Any(l => l.UserId == AuthService.GetCurrentlyLoggedInUser()?.UserId);
         <div class="border-b pb-6 mt-4">
             <div class="flex flex-row justify-between items-center">
                 <div class="flex flex-row gap-2 items-center">
@@ -28,9 +27,9 @@
                     </div>
                 </div>
                 <div class="ml-auto flex flex-row gap-2">
-                    @if (UserService.GetCurrentlyLoggedInUser()?.Status != Status.Suspended)
+                    @if (AuthService.GetCurrentlyLoggedInUser()?.Status != Status.Suspended)
                     {
-                        @if (UserService.GetCurrentlyLoggedInUser()?.UserId == post.UserId)
+                        @if (AuthService.GetCurrentlyLoggedInUser()?.UserId == post.UserId)
                         {
                             <form method="post" asp-page="/Post/DeleteHandler" asp-route-postId="@post.PostId" class="">
                                 <button type="submit" class="text-red-500 hover:text-red-700">
@@ -46,7 +45,7 @@
                         {
 
                             <form method="post" asp-page="/Post/FlagHandler"
-                                asp-route-fromUserId="@UserService.GetCurrentlyLoggedInUser()?.UserId"
+                                asp-route-fromUserId="@AuthService.GetCurrentlyLoggedInUser()?.UserId"
                                 asp-route-postId="@post.PostId" class="d-inline">
                                 <button type="submit" title="Flag Post" class="text-yellow-400 hover:text-yellow-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -68,7 +67,7 @@
                     <img class="m-auto rounded-lg max-h-64" src="@postPath">
                 </div>
             }
-            @if (UserService.GetCurrentlyLoggedInUser()?.Status != Status.Suspended)
+            @if (AuthService.GetCurrentlyLoggedInUser()?.Status != Status.Suspended)
             {
 
                 <div class="flex flex-row gap-4 mt-2">

@@ -8,17 +8,17 @@ namespace talktomeweb.Pages.Post
     public class DeleteHandlerModel : PageModel
     {
         private readonly PostService _postService;
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
-        public DeleteHandlerModel(PostService postService, UserService userService)
+        public DeleteHandlerModel(PostService postService, AuthService authService)
         {
             _postService = postService;
-            _userService = userService;
+            _authService = authService;
         }
 
         public async Task<IActionResult> OnPostAsync(int postId)
         {
-            var user = _userService.GetCurrentlyLoggedInUser();
+            var user = _authService.GetCurrentlyLoggedInUser();
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");

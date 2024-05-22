@@ -8,14 +8,14 @@ namespace talktomeweb.Pages.Account
 {
     public class LoginModel : PageModel
     {
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public LoginModel(UserService userService)
+        public LoginModel(AuthService authService)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         public class InputModel
@@ -31,7 +31,7 @@ namespace talktomeweb.Pages.Account
 
         public IActionResult OnGet()
         {
-            if (_userService.CurrentlyLoggedInUser != null)
+            if (_authService.CurrentlyLoggedInUser != null)
             {
                 return RedirectToPage("/Account/Manage");
             }
@@ -46,21 +46,12 @@ namespace talktomeweb.Pages.Account
                 return Page();
             }
 
-            // Console.WriteLine(Input.Password);
-            var loginSuccess = _userService.LoginUser(
+            var loginSuccess = _authService.LoginUser(
                 Input.Email,
                 Input.Password);
 
-            // Console.WriteLine(loginSuccess);
             if (loginSuccess)
             {
-                // var cookieOptions = new CookieOptions
-                // {
-                //     Expires = DateTime.Now.AddDays(7),
-                //     HttpOnly = true,
-                //     Secure = true,
-                // };
-                // Response.Cookies.Append("UserEmail", Input.Email, cookieOptions);
                 return RedirectToPage("/Index");
             }
             else

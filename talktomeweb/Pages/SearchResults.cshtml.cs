@@ -7,12 +7,15 @@ namespace talktomeweb.Pages
     public class SearchResultsModel : PageModel
     {
         private readonly UserService _userService;
+
+        private readonly AuthService _authService;
         private readonly PostService _postService;
 
-        public SearchResultsModel(UserService userService, PostService postService)
+        public SearchResultsModel(UserService userService, PostService postService, AuthService authService)
         {
             _userService = userService;
             _postService = postService;
+            _authService = authService;
         }
 
         public List<dynamic> Users { get; set; }
@@ -20,7 +23,7 @@ namespace talktomeweb.Pages
 
         public void OnGet(string query)
         {
-            var currentUser = _userService.GetCurrentlyLoggedInUser();
+            var currentUser = _authService.GetCurrentlyLoggedInUser();
             if (currentUser == null)
             {
                 RedirectToPage("/Login");

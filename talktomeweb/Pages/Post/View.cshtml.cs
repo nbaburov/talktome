@@ -9,8 +9,9 @@ namespace talktomeweb.Pages.Post
     public class ViewModel : PageModel
     {
         private readonly PostService _postService;
-        private readonly UserService _userService;
-        private readonly ModerationService _moderationService;
+        private readonly CommentService _commentService;
+        private readonly AuthService _authService;
+        private readonly FlaggedCommentService _flagCommentService;
 
         public SharedLibrary.Models.Post Post { get; set; }
         public List<SharedLibrary.Models.Post> Posts { get; set; }
@@ -21,18 +22,19 @@ namespace talktomeweb.Pages.Post
         [Required(ErrorMessage = "Please enter a comment before posting.")]
         public string CommentText { get; set; }
 
-        public ViewModel(PostService postService, UserService userService, ModerationService moderationService)
+        public ViewModel(PostService postService, AuthService authService, FlaggedCommentService flaggedCommentService, CommentService commentService)
         {
             _postService = postService;
-            _userService = userService;
-            _moderationService = moderationService;
+            _authService = authService;
+            _commentService = commentService;
+            _flagCommentService = flaggedCommentService;
             Posts = new List<SharedLibrary.Models.Post>();
         }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Post = _postService.GetPostById(id);
-            CurrentUser = _userService.GetCurrentlyLoggedInUser();
+            CurrentUser = _authService.GetCurrentlyLoggedInUser();
             if (CurrentUser == null)
             {
                 return RedirectToPage("/Account/Login");
@@ -52,12 +54,12 @@ namespace talktomeweb.Pages.Post
             {
                 Post = _postService.GetPostById(id);
                 Comments = (List<Comment>)Post.Comments;
-                CurrentUser = _userService.GetCurrentlyLoggedInUser();
+                CurrentUser = _authService.GetCurrentlyLoggedInUser();
                 Posts.Add(Post);
                 return Page();
             }
 
-            var currentUser = _userService.GetCurrentlyLoggedInUser();
+            var currentUser = _authService.GetCurrentlyLoggedInUser();
             if (currentUser == null)
             {
                 return RedirectToPage("/Account/Login");
@@ -71,7 +73,7 @@ namespace talktomeweb.Pages.Post
 
             if (!string.IsNullOrWhiteSpace(CommentText))
             {
-                await _postService.AddCommentAsync(CommentText, currentUser.UserId, currentPost.PostId);
+                await _commentService.AddCommentAsync(CommentText, currentUser.UserId, currentPost.PostId);
                 CommentText = string.Empty;
             }
 
@@ -83,14 +85,14 @@ namespace talktomeweb.Pages.Post
         public async Task<IActionResult> OnPostDeleteCommentAsync(int id, int commentId)
         {
 
-            await _postService.DeleteCommentAsync(commentId);
+            await _commentService.DeleteCommentAsync(commentId);
 
             return RedirectToPage(new { id = id });
         }
         public async Task<IActionResult> OnPostFlagHandler(int id, int fromUserId, int commentId)
         {
 
-            var result = await _moderationService.FlagComment(fromUserId, commentId);
+            var result = await _flagCommentService.FlagComment(fromUserId, commentId);
             if (result)
             {
                 TempData["AlertTitle"] = "Success.";

@@ -10,18 +10,18 @@ namespace talktomeweb.Pages.Post
 
     public class LikeHandlerModel : PageModel
     {
-        private readonly PostService _postService;
-        private readonly UserService _userService;
+        private readonly LikeService _likeService;
+        private readonly AuthService _authService;
 
-        public LikeHandlerModel(PostService postService, UserService userService)
+        public LikeHandlerModel(LikeService likeService, AuthService authService)
         {
-            _postService = postService;
-            _userService = userService;
+            _likeService = likeService;
+            _authService = authService;
         }
 
         public async Task<IActionResult> OnPostAsync(int postId, bool isLiked)
         {
-            var user = _userService.GetCurrentlyLoggedInUser();
+            var user = _authService.GetCurrentlyLoggedInUser();
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");
@@ -29,11 +29,11 @@ namespace talktomeweb.Pages.Post
 
             if (isLiked)
             {
-                await _postService.UnlikePost(postId, user.UserId);
+                await _likeService.UnlikePost(postId, user.UserId);
             }
             else
             {
-                await _postService.LikePost(postId, user.UserId);
+                await _likeService.LikePost(postId, user.UserId);
             }
 
             var referrerUrl = Request.Headers["Referer"].ToString();
