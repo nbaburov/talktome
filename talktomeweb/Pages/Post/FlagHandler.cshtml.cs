@@ -6,10 +6,10 @@ namespace talktomeweb.Pages.Post
 {
     public class FlagHandlerModel : PageModel
     {
-        private readonly ModerationService _moderationService;
-        public FlagHandlerModel(ModerationService moderationService)
+        private readonly FlaggedPostService _flagPostService;
+        public FlagHandlerModel(FlaggedPostService flaggedPostService)
         {
-            _moderationService = moderationService;
+            _flagPostService = flaggedPostService;
         }
         public async Task<IActionResult> OnPostAsync(int fromUserId, int postId)
         {
@@ -17,7 +17,7 @@ namespace talktomeweb.Pages.Post
             {
                 return RedirectToPage("/Account/Login");
             }
-            var result = await _moderationService.FlagPost(fromUserId, postId);
+            var result = await _flagPostService.FlagPost(fromUserId, postId);
             if (result)
             {
                 TempData["AlertTitle"] = "Success.";

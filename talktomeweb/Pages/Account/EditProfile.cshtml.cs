@@ -12,6 +12,7 @@ namespace talktomeweb.Pages.Account
     public class EditProfileModel : PageModel
     {
         private readonly UserService _userService;
+        private readonly AuthService _authService;
         public dynamic CurrentUser { get; private set; }
         public dynamic imagePath { get; set; }
         private dynamic passwordChange { get; set; }
@@ -19,9 +20,10 @@ namespace talktomeweb.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public EditProfileModel(UserService userService)
+        public EditProfileModel(UserService userService, AuthService authService)
         {
             _userService = userService;
+            _authService = authService;
         }
 
         public class InputModel
@@ -44,7 +46,7 @@ namespace talktomeweb.Pages.Account
 
             ModelState.Clear();
 
-            CurrentUser = _userService.GetCurrentlyLoggedInUser();
+            CurrentUser = _authService.GetCurrentlyLoggedInUser();
             if (CurrentUser == null)
             {
                 return RedirectToPage("/Account/Register");
@@ -71,7 +73,7 @@ namespace talktomeweb.Pages.Account
                 return Page();
             }
 
-            CurrentUser = _userService.GetCurrentlyLoggedInUser();
+            CurrentUser = _authService.GetCurrentlyLoggedInUser();
             if (CurrentUser == null)
             {
                 return RedirectToPage("/Account/Register");

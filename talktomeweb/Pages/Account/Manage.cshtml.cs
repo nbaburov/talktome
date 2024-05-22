@@ -6,18 +6,18 @@ namespace talktomeweb.Pages.Account
 {
     public class ManageModel : PageModel
     {
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
-        public ManageModel(UserService userService)
+        public ManageModel(AuthService authService)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         public dynamic CurrentUser { get; private set; }
 
         public IActionResult OnGet()
         {
-            CurrentUser = _userService.GetCurrentlyLoggedInUser();
+            CurrentUser = _authService.GetCurrentlyLoggedInUser();
             if (CurrentUser == null)
             {
                 return RedirectToPage("/Index");
@@ -28,7 +28,7 @@ namespace talktomeweb.Pages.Account
 
         public IActionResult OnPostLogout()
         {
-            _userService.Logout();
+            _authService.Logout();
             return RedirectToPage("/Index");
         }
     }

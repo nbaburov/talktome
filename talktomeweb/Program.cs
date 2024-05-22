@@ -1,22 +1,44 @@
 using Microsoft.AspNetCore.Http;
+using SharedLibrary.Helpers;
 using SharedLibrary.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interface;
 using System;
 using System.Data.SqlClient;
+using SharedLibrary.Repository;
 
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+
     // Configuration and HttpContextAccessor
     var configuration = builder.Configuration;
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
     // Configuration for IServiceConfig
     builder.Services.AddSingleton<IServiceConfig, WebServiceConfig>();
 
+    // Registering the Hash helper
+    builder.Services.AddSingleton<Hash>();
+
+    // Registering the UserRepository
+    builder.Services.AddScoped<UserRepository>();
+
+    // Registering the services
+    builder.Services.AddScoped<AuthService>();
     builder.Services.AddScoped<UserService>();
+
+    builder.Services.AddScoped<ContentRepository>();
     builder.Services.AddScoped<PostService>();
-    builder.Services.AddScoped<ModerationService>();
+    builder.Services.AddScoped<CommentService>();
+    builder.Services.AddScoped<LikeService>();
+    builder.Services.AddScoped<CategoryService>();
+
+    builder.Services.AddScoped<ModerationRepository>();
+    builder.Services.AddScoped<FlaggedUserService>();
+    builder.Services.AddScoped<FlaggedPostService>();
+    builder.Services.AddScoped<FlaggedCommentService>();
 
     // Razor Pages
     builder.Services.AddRazorPages();

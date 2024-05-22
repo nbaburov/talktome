@@ -10,13 +10,15 @@ namespace talktomeweb.Pages.Post
 {
     public class CreateModel : PageModel
     {
+        private readonly CategoryService _categoryService;
         private readonly PostService _postService;
-        private readonly UserService _userService;
+        private readonly AuthService _authService;
 
-        public CreateModel(PostService postService, UserService userService)
+        public CreateModel(PostService postService, AuthService authService, CategoryService categoryService)
         {
+            _categoryService = categoryService;
             _postService = postService;
-            _userService = userService;
+            _authService = authService;
         }
 
         [BindProperty]
@@ -33,7 +35,7 @@ namespace talktomeweb.Pages.Post
 
         public async Task OnGetAsync()
         {
-            Categories = await _postService.GetCategoriesAsync();
+            Categories = await _categoryService.GetCategoriesAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -44,7 +46,7 @@ namespace talktomeweb.Pages.Post
                 ModelState.AddModelError("Input.Image", "Either text or an image is required.");
             }
 
-            var currentUser = _userService.GetCurrentlyLoggedInUser();
+            var currentUser = _authService.GetCurrentlyLoggedInUser();
             if (currentUser == null)
             {
                 return RedirectToPage("/Account/Login");

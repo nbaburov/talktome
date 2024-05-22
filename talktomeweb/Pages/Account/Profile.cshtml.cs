@@ -8,8 +8,9 @@ namespace talktomeweb.Pages.Account
     public class ProfileModel : PageModel
     {
         private readonly UserService _userService;
+        private readonly AuthService _authService;
         private readonly PostService _postService;
-        private readonly ModerationService _moderationService;
+        private readonly FlaggedUserService _flagUserService;
         public List<SharedLibrary.Models.Post> Posts { get; set; }
         public dynamic SelectedUser { get; private set; }
         public dynamic CurrentUser { get; private set; }
@@ -24,17 +25,18 @@ namespace talktomeweb.Pages.Account
             public string Reason { get; set; }
             public int ToUserId { get; set; }
         }
-        public ProfileModel(UserService userService, PostService postService, ModerationService moderationService)
+        public ProfileModel(UserService userService, AuthService authService, PostService postService, FlaggedUserService flaggedUserService)
         {
             _userService = userService;
+            _authService = authService;
             _postService = postService;
-            _moderationService = moderationService;
+            _flagUserService = flaggedUserService;
         }
 
         public void OnGet(int userId)
         {
             SelectedUser = _userService.GetUserById(userId);
-            CurrentUser = _userService.GetCurrentlyLoggedInUser();
+            CurrentUser = _authService.GetCurrentlyLoggedInUser();
 
             if (SelectedUser != null)
             {
@@ -54,7 +56,7 @@ namespace talktomeweb.Pages.Account
 
         public async Task<IActionResult> OnPostFlagUserAsync()
         {
-            int fromUserId = _userService.GetCurrentlyLoggedInUser()?.UserId ?? 0;
+            int fromUserId = _authService.GetCurrentlyLoggedInUser()?.UserId ?? 0;
             SelectedUser = _userService.GetUserById(Input.ToUserId);
             if (SelectedUser == null)
             {
@@ -77,7 +79,7 @@ namespace talktomeweb.Pages.Account
                 return RedirectToPage();
             }
 
-            var result = await _moderationService.FlagUser(fromUserId, toUserId, Input.Reason);
+            var result = await _flagUserService.FlagUser(fromUserId, toUserId, Input.Reason);
             if (result)
             {
                 TempData["AlertTitle"] = "Success.";

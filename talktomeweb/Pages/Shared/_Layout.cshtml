@@ -1,5 +1,5 @@
 ﻿@using SharedLibrary.Models
-@inject SharedLibrary.Services.UserService UserService
+@inject SharedLibrary.Services.AuthService AuthService
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
@@ -8,7 +8,7 @@
 }
 
 @{
-    var currentUser = UserService.GetCurrentlyLoggedInUser();
+    var currentUser = AuthService.GetCurrentlyLoggedInUser();
 }
 
 <!DOCTYPE html>
