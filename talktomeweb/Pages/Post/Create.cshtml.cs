@@ -40,46 +40,70 @@ namespace talktomeweb.Pages.Post
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (string.IsNullOrWhiteSpace(Input.Text) && Input.Image == null)
+            try
             {
-                ModelState.AddModelError("Input.Text", "Either text or an image is required.");
-                ModelState.AddModelError("Input.Image", "Either text or an image is required.");
-            }
 
-            var currentUser = _authService.GetCurrentlyLoggedInUser();
-            if (currentUser == null)
+                if (string.IsNullOrWhiteSpace(Input.Text) && Input.Image == null)
+                {
+                    ModelState.AddModelError("Input.Text", "Either text or an image is required.");
+                    ModelState.AddModelError("Input.Image", "Either text or an image is required.");
+                }
+
+                var currentUser = _authService.GetCurrentlyLoggedInUser();
+                if (currentUser == null)
+                {
+                    return RedirectToPage("/Account/Login");
+                }
+
+                string imagePath = ProcessUploadedFile(Input.Image);
+
+                await _postService.CreatePostAsync(Input.Text, imagePath, Input.CategoryId, currentUser.UserId);
+
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
             {
-                return RedirectToPage("/Account/Login");
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage();
             }
-
-            string imagePath = ProcessUploadedFile(Input.Image);
-
-            await _postService.CreatePostAsync(Input.Text, imagePath, Input.CategoryId, currentUser.UserId);
-
-            return RedirectToPage("/Index");
         }
 
         private string ProcessUploadedFile(IFormFile file)
         {
             string uniqueFileName = null;
 
-            if (file != null)
+            try
             {
+                if (file != null)
+                {
 
-                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/posts");
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
+                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/posts");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
                 }
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
+
+                return uniqueFileName;
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+
+                return uniqueFileName;
             }
 
-            return uniqueFileName;
+
         }
     }
 

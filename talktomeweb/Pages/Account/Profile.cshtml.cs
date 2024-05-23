@@ -56,44 +56,55 @@ namespace talktomeweb.Pages.Account
 
         public async Task<IActionResult> OnPostFlagUserAsync()
         {
-            int fromUserId = _authService.GetCurrentlyLoggedInUser()?.UserId ?? 0;
-            SelectedUser = _userService.GetUserById(Input.ToUserId);
-            if (SelectedUser == null)
+            try
             {
-                RedirectToPage("/Index");
-            }
 
-            Posts = SelectedUser.Posts ?? new List<SharedLibrary.Models.Post>();
-            int toUserId = SelectedUser.UserId;
+                int fromUserId = _authService.GetCurrentlyLoggedInUser()?.UserId ?? 0;
+                SelectedUser = _userService.GetUserById(Input.ToUserId);
+                if (SelectedUser == null)
+                {
+                    RedirectToPage("/Index");
+                }
 
-            bool noReason =
-            Input.Reason == null || string.IsNullOrWhiteSpace(Input.Reason) || Input.Reason == "";
+                Posts = SelectedUser.Posts ?? new List<SharedLibrary.Models.Post>();
+                int toUserId = SelectedUser.UserId;
+
+                bool noReason =
+                Input.Reason == null || string.IsNullOrWhiteSpace(Input.Reason) || Input.Reason == "";
 
 
-            if (noReason)
-            {
-                TempData["AlertTitle"] = "No reason.";
-                TempData["AlertText"] = "No reason was detected in form.";
-                TempData["AlertColor"] = "red";
+                if (noReason)
+                {
+                    TempData["AlertTitle"] = "No reason.";
+                    TempData["AlertText"] = "No reason was detected in form.";
+                    TempData["AlertColor"] = "red";
+
+                    return RedirectToPage();
+                }
+
+                var result = await _flagUserService.FlagUser(fromUserId, toUserId, Input.Reason);
+                if (result)
+                {
+                    TempData["AlertTitle"] = "Success.";
+                    TempData["AlertText"] = "You have successfully flagged the user.";
+                    TempData["AlertColor"] = "green";
+                }
+                else
+                {
+                    TempData["AlertTitle"] = "Already Flagged.";
+                    TempData["AlertText"] = "User has been already flagged.";
+                    TempData["AlertColor"] = "yellow";
+                }
 
                 return RedirectToPage();
             }
-
-            var result = await _flagUserService.FlagUser(fromUserId, toUserId, Input.Reason);
-            if (result)
+            catch (Exception ex)
             {
-                TempData["AlertTitle"] = "Success.";
-                TempData["AlertText"] = "You have successfully flagged the user.";
-                TempData["AlertColor"] = "green";
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage();
             }
-            else
-            {
-                TempData["AlertTitle"] = "Already Flagged.";
-                TempData["AlertText"] = "User has been already flagged.";
-                TempData["AlertColor"] = "yellow";
-            }
-
-            return RedirectToPage();
         }
 
     }

@@ -21,28 +21,39 @@ namespace talktomeweb.Pages.Post
 
         public async Task<IActionResult> OnPostAsync(int postId, bool isLiked)
         {
-            var user = _authService.GetCurrentlyLoggedInUser();
-            if (user == null)
+            try
             {
-                return RedirectToPage("/Account/Login");
-            }
 
-            if (isLiked)
-            {
-                await _likeService.UnlikePost(postId, user.UserId);
-            }
-            else
-            {
-                await _likeService.LikePost(postId, user.UserId);
-            }
+                var user = _authService.GetCurrentlyLoggedInUser();
+                if (user == null)
+                {
+                    return RedirectToPage("/Account/Login");
+                }
 
-            var referrerUrl = Request.Headers["Referer"].ToString();
-            if (!string.IsNullOrEmpty(referrerUrl))
-            {
-                return Redirect(referrerUrl);
-            }
+                if (isLiked)
+                {
+                    await _likeService.UnlikePost(postId, user.UserId);
+                }
+                else
+                {
+                    await _likeService.LikePost(postId, user.UserId);
+                }
 
-            return RedirectToPage("/Index");
+                var referrerUrl = Request.Headers["Referer"].ToString();
+                if (!string.IsNullOrEmpty(referrerUrl))
+                {
+                    return Redirect(referrerUrl);
+                }
+
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage("/Index");
+            }
         }
 
     }

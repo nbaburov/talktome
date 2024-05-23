@@ -46,18 +46,29 @@ namespace talktomeweb.Pages.Account
                 return Page();
             }
 
-            var loginSuccess = _authService.LoginUser(
-                Input.Email,
-                Input.Password);
+            try
+            {
+                var loginSuccess = _authService.LoginUser(
+                    Input.Email,
+                    Input.Password);
 
-            if (loginSuccess)
-            {
-                return RedirectToPage("/Index");
+                if (loginSuccess)
+                {
+                    return RedirectToPage("/Index");
+                }
+                else
+                {
+                    return RedirectToPage("/Account/Login");
+                }
             }
-            else
+            catch (Exception ex)
             {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
                 return RedirectToPage("/Account/Login");
             }
+
         }
     }
 }

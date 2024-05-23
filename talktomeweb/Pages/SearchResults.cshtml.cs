@@ -23,13 +23,24 @@ namespace talktomeweb.Pages
 
         public void OnGet(string query)
         {
-            var currentUser = _authService.GetCurrentlyLoggedInUser();
-            if (currentUser == null)
+            try
             {
-                RedirectToPage("/Login");
+
+                var currentUser = _authService.GetCurrentlyLoggedInUser();
+                if (currentUser == null)
+                {
+                    RedirectToPage("/Login");
+                }
+                Users = _userService.SearchUsers(query);
+                Posts = _postService.SearchPosts(query);
             }
-            Users = _userService.SearchUsers(query);
-            Posts = _postService.SearchPosts(query);
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                RedirectToPage("/Index");
+            }
         }
     }
 }
