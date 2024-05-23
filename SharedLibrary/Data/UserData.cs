@@ -46,7 +46,7 @@ namespace SharedLibrary.Data
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (System.AggregateException ex)
             {
                 Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
                 throw;

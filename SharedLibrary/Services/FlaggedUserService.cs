@@ -8,10 +8,12 @@ namespace SharedLibrary.Services
     public class FlaggedUserService
     {
         private readonly ModerationRepository _moderationRepository;
+        private readonly UserService _userService;
 
         public FlaggedUserService(ModerationRepository moderationRepository)
         {
             _moderationRepository = moderationRepository;
+            _userService = _moderationRepository.GetUserService();
         }
 
         public async Task<bool> FlagUser(int fromUserId, int toUserId, string reason)
@@ -34,6 +36,29 @@ namespace SharedLibrary.Services
             await _moderationRepository.AddFlagUser(flagUser);
             return true;
         }
+
+        public async Task<bool> BanUser(int userId)
+        {
+            var user = _userService.GetUserById(userId);
+            if (user != null && user.Status != Status.Suspended)
+            {
+                await _userService.EditUser(user.UserId, user.Username, user.Email, user.ImagePath, null, user.RegistrationDate, user is Admin ? "Admin" : "Client", (user as Client)?.Bio, (int?)Status.Suspended, (int?)((user as Admin)?.Permission));
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> UnBanUser(int userId)
+        {
+            var user = _userService.GetUserById(userId);
+            if (user != null && user.Status == Status.Suspended)
+            {
+                await _userService.EditUser(user.UserId, user.Username, user.Email, user.ImagePath, null, user.RegistrationDate, user is Admin ? "Admin" : "Client", (user as Client)?.Bio, (int?)Status.Active, (int?)((user as Admin)?.Permission));
+                return true;
+            }
+            return false;
+        }
+
 
         public async Task<bool> RemoveFlaggedUser(int flagId)
         {
