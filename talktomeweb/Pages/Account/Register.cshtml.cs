@@ -103,24 +103,36 @@ namespace talktomeweb.Pages.Account
         private string ProcessUploadedFile(IFormFile file)
         {
             string uniqueFileName = null;
-
-            if (file != null)
+            try
             {
 
-                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/users");
-                if (!Directory.Exists(uploadsFolder))
+                if (file != null)
                 {
-                    Directory.CreateDirectory(uploadsFolder);
+
+                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/users");
+                    if (!Directory.Exists(uploadsFolder))
+                    {
+                        Directory.CreateDirectory(uploadsFolder);
+                    }
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
                 }
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
+
+                return uniqueFileName;
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+
+                return uniqueFileName;
             }
 
-            return uniqueFileName;
         }
     }
 }

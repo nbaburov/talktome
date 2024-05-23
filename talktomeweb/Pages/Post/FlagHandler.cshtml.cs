@@ -13,24 +13,35 @@ namespace talktomeweb.Pages.Post
         }
         public async Task<IActionResult> OnPostAsync(int fromUserId, int postId)
         {
-            if (fromUserId == 0)
+            try
             {
-                return RedirectToPage("/Account/Login");
+
+                if (fromUserId == 0)
+                {
+                    return RedirectToPage("/Account/Login");
+                }
+                var result = await _flagPostService.FlagPost(fromUserId, postId);
+                if (result)
+                {
+                    TempData["AlertTitle"] = "Success.";
+                    TempData["AlertText"] = "You have successfully flagged the post.";
+                    TempData["AlertColor"] = "green";
+                }
+                else
+                {
+                    TempData["AlertTitle"] = "Already Flagged.";
+                    TempData["AlertText"] = "Post has been already flagged.";
+                    TempData["AlertColor"] = "yellow";
+                }
+                return RedirectToPage("/Index");
             }
-            var result = await _flagPostService.FlagPost(fromUserId, postId);
-            if (result)
+            catch (Exception ex)
             {
-                TempData["AlertTitle"] = "Success.";
-                TempData["AlertText"] = "You have successfully flagged the post.";
-                TempData["AlertColor"] = "green";
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage("/Index");
             }
-            else
-            {
-                TempData["AlertTitle"] = "Already Flagged.";
-                TempData["AlertText"] = "Post has been already flagged.";
-                TempData["AlertColor"] = "yellow";
-            }
-            return RedirectToPage("/Index");
         }
     }
 }

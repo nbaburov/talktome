@@ -28,8 +28,18 @@ namespace talktomeweb.Pages.Account
 
         public IActionResult OnPostLogout()
         {
-            _authService.Logout();
-            return RedirectToPage("/Index");
+            try
+            {
+                _authService.Logout();
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage("/Index");
+            }
         }
     }
 }

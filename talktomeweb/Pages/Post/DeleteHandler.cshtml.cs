@@ -18,24 +18,35 @@ namespace talktomeweb.Pages.Post
 
         public async Task<IActionResult> OnPostAsync(int postId)
         {
-            var user = _authService.GetCurrentlyLoggedInUser();
-            if (user == null)
+            try
             {
-                return RedirectToPage("/Account/Login");
-            }
 
-            var post =  _postService.GetPostById(postId);
-            if (post == null || post.UserId != user.UserId)
-            {
+                var user = _authService.GetCurrentlyLoggedInUser();
+                if (user == null)
+                {
+                    return RedirectToPage("/Account/Login");
+                }
+
+                var post = _postService.GetPostById(postId);
+                if (post == null || post.UserId != user.UserId)
+                {
+                    return RedirectToPage("/Index");
+                }
+
+                await _postService.DeletePostAsync(postId);
+                TempData["AlertTitle"] = "Deleted.";
+                TempData["AlertText"] = "The post has been deleted successfully.";
+                TempData["AlertColor"] = "red";
+
                 return RedirectToPage("/Index");
             }
-
-            await _postService.DeletePostAsync(postId);
-            TempData["AlertTitle"] = "Deleted.";
-            TempData["AlertText"] = "The post has been deleted successfully.";
-            TempData["AlertColor"] = "red";
-
-            return RedirectToPage("/Index");
+            catch (Exception ex)
+            {
+                TempData["AlertTitle"] = "Error.";
+                TempData["AlertText"] = ex.Message;
+                TempData["AlertColor"] = "red";
+                return RedirectToPage("/Index");
+            }
         }
     }
 }
