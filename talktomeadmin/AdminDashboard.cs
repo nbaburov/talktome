@@ -1,18 +1,28 @@
 using SharedLibrary.Models;
+using SharedLibrary.Repository;
 using SharedLibrary.Services;
 
 namespace talktomeadmin
 {
     public partial class AdminDashboard : Form
     {
-        private readonly ModerationService _moderationService;
+        private readonly ModerationRepository _moderationRepo;
+        private readonly FlaggedCommentService _flagCommentService;
+        private readonly FlaggedPostService _flagPostService;
+        private readonly FlaggedUserService _flagUserService;
         private readonly UserService _userService;
+        private readonly AuthService _authService;
         private string _adminImage;
-        public AdminDashboard(UserService userService, ModerationService moderationService)
+        public AdminDashboard(AuthService authService, ModerationRepository moderationRepository, FlaggedCommentService flaggedCommentService, FlaggedPostService flaggedPostService, FlaggedUserService flaggedUserService)
         {
             InitializeComponent();
-            _moderationService = moderationService;
-            _userService = userService;
+            _moderationRepo = moderationRepository;
+            _flagCommentService = flaggedCommentService;
+            _flagPostService = flaggedPostService;
+            _flagUserService = flaggedUserService;
+
+            _userService = _moderationRepo.GetUserService();
+            _authService = authService;
             LoadPermissions();
             LoadInfo();
         }
@@ -20,7 +30,7 @@ namespace talktomeadmin
         // Loading Functions
         private void LoadInfo()
         {
-            int[] insights = _moderationService.GetInsights();
+            int[] insights = _moderationRepo.GetInsights();
             lblUsersTotal.Text = insights[0].ToString();
             lblUsersToday.Text = insights[1].ToString();
             lblPostsTotal.Text = insights[2].ToString();
@@ -28,7 +38,7 @@ namespace talktomeadmin
             lblCommentsTotal.Text = insights[4].ToString();
             lblLikesTotal.Text = insights[5].ToString();
 
-            var flaggedUsers = _moderationService.FlaggedUsers
+            var flaggedUsers = _moderationRepo.GetFlaggedUsers()
                 .OrderByDescending(flag => flag.CreationDate)
                 .ToList();
 
@@ -42,7 +52,7 @@ namespace talktomeadmin
                 lstBoxFlaggedUsers.Items.Add(displayInfo);
             }
 
-            var flaggedPosts = _moderationService.FlaggedPosts
+            var flaggedPosts = _moderationRepo.GetFlaggedPosts()
                 .OrderByDescending(flag => flag.CreationDate)
                 .ToList();
 
@@ -56,7 +66,7 @@ namespace talktomeadmin
                 lstBoxFlaggedPosts.Items.Add(displayInfo);
             }
 
-            var flaggedComments = _moderationService.FlaggedComments
+            var flaggedComments = _moderationRepo.GetFlaggedComments()
                 .OrderByDescending(flag => flag.CreationDate)
                 .ToList();
 
@@ -69,7 +79,6 @@ namespace talktomeadmin
                 lstBoxFlaggedCommentsDashboard.Items.Add(displayInfo);
                 lstBoxFlaggedComments.Items.Add(displayInfo);
             }
-
 
             // Load all admins
             List<Admin> admins = _userService.GetAllAdmins();
@@ -98,7 +107,7 @@ namespace talktomeadmin
         }
         private void LoadPermissions()
         {
-            Admin CurrentUser = _userService.GetCurrentlyLoggedInUser();
+            Admin CurrentUser = _authService.GetCurrentlyLoggedInUser();
             switch (CurrentUser.Permission)
             {
                 case Permission.Basic:
@@ -168,6 +177,25 @@ namespace talktomeadmin
             return Int32.Parse(flagId[0]);
         }
 
+        // Method to get the root path of the solution
+        private string GetSolutionRoot()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            DirectoryInfo directoryInfo = new DirectoryInfo(baseDirectory);
+
+            while (directoryInfo != null && directoryInfo.Name != "talktome")
+            {
+                directoryInfo = directoryInfo.Parent;
+            }
+
+            if (directoryInfo == null)
+            {
+                throw new DirectoryNotFoundException("Solution root directory 'talktome' not found.");
+            }
+
+            return directoryInfo.FullName;
+        }
+
         // Flagged Users Tab
         private void lstBoxFlaggedUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -175,7 +203,7 @@ namespace talktomeadmin
             {
                 string selectedItem = lstBoxFlaggedUsers.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
-                FlagUser flagUser = _moderationService.GetFlagUserById(flagId);
+                FlagUser flagUser = _flagUserService.GetFlagUserById(flagId);
                 lblUserName.Text = flagUser.ToUser.Username;
                 lblUserEmail.Text = flagUser.ToUser.Email;
                 // Get flagged user
@@ -185,8 +213,20 @@ namespace talktomeadmin
                 lblUserStatus.Text = flaggedUser.Status.ToString();
                 try
                 {
-                    string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "users", flagUser.ToUser.ImagePath);
-                    pictureBoxUserProfile.Image = Image.FromFile(imagePath);
+                    // Get the root path of the solution
+                    string solutionRoot = GetSolutionRoot();
+                    // Construct the path to the image in talktomeweb
+                    string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", flagUser.ToUser.ImagePath);
+
+                    if (File.Exists(imagePath))
+                    {
+                        pictureBoxUserProfile.Image = Image.FromFile(imagePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -208,7 +248,7 @@ namespace talktomeadmin
             var confirmationResult = MessageBox.Show("Are you sure you want to remove this flag?", "Confirm Flag Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmationResult == DialogResult.Yes)
             {
-                bool success = await _moderationService.RemoveFlaggedUser(flagId);
+                bool success = await _flagUserService.RemoveFlaggedUser(flagId);
                 if (success)
                 {
                     MessageBox.Show("Flag removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -230,13 +270,13 @@ namespace talktomeadmin
             }
 
             int flagId = ParseFlagIdFromDisplayInfo(lstBoxFlaggedUsers.SelectedItem.ToString());
-            FlagUser flagUser = _moderationService.GetFlagUserById(flagId);
+            FlagUser flagUser = _flagUserService.GetFlagUserById(flagId);
             if (flagUser != null)
             {
-                bool success = await _moderationService.UnBanUser(flagUser.ToUserId);
+                bool success = await _flagUserService.UnBanUser(flagUser.ToUserId);
                 if (success)
                 {
-                    await _moderationService.ResolveFlag(flagId);
+                    await _moderationRepo.ResolveFlag(flagId);
                     LoadInfo();
                     MessageBox.Show("User has been unbanned successfully.", "Unban Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -256,13 +296,13 @@ namespace talktomeadmin
             }
 
             int flagId = ParseFlagIdFromDisplayInfo(lstBoxFlaggedUsers.SelectedItem.ToString());
-            FlagUser flagUser = _moderationService.GetFlagUserById(flagId);
+            FlagUser flagUser = _flagUserService.GetFlagUserById(flagId);
             if (flagUser != null)
             {
-                bool success = await _moderationService.BanUser(flagUser.ToUserId);
+                bool success = await _flagUserService.BanUser(flagUser.ToUserId);
                 if (success)
                 {
-                    await _moderationService.ResolveFlag(flagId);
+                    await _moderationRepo.ResolveFlag(flagId);
                     LoadInfo();
                     MessageBox.Show("User has been banned successfully.", "Ban Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -280,7 +320,7 @@ namespace talktomeadmin
             {
                 string selectedItem = lstBoxFlaggedPosts.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
-                FlagPost flagPost = _moderationService.GetFlagPostById(flagId);
+                FlagPost flagPost = _flagPostService.GetFlagPostById(flagId);
                 lblUserNamePost.Text = flagPost.Post.User.Username;
                 lblUserEmailPost.Text = flagPost.Post.User.Email;
                 lblPostText.Text = flagPost.Post.Text;
@@ -288,8 +328,19 @@ namespace talktomeadmin
                 {
                     try
                     {
-                        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "posts", flagPost.Post.ImagePath);
-                        pictureBoxPostImage.Image = Image.FromFile(imagePath);
+                        // Get the root path of the solution
+                        string solutionRoot = GetSolutionRoot();
+                        // Construct the path to the image in talktomeweb
+                        string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "posts", flagPost.Post.ImagePath);
+
+                        if (File.Exists(imagePath))
+                        {
+                            pictureBoxPostImage.Image = Image.FromFile(imagePath);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -312,7 +363,7 @@ namespace talktomeadmin
             var confirmationResult = MessageBox.Show("Are you sure you want to delete this post?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmationResult == DialogResult.Yes)
             {
-                bool success = await _moderationService.DeleteFlaggedPost(flagId);
+                bool success = await _flagPostService.DeleteFlaggedPost(flagId);
                 if (success)
                 {
                     MessageBox.Show("Post deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -338,7 +389,7 @@ namespace talktomeadmin
             var confirmationResult = MessageBox.Show("Are you sure you want to remove this flag?", "Confirm Flag Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmationResult == DialogResult.Yes)
             {
-                bool success = await _moderationService.RemoveFlaggedPost(flagId);
+                bool success = await _flagPostService.RemoveFlaggedPost(flagId);
                 if (success)
                 {
                     MessageBox.Show("Flag removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -360,13 +411,13 @@ namespace talktomeadmin
             }
 
             int flagId = ParseFlagIdFromDisplayInfo(lstBoxFlaggedPosts.SelectedItem.ToString());
-            FlagPost flagPost = _moderationService.GetFlagPostById(flagId);
+            FlagPost flagPost = _flagPostService.GetFlagPostById(flagId);
             if (flagPost != null)
             {
-                bool success = await _moderationService.BanUser(flagPost.Post.UserId);
+                bool success = await _flagUserService.BanUser(flagPost.Post.UserId);
                 if (success)
                 {
-                    await _moderationService.ResolveFlag(flagId);
+                    await _moderationRepo.ResolveFlag(flagId);
                     LoadInfo();
                     MessageBox.Show("User from the post has been banned successfully.", "Ban Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -384,7 +435,7 @@ namespace talktomeadmin
             {
                 string selectedItem = lstBoxFlaggedComments.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
-                FlagComment flagComment = _moderationService.GetFlagCommentById(flagId);
+                FlagComment flagComment = _flagCommentService.GetFlagCommentById(flagId);
                 lblUserNameComment.Text = flagComment.Comment.User.Username;
                 lblUserEmailComment.Text = flagComment.Comment.User.Email;
                 lbCommentText.Text = flagComment.Comment.Text;
@@ -404,7 +455,7 @@ namespace talktomeadmin
             var confirmationResult = MessageBox.Show("Are you sure you want to delete this comment?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmationResult == DialogResult.Yes)
             {
-                bool success = await _moderationService.DeleteFlaggedComment(flagId);
+                bool success = await _flagCommentService.DeleteFlaggedComment(flagId);
                 if (success)
                 {
                     MessageBox.Show("Comment deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -430,7 +481,7 @@ namespace talktomeadmin
             var confirmationResult = MessageBox.Show("Are you sure you want to remove this flag?", "Confirm Flag Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmationResult == DialogResult.Yes)
             {
-                bool success = await _moderationService.RemoveFlaggedComment(flagId);
+                bool success = await _flagCommentService.RemoveFlaggedComment(flagId);
                 if (success)
                 {
                     MessageBox.Show("Flag removed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -452,13 +503,13 @@ namespace talktomeadmin
             }
 
             int flagId = ParseFlagIdFromDisplayInfo(lstBoxFlaggedComments.SelectedItem.ToString());
-            FlagComment flagComment = _moderationService.GetFlagCommentById(flagId);
+            FlagComment flagComment = _flagCommentService.GetFlagCommentById(flagId);
             if (flagComment != null)
             {
-                bool success = await _moderationService.BanUser(flagComment.Comment.UserId);
+                bool success = await _flagUserService.BanUser(flagComment.Comment.UserId);
                 if (success)
                 {
-                    await _moderationService.ResolveFlag(flagId);
+                    await _moderationRepo.ResolveFlag(flagId);
                     LoadInfo();
                     MessageBox.Show("User from the comment has been banned successfully.", "Ban Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -486,9 +537,20 @@ namespace talktomeadmin
             {
                 try
                 {
-                    string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "users", selectedAdmin.ImagePath);
-                    _adminImage = selectedAdmin.ImagePath;
-                    pictureBoxAdminImage.Image = Image.FromFile(imagePath);
+                    // Get the root path of the solution
+                    string solutionRoot = GetSolutionRoot();
+                    // Construct the path to the image in talktomeweb
+                    string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", selectedAdmin.ImagePath);
+
+                    if (File.Exists(imagePath))
+                    {
+                        pictureBoxAdminImage.Image = Image.FromFile(imagePath);
+                        _adminImage = selectedAdmin.ImagePath;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 catch
                 {
@@ -541,7 +603,7 @@ namespace talktomeadmin
 
             try
             {
-                bool success = await _userService.RegisterUserAsync(username, email, Path.GetFileName(imagePath), password, DateTime.Now, "Admin", null, null, (int)selectedPermission);
+                bool success = await _authService.RegisterUserAsync(username, email, Path.GetFileName(imagePath), password, DateTime.Now, "Admin", null, null, (int)selectedPermission);
                 if (success)
                 {
                     MessageBox.Show("Admin registered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -641,7 +703,8 @@ namespace talktomeadmin
 
                     try
                     {
-                        string targetPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "users");
+                        string solutionRoot = GetSolutionRoot();
+                        string targetPath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users");
                         string destFile = Path.Combine(targetPath, Path.GetFileName(filePath));
 
                         if (!Directory.Exists(targetPath))

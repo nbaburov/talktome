@@ -13,17 +13,19 @@ namespace SharedLibrary.Repository
         private readonly UserService _userService;
         private readonly PostService _postService;
         private readonly CommentService _commentService;
+        private readonly LikeService _likeService;
         private List<FlagUser> _flaggedUsers;
         private List<FlagPost> _flaggedPosts;
         private List<FlagComment> _flaggedComments;
 
-        public ModerationRepository(IServiceConfig config, UserService userService, PostService postService, CommentService commentService)
+        public ModerationRepository(IServiceConfig config, UserService userService, PostService postService, CommentService commentService, LikeService likeService)
         {
             string connectionString = config.ConnectionString;
             _flagData = new FlagData(connectionString);
             _userService = userService;
             _postService = postService;
             _commentService = commentService;
+            _likeService = likeService;
 
             LoadAllDataAsync().Wait();
         }
@@ -108,9 +110,9 @@ namespace SharedLibrary.Repository
             return await _flagData.IsAlreadyFlagged(fromUserId, toUserId, postId, commentId);
         }
 
-        public async Task MarkFlagAsResolved(int flagId)
+        public async Task<bool> ResolveFlag(int flagId)
         {
-            var flag = _flaggedUsers.Find(f => f.FlagId == flagId) ??
+            var flag = (Flag)_flaggedUsers.Find(f => f.FlagId == flagId) ??
                        (Flag)_flaggedPosts.Find(p => p.FlagId == flagId) ??
                        _flaggedComments.Find(c => c.FlagId == flagId);
 
@@ -120,13 +122,47 @@ namespace SharedLibrary.Repository
                 if (result)
                 {
                     flag.Resolved = true;
+                    return true;
                 }
             }
+            return false;
+        }
+
+        public int[] GetInsights()
+        {
+            int totalUsers = _userService.GetTotalUsers();
+            int usersCreatedToday = _userService.GetUsersCreatedToday();
+            int totalPosts = _postService.GetTotalPosts();
+            int postsCreatedToday = _postService.GetPostsCreatedToday();
+            int totalComments = _commentService.GetTotalComments();
+            int totalLikes = _likeService.GetTotalLikes();
+
+            return new int[]
+            {
+            totalUsers,
+            usersCreatedToday,
+            totalPosts,
+            postsCreatedToday,
+            totalComments,
+            totalLikes
+            };
+        }
+
+
+        public UserService GetUserService()
+        {
+            return _userService;
+        }
+
+        public CommentService GetCommentService()
+        {
+            return _commentService;
         }
 
         public PostService GetPostService()
         {
             return _postService;
         }
+
     }
 }

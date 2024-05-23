@@ -64,7 +64,7 @@ try
     app.Run();
 
 }
-catch (SqlException ex)
+catch (System.AggregateException ex)
 {
     Console.Error.WriteLine("☠️ Shutting down Web application.");
     Environment.Exit(1);

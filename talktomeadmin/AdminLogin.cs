@@ -14,11 +14,11 @@ namespace talktomeadmin
 {
     public partial class AdminLogin : Form
     {
-        private readonly UserService _userService;
-        public AdminLogin(UserService userService)
+        private readonly AuthService _authService;
+        public AdminLogin(AuthService authService)
         {
             InitializeComponent();
-            _userService = userService;
+            _authService = authService;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -28,16 +28,25 @@ namespace talktomeadmin
             // string email = "admin@email.com";
             // string password = "123";
 
-            var loginSuccess = _userService.LoginAdmin(email, password);
+            try
+            {
+                var loginSuccess = _authService.LoginAdmin(email, password);
 
-            if (loginSuccess)
-            {
-                this.DialogResult = DialogResult.OK;
+                if (loginSuccess)
+                {
+                    this.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    lblError.Text = "Invalid credentials. Please try again. This login works only for admins.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblError.Text = "Invalid credentials. Please try again. This login works only for admins.";
+                lblError.Text = "Error" + ex.Message;
             }
+
+
 
         }
     }

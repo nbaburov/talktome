@@ -25,7 +25,7 @@ namespace SharedLibrary.Data
 
                 //! Ask teacher I want to delete flag when post or comment is deleted but I cant set them both cascade
                 //! I tried triggers and the logic should work but I get
-                // SqlException: The DELETE statement conflicted with the REFERENCE constraint "FK__Flags__PostId__269AB60B". The conflict occurred in database "dbi530788_talktome", table "dbo.Flags", column 'PostId'.
+                // System.AggregateException: The DELETE statement conflicted with the REFERENCE constraint "FK__Flags__PostId__269AB60B". The conflict occurred in database "dbi530788_talktome", table "dbo.Flags", column 'PostId'.
                 //! I get that because the post needs to be deleted firstly before trying to delete flag, i think
                 // Create Flags table
                 var createFlagTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Flags')
@@ -52,7 +52,7 @@ namespace SharedLibrary.Data
                     await command.ExecuteNonQueryAsync();
                 }
             }
-            catch (SqlException ex)
+            catch (System.AggregateException ex)
             {
                 Console.WriteLine("❌ Failed to connect to the database. Please check your network connection or VPN settings.");
                 throw;
