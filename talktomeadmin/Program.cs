@@ -1,32 +1,17 @@
 using System;
 using System.Windows.Forms;
-using SharedLibrary.Services;
+using SharedLibrary.Helpers;
 using SharedLibrary.Interface;
 using SharedLibrary.Repository;
+using SharedLibrary.Services;
 using Microsoft.Extensions.Configuration;
-using SharedLibrary.Helpers;
-using System.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace talktomeadmin
 {
     internal static class Program
     {
-        public static IServiceConfig ServiceConfig;
-        public static UserRepository UserRepository;
-        public static UserService UserService;
-        public static AuthService AuthService;
-        public static Hash Hash;
-
-
-        public static ContentRepository ContentRepository;
-        public static PostService PostService;
-        public static CommentService CommentService;
-        public static LikeService LikeService;
-
-        public static ModerationRepository ModerationRepository;
-        public static FlaggedUserService FlaggedUserService;
-        public static FlaggedPostService FlaggedPostService;
-        public static FlaggedCommentService FlaggedCommentService;
+        public static IServiceProvider ServiceProvider;
 
         [STAThread]
         static void Main()
@@ -36,35 +21,28 @@ namespace talktomeadmin
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-
                 IConfiguration configuration = new ConfigurationBuilder()
                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                     .Build();
 
-                var userContext = new WinFormUserContext();
-                ServiceConfig = new WinFormServiceConfig(configuration.GetConnectionString("DefaultConnection"), userContext);
+                var serviceCollection = new ServiceCollection();
+                ConfigureServices(serviceCollection, configuration);
 
-                UserRepository = new UserRepository(ServiceConfig);
-                Hash = new Hash();
-                UserService = new UserService(UserRepository, Hash);
-                AuthService = new AuthService(UserRepository, Hash);
+                ServiceProvider = serviceCollection.BuildServiceProvider();
 
-                ContentRepository = new ContentRepository(ServiceConfig, UserService);
-                PostService = new PostService(ContentRepository);
-                CommentService = new CommentService(ContentRepository);
-                LikeService = new LikeService(ContentRepository);
+                var authService = ServiceProvider.GetRequiredService<AuthService>();
 
-                ModerationRepository = new ModerationRepository(ServiceConfig, UserService, PostService, CommentService, LikeService);
-                FlaggedUserService = new FlaggedUserService(ModerationRepository);
-                FlaggedPostService = new FlaggedPostService(ModerationRepository);
-                FlaggedCommentService = new FlaggedCommentService(ModerationRepository);
-
-                using (AdminLogin loginForm = new AdminLogin(AuthService))
+                using (AdminLogin loginForm = new AdminLogin(authService))
                 {
                     if (loginForm.ShowDialog() == DialogResult.OK)
                     {
-                        Application.Run(new AdminDashboard(AuthService, ModerationRepository, FlaggedCommentService, FlaggedPostService, FlaggedUserService));
+                        var moderationRepository = ServiceProvider.GetRequiredService<ModerationRepository>();
+                        var flaggedCommentService = ServiceProvider.GetRequiredService<FlaggedCommentService>();
+                        var flaggedPostService = ServiceProvider.GetRequiredService<FlaggedPostService>();
+                        var flaggedUserService = ServiceProvider.GetRequiredService<FlaggedUserService>();
+
+                        Application.Run(new AdminDashboard(authService, moderationRepository, flaggedCommentService, flaggedPostService, flaggedUserService));
                     }
                     else
                     {
@@ -77,9 +55,34 @@ namespace talktomeadmin
                 MessageBox.Show("☠️ No VPN Connected! Shutting down Windows Forms application.");
                 Application.Exit();
             }
+        }
 
+        private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+        {
+            var userContext = new WinFormUserContext();
+            var serviceConfig = new WinFormServiceConfig(configuration.GetConnectionString("DefaultConnection"), userContext);
 
+            services.AddSingleton<IServiceConfig>(serviceConfig);
+            services.AddSingleton<IUserContext>(userContext);
 
+            // Register the HashWrapper helper
+            services.AddSingleton<HashWrapper>();
+
+            // Registering the repositories
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Registering the services
+            services.AddScoped<AuthService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<ContentRepository>();
+            services.AddScoped<PostService>();
+            services.AddScoped<CommentService>();
+            services.AddScoped<LikeService>();
+            services.AddScoped<CategoryService>();
+            services.AddScoped<ModerationRepository>();
+            services.AddScoped<FlaggedUserService>();
+            services.AddScoped<FlaggedPostService>();
+            services.AddScoped<FlaggedCommentService>();
         }
     }
 }

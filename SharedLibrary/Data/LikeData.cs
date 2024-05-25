@@ -140,7 +140,6 @@ namespace SharedLibrary.Data
             return likesList;
         }
 
-
         public async Task<bool> DoesUserLikePost(int userId, int postId)
         {
             using (var connection = new SqlConnection(_connectionString))

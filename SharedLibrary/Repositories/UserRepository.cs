@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly UserData _userData;
         private readonly IUserContext _userContext;
@@ -160,3 +160,4 @@ namespace SharedLibrary.Repository
         }
     }
 }
+

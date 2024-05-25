@@ -4,8 +4,6 @@ using SharedLibrary.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interface;
-using System;
-using System.Data.SqlClient;
 using SharedLibrary.Repository;
 
 try
@@ -19,11 +17,11 @@ try
     // Configuration for IServiceConfig
     builder.Services.AddSingleton<IServiceConfig, WebServiceConfig>();
 
-    // Registering the Hash helper
-    builder.Services.AddSingleton<Hash>();
+    // Registering the HashWrapper helper
+    builder.Services.AddSingleton<HashWrapper>();
 
     // Registering the UserRepository
-    builder.Services.AddScoped<UserRepository>();
+    builder.Services.AddScoped<IUserRepository, UserRepository>();
 
     // Registering the services
     builder.Services.AddScoped<AuthService>();

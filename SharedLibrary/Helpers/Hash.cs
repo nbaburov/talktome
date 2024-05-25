@@ -1,42 +1,32 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace SharedLibrary.Helpers;
-
-public class Hash
+namespace SharedLibrary.Helpers
 {
-    // Method to generate random salt
-    public byte[] GenerateSalt()
+    public class Hash
     {
-        // Create an array of bytes to store the salt
-        byte[] salt = new byte[16];
-
-        // Use RNGCryptoServiceProvider to generate random bytes for the salt
-        using (var rng = new RNGCryptoServiceProvider())
+        // Method to generate random salt
+        public virtual byte[] GenerateSalt()
         {
-            rng.GetBytes(salt); // Fill the salt array with random bytes
+            byte[] salt = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(salt);
+            }
+            return salt;
         }
 
-        return salt; // Return the generated salt
-    }
-
-    // Method to hash password with salt
-    public string HashPassword(string password, byte[] salt)
-    {
-        // Create an instance of Rfc2898DeriveBytes to hash the password using PBKDF2 algorithm
-        using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000))
+        // Method to hash password with salt
+        public virtual string HashPassword(string password, byte[] salt)
         {
-            byte[] hash = pbkdf2.GetBytes(20); // secret message that's 20 characters long
-            byte[] hashBytes = new byte[36]; // Create an array to store the combined salt and hash bytes
-
-            // Copy the salt bytes to the beginning of the hashBytes array
-            Array.Copy(salt, 0, hashBytes, 0, 16);
-
-            // Copy the hash bytes to the end of the hashBytes array
-            Array.Copy(hash, 0, hashBytes, 16, 20);
-
-            // Convert the combined salt and hash bytes to a base64-encoded string
-            return Convert.ToBase64String(hashBytes);
+            using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000))
+            {
+                byte[] hash = pbkdf2.GetBytes(20);
+                byte[] hashBytes = new byte[36];
+                Array.Copy(salt, 0, hashBytes, 0, 16);
+                Array.Copy(hash, 0, hashBytes, 16, 20);
+                return Convert.ToBase64String(hashBytes);
+            }
         }
     }
 }
