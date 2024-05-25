@@ -1,0 +1,364 @@
+@startuml
+
+package "SharedLibrary.Models" {
+class User {
++ int UserId
++ string Username
++ string Email
++ string ImagePath
++ string PasswordHash
++ string Salt
++ DateTime RegistrationDate
++ ICollection<Post> Posts
+}
+
+class Admin {
++ Permission Permission
+}
+
+class Client {
++ string Bio
++ Status Status
+}
+
+class Post {
++ int PostId
++ DateTime CreationDate
++ int UserId
++ User User
++ string? Text
++ string? ImagePath
++ int CategoryId
++ Category Category
++ ICollection<Like> Likes
++ ICollection<Comment> Comments
+}
+
+class Comment {
++ int CommentId
++ DateTime CreationDate
++ string Text
++ int UserId
++ User User
++ int PostId
++ Post Post
+}
+
+class Category {
++ int CategoryId
++ string Name
++ ICollection<Post> Posts
+}
+
+class Like {
++ int LikeId
++ int UserId
++ User User
++ int PostId
++ Post Post
++ DateTime CreationDate
+}
+
+abstract class Flag {
++ int FlagId
++ int FromUserId
++ User FromUser
++ bool Resolved
++ DateTime CreationDate
+}
+
+class FlagUser {
++ int ToUserId
++ User ToUser
++ string Reason
+}
+
+class FlagPost {
++ int PostId
++ Post Post
+}
+
+class FlagComment {
++ int CommentId
++ Comment Comment
+}
+
+enum Permission {
+Basic
+Moderate
+Full
+}
+
+enum Status {
+Active
+Suspended
+}
+}
+
+package "SharedLibrary.Services" {
+class AuthService {
++ User? CurrentlyLoggedInUser
++ RegisterUserAsync(string username, string email, string imagePath, string password, DateTime registrationDate, string userType, string bio, int? status, int? permission) : Task<bool>
++ LoginUser(string email, string password) : bool
++ LoginAdmin(string email, string password) : bool
++ Logout() : void
++ GetCurrentlyLoggedInUser() : dynamic?
++ CheckAndSetCurrentlyLoggedInUser() : void
+}
+
+class CommentService {
++ GetCommentById(int commentId) : Comment
++ GetCommentsByPostId(int postId) : List<Comment>
++ AddCommentAsync(string text, int userId, int postId) : Task
++ DeleteCommentAsync(int commentId) : Task
++ GetTotalComments() : int
+}
+
+class CategoryService {
++ GetCategoriesAsync() : Task<Dictionary<int, string>>
++ GetCategoryById(int categoryId) : Category
+}
+
+class FlaggedCommentService {
++ FlagComment(int fromUserId, int commentId) : Task<bool>
++ RemoveFlaggedComment(int flagId) : Task<bool>
++ DeleteFlaggedComment(int flagId) : Task<bool>
++ GetFlagCommentById(int id) : FlagComment
+}
+
+class FlaggedPostService {
++ FlagPost(int fromUserId, int postId) : Task<bool>
++ RemoveFlaggedPost(int flagId) : Task<bool>
++ DeleteFlaggedPost(int flagId) : Task<bool>
++ GetFlagPostById(int id) : FlagPost
+}
+
+class FlaggedUserService {
++ FlagUser(int fromUserId, int toUserId, string reason) : Task<bool>
++ BanUser(int userId) : Task<bool>
++ UnBanUser(int userId) : Task<bool>
++ RemoveFlaggedUser(int flagId) : Task<bool>
++ GetFlagUserById(int id) : FlagUser
+}
+
+class LikeService {
++ LikePost(int postId, int userId) : Task
++ UnlikePost(int postId, int userId) : Task
++ GetLikesByPostId(int postId) : List<Like>
++ GetTotalLikes() : int
+}
+
+class PostService {
++ SearchPosts(string query) : List<Post>
++ CreatePostAsync(string text, string imagePath, int categoryId, int userId) : Task
++ DeletePostAsync(int postId) : Task
++ GetAllPostsByUser(int userId) : List<Post>
++ GetPostsByCategoryId(int categoryId) : List<Post>
++ GetPostById(int postId) : Post
++ GetTotalPosts() : int
++ GetPostsCreatedToday() : int
+}
+
+class UserService {
++ EditUser(int userId, string username, string email, string imagePath, string? password, DateTime registrationDate, string userType, string bio, int? status, int? permission) : Task
++ DeleteUser(int userId) : Task
++ SearchUsers(string query) : List<dynamic>
++ GetUserById(int userId) : dynamic?
++ GetTotalUsers() : int
++ GetUsersCreatedToday() : int
++ GetAllAdmins() : List<Admin>
+}
+}
+
+package "SharedLibrary.Repository" {
+class ContentRepository {
++ GetCategories() : List<Category>
++ GetPosts() : List<Post>
++ GetComments() : List<Comment>
++ GetLikes() : List<Like>
++ AddPost(Post post) : Task
++ AddComment(Comment comment) : Task
++ AddLike(Like like) : Task
++ RemovePost(int postId) : Task
++ RemoveComment(int commentId) : Task
++ RemoveLike(int likeId) : Task
++ GetCategoryById(int categoryId) : Category
++ GetPostById(int postId) : Post
++ GetCommentById(int commentId) : Comment
++ GetLikesByPostId(int postId) : List<Like>
++ GetCommentsByPostId(int postId) : List<Comment>
++ GetUserService() : UserService
+}
+
+class ModerationRepository {
++ GetFlaggedUsers() : List<FlagUser>
++ GetFlaggedPosts() : List<FlagPost>
++ GetFlaggedComments() : List<FlagComment>
++ AddFlagUser(FlagUser flagUser) : Task
++ AddFlagPost(FlagPost flagPost) : Task
++ AddFlagComment(FlagComment flagComment) : Task
++ RemoveFlagUser(int flagId) : Task
++ RemoveFlagPost(int flagId) : Task
++ RemoveFlagComment(int flagId) : Task
++ IsAlreadyFlagged(int fromUserId, int? toUserId, int? postId, int? commentId) : Task<bool>
++ ResolveFlag(int flagId) : Task<bool>
++ GetInsights() : int[]
++ GetUserService() : UserService
++ GetCommentService() : CommentService
++ GetPostService() : PostService
+}
+
+class UserRepository {
++ GetUsers() : List<User>
++ AddUser(User user) : Task
++ UpdateUser(User user) : Task
++ DeleteUser(int userId) : Task
++ GetUserContext() : IUserContext
+}
+}
+
+package "SharedLibrary.Data" {
+class CategoryData {
++ AddCategory(string name) : Task<int>
++ EditCategory(int categoryId, string name) : Task<bool>
++ DeleteCategory(int categoryId) : Task<bool>
++ GetCategoryById(int categoryId) : Task<string>
++ GetAllCategories() : Task<List<string>>
+}
+
+class PostData {
++ AddPost(string text, string imagePath, int userId, int categoryId) : Task<int>
++ EditPost(int postId, string text, string imagePath, int categoryId) : Task<bool>
++ GetAllPosts() : Task<List<string>>
++ GetPostById(int postId) : Task<string>
++ GetPostsByUser(int userId) : Task<List<string>>
++ DeletePost(int postId) : Task<bool>
+}
+
+class CommentData {
++ AddComment(string text, int userId, int postId) : Task<int>
++ EditComment(int commentId, string text) : Task<bool>
++ DeleteComment(int commentId) : Task<bool>
++ GetCommentsByPost(int postId) : Task<List<string>>
++ GetAllComments() : Task<List<string>>
++ GetCommentById(int commentId) : Task<string>
+}
+
+class FlagData {
++ IsAlreadyFlagged(int fromUserId, int? toUserId, int? postId, int? commentId) : Task<bool>
++ AddFlagUser(int fromUserId, int toUserId, string reason) : Task<int>
++ AddFlagPost(int fromUserId, int postId) : Task<int>
++ AddFlagComment(int fromUserId, int commentId) : Task<int>
++ GetAllFlagUsers() : Task<List<FlagUser>>
++ GetAllFlagPosts() : Task<List<FlagPost>>
++ GetAllFlagComments() : Task<List<FlagComment>>
++ RemoveFlagUser(int flagId) : Task<bool>
++ RemoveFlagPost(int flagId) : Task<bool>
++ RemoveFlagComment(int flagId) : Task<bool>
++ MarkFlagAsResolved(int flagId) : Task<bool>
+}
+
+class UserData {
++ AddUser(string username, string email, string imagePath, string passwordHash, string salt, DateTime registrationDate, string userType, string bio, int? status, int? permission) : Task
++ GetUserById(int userId) : Task<string>
++ GetAllUsers() : Task<List<string>>
++ UpdateUser(int userId, string username, string email, string imagePath, string passwordHash, string salt, DateTime registrationDate, string userType, string? bio, int? status, int? permission) : Task
++ DeleteUser(int userId) : Task
+}
+
+class LikeData {
++ AddLike(int userId, int postId) : Task<int>
++ DeleteLike(int likeId) : Task<bool>
++ GetLikesByPost(int postId) : Task<List<string>>
++ GetAllLikes() : Task<List<string>>
++ DoesUserLikePost(int userId, int postId) : Task<bool>
+}
+}
+
+package "SharedLibrary.Helpers" {
+class Hash {
++ GenerateSalt() : byte[]
++ HashPassword(string password, byte[] salt) : string
+}
+}
+
+package "SharedLibrary.Interface" {
+interface IServiceConfig {
++ ConnectionString : string
++ UserContext : IUserContext
+}
+
+class WebServiceConfig {
++ ConnectionString : string
++ UserContext : IUserContext
+}
+
+class WinFormServiceConfig {
++ ConnectionString : string
++ UserContext : IUserContext
+}
+
+interface IUserContext {
++ GetCurrentUserEmail() : string
++ SetCurrentUserEmail(string email) : void
++ ClearCurrentUserEmail() : void
+}
+
+class WebUserContext {
++ GetCurrentUserEmail() : string
++ SetCurrentUserEmail(string email) : void
++ ClearCurrentUserEmail() : void
+}
+
+class WinFormUserContext {
++ GetCurrentUserEmail() : string
++ SetCurrentUserEmail(string email) : void
++ ClearCurrentUserEmail() : void
+}
+}
+
+User <|-- Admin
+User <|-- Client
+
+Flag <|-- FlagUser
+Flag <|-- FlagPost
+Flag <|-- FlagComment
+
+IServiceConfig <|-- WebServiceConfig
+IServiceConfig <|-- WinFormServiceConfig
+
+IServiceConfig --> IUserContext
+
+UserService 
+
+CommentService --> ContentRepository
+CategoryService --> ContentRepository
+FlaggedCommentService --> ModerationRepository
+FlaggedPostService --> ModerationRepository
+FlaggedUserService --> ModerationRepository
+LikeService --> ContentRepository
+PostService --> ContentRepository
+UserService --> UserRepository
+AuthService --> UserRepository
+AuthService --> Hash
+
+ContentRepository --> CategoryData
+ContentRepository --> PostData
+ContentRepository --> CommentData
+ContentRepository --> LikeData
+ContentRepository --> UserService
+
+ModerationRepository --> FlagData
+ModerationRepository --> UserService
+ModerationRepository --> PostService
+ModerationRepository --> CommentService
+ModerationRepository --> LikeService
+
+UserRepository --> UserData
+UserRepository --> IUserContext
+
+WebServiceConfig --> IConfiguration
+WebServiceConfig --> IHttpContextAccessor
+
+
+@enduml

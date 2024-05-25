@@ -1,17 +1,21 @@
 ﻿using SharedLibrary.Helpers;
+using SharedLibrary.Interface;
 using SharedLibrary.Models;
 using SharedLibrary.Repository;
+using System;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace SharedLibrary.Services
 {
     public class AuthService
     {
-        private readonly UserRepository _userRepository;
-        private readonly Hash _hashHelper;
+        private readonly IUserRepository _userRepository;
+        private readonly HashWrapper _hashHelper;
         public User? CurrentlyLoggedInUser { get; private set; }
 
-        public AuthService(UserRepository userRepository, Hash hashHelper)
+        public AuthService(IUserRepository userRepository, HashWrapper hashHelper)
         {
             _userRepository = userRepository;
             _hashHelper = hashHelper;
