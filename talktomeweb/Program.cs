@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SharedLibrary.Interface;
 using SharedLibrary.Repository;
 
+// Singleton: One instance per application. The same instance is shared across all requests and services.
+// Scoped: One instance per request. Each request gets its own instance, but the same instance is shared within the request.
+
 try
 {
     var builder = WebApplication.CreateBuilder(args);
