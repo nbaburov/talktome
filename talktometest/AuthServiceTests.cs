@@ -39,8 +39,12 @@ namespace talktometest
             var salt = new byte[] { 1, 2, 3, 4 };
             var passwordHash = "hashedpassword";
 
+            // Setup the mock to return 'salt' when 'GenerateSalt' is called
             _hashHelperMock.Setup(h => h.GenerateSalt()).Returns(salt);
+
+            // Setup the mock to return 'passwordHash' when 'HashPassword' is called with 'password' and 'salt'
             _hashHelperMock.Setup(h => h.HashPassword(password, salt)).Returns(passwordHash);
+
 
             // Act
             var result = await _authService.RegisterUserAsync(username, email, null, password, registrationDate, "Client");

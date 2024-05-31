@@ -11,7 +11,7 @@ namespace talktomeweb.Pages.Post
         private readonly PostService _postService;
         private readonly CommentService _commentService;
         private readonly AuthService _authService;
-        private readonly FlaggedCommentService _flagCommentService;
+        public FlaggedCommentService _flagCommentService;
 
         public SharedLibrary.Models.Post Post { get; set; }
         public List<SharedLibrary.Models.Post> Posts { get; set; }

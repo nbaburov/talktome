@@ -65,14 +65,12 @@ namespace SharedLibrary.Repository
         {
             _flaggedPosts.Add(flagPost);
             await _flagData.AddFlagPost(flagPost.FromUserId, flagPost.PostId);
-            await _postService.DeletePostAsync(flagPost.PostId);
         }
 
         public async Task AddFlagComment(FlagComment flagComment)
         {
             _flaggedComments.Add(flagComment);
             await _flagData.AddFlagComment(flagComment.FromUserId, flagComment.CommentId);
-            await _commentService.DeleteCommentAsync(flagComment.CommentId);
         }
 
         public async Task RemoveFlagUser(int flagId)

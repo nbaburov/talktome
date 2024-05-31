@@ -29,23 +29,22 @@ namespace SharedLibrary.Data
                 //! I get that because the post needs to be deleted firstly before trying to delete flag, i think
                 // Create Flags table
                 var createFlagTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Flags')
-        BEGIN
-            CREATE TABLE Flags (
-                FlagId INT PRIMARY KEY IDENTITY(1,1),
-                FromUserId INT NOT NULL,
-                Resolved BIT NOT NULL DEFAULT 0,
-                FlagType VARCHAR(50) NOT NULL,
-                CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
-                ToUserId INT,
-                Reason TEXT,
-                PostId INT,
-                CommentId INT,
-                FOREIGN KEY (FromUserId) REFERENCES Users(UserId), 
-                FOREIGN KEY (ToUserId) REFERENCES Users(UserId), 
-                FOREIGN KEY (CommentId) REFERENCES Comments(CommentId) ON DELETE CASCADE,
-                FOREIGN KEY (PostId) REFERENCES Posts(PostId), 
-            )
-        END";
+                    BEGIN CREATE TABLE Flags (
+                            FlagId INT PRIMARY KEY IDENTITY(1,1),
+                            FromUserId INT NOT NULL,
+                            Resolved BIT NOT NULL DEFAULT 0,
+                            FlagType VARCHAR(50) NOT NULL,
+                            CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
+                            ToUserId INT,
+                            Reason TEXT,
+                            PostId INT,
+                            CommentId INT,
+                            FOREIGN KEY (FromUserId) REFERENCES Users(UserId) ON DELETE CASCADE,
+                            FOREIGN KEY (ToUserId) REFERENCES Users(UserId) ON DELETE NO ACTION,
+                            FOREIGN KEY (CommentId) REFERENCES Comments(CommentId) ON DELETE NO ACTION,
+                            FOREIGN KEY (PostId) REFERENCES Posts(PostId) ON DELETE NO ACTION
+                        );
+                    END";
 
                 using (var command = new SqlCommand(createFlagTable, connection))
                 {

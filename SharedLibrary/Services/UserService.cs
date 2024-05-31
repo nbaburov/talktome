@@ -44,6 +44,17 @@ namespace SharedLibrary.Services
             if (user.Email != email) { user.Email = email; changesDetected = true; }
             if (user.ImagePath != imagePath) { user.ImagePath = imagePath; changesDetected = true; }
             if (user.RegistrationDate != registrationDate) { user.RegistrationDate = registrationDate; changesDetected = true; }
+            if (password != null)
+            {
+                byte[] salt = _hashHelper.GenerateSalt();
+                string newPasswordHash = _hashHelper.HashPassword(password, salt);
+                if (user.PasswordHash != newPasswordHash)
+                {
+                    user.PasswordHash = newPasswordHash;
+                    user.Salt = Convert.ToBase64String(salt);
+                    changesDetected = true;
+                }
+            }
 
             if (user is Admin admin)
             {
@@ -61,17 +72,6 @@ namespace SharedLibrary.Services
                 await _userRepository.UpdateUser(client);
             }
 
-            if (password != null)
-            {
-                byte[] salt = _hashHelper.GenerateSalt();
-                string newPasswordHash = _hashHelper.HashPassword(password, salt);
-                if (user.PasswordHash != newPasswordHash)
-                {
-                    user.PasswordHash = newPasswordHash;
-                    user.Salt = Convert.ToBase64String(salt);
-                    changesDetected = true;
-                }
-            }
 
             if (!changesDetected)
             {

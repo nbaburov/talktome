@@ -55,5 +55,9 @@ namespace SharedLibrary.Services
         {
             return _moderationRepository.GetFlaggedPosts().FirstOrDefault(f => f.FlagId == id);
         }
+        public FlagPost GetFlagPostByPostId(int id)
+        {
+            return _moderationRepository.GetFlaggedPosts().FirstOrDefault(f => f.PostId == id);
+        }
     }
 }

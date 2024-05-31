@@ -29,7 +29,9 @@ namespace talktometest
         {
             user.UserId = _nextId++;
             _users.Add(user.UserId, user);
-            await Task.CompletedTask;
+            await Task.CompletedTask; 
+            // a way to return a completed task in an asynchronous method without actually performing any asynchronous work. 
+            // It's useful for creating a placeholder implementation of an asynchronous method.
         }
 
         public async Task UpdateUser(User user)

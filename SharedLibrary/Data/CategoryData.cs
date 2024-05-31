@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace SharedLibrary.Data
@@ -17,11 +20,16 @@ namespace SharedLibrary.Data
         {
             try
             {
-
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
-                var createCategoryTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Categories') BEGIN CREATE TABLE Categories (CategoryId INT PRIMARY KEY IDENTITY, Name NVARCHAR(255) NOT NULL) END";
+                var createCategoryTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Categories') 
+                    BEGIN CREATE TABLE
+                        Categories (
+                            CategoryId INT PRIMARY KEY IDENTITY(1,1),
+                            Name VARCHAR(100) NOT NULL
+                        );
+                    END";
 
                 using (var command = new SqlCommand(createCategoryTable, connection))
                 {
@@ -140,6 +148,5 @@ namespace SharedLibrary.Data
 
             return categoriesList;
         }
-
     }
 }

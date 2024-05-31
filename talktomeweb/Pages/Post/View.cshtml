@@ -1,5 +1,6 @@
 ﻿@page "/Post/{id:int}"
 @model talktomeweb.Pages.Post.ViewModel
+@inject SharedLibrary.Services.FlaggedPostService FlaggedPostService
 @{
 }
 <div>
@@ -26,6 +27,7 @@
         <h2 class="font-semibold text-start m-auto text-xl md:text-2xl mt-5 mb-2">Comments:</h2>
         @foreach (var comment in Model.Comments)
         {
+            bool isFlaggedComment = Model._flagCommentService.GetFlagCommentByCommentId(comment.CommentId) != null ? true : false;
             var imagePath = "/images/users/" + comment.User.ImagePath ??
             "/images/default-profile.png";
             var profileLink = Url.Page("/Account/Profile", new { userId = comment.User.UserId });
@@ -56,7 +58,7 @@
                             </button>
                         </form>
                     }
-                    else
+                    else if (!isFlaggedComment)
                     {
                         <form method="post" asp-page-handler="FlagHandler" asp-route-id="@Model.Post.PostId"
                             asp-route-fromUserId="@Model.CurrentUser.UserId" asp-route-commentId="@comment.CommentId"
