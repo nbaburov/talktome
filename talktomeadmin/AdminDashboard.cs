@@ -61,7 +61,15 @@ namespace talktomeadmin
             lstBoxFlaggedPosts.Items.Clear();
             foreach (var flag in flaggedPosts)
             {
-                string displayInfo = $"{flag.FlagId}-{flag.Post.User.Username}-Ok:{flag.Resolved}";
+                var displayInfo = "";
+                if (flag.Post != null)
+                {
+                    displayInfo = $"{flag.FlagId}-{flag.Post?.User.Username}-Ok:{flag.Resolved}";
+                }
+                else
+                {
+                    displayInfo = $"{flag.FlagId}-DeletedPost-Ok:{flag.Resolved}";
+                }
                 lstBoxFlaggedPostsDashboard.Items.Add(displayInfo);
                 lstBoxFlaggedPosts.Items.Add(displayInfo);
             }
@@ -75,7 +83,16 @@ namespace talktomeadmin
             lstBoxFlaggedComments.Items.Clear();
             foreach (var flag in flaggedComments)
             {
-                string displayInfo = $"{flag.FlagId}-{flag.Comment.User.Username}-Ok:{flag.Resolved}";
+                var displayInfo = "";
+                if (flag.Comment != null)
+                {
+                    displayInfo = $"{flag.FlagId}-{flag.Comment?.User.Username}-Ok:{flag.Resolved}";
+                }
+                else
+                {
+                    displayInfo = $"{flag.FlagId}-DeletedComment-Ok:{flag.Resolved}";
+                }
+                
                 lstBoxFlaggedCommentsDashboard.Items.Add(displayInfo);
                 lstBoxFlaggedComments.Items.Add(displayInfo);
             }
@@ -219,34 +236,42 @@ namespace talktomeadmin
                 string selectedItem = lstBoxFlaggedUsers.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagUser flagUser = _flagUserService.GetFlagUserById(flagId);
-                lblFlaggedUserName.Text = flagUser.ToUser.Username;
-                lblFlaggedUserEmail.Text = flagUser.ToUser.Email;
-                // Get flagged user
-                var flaggedUser = _userService.GetUserById(flagUser.ToUserId);
-                lblFlaggedUserBio.Text = flaggedUser.Bio;
-                lblUserFlagReason.Text = flagUser.Reason;
-                lblFlaggedUserStatus.Text = flaggedUser.Status.ToString();
-                try
+                if (flagUser.ToUser != null)
                 {
-                    // Get the root path of the solution
-                    string solutionRoot = GetSolutionRoot();
-                    // Construct the path to the image in talktomeweb
-                    string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", flagUser.ToUser.ImagePath);
-
-                    if (File.Exists(imagePath))
+                    lblFlaggedUserName.Text = flagUser.ToUser.Username;
+                    lblFlaggedUserEmail.Text = flagUser.ToUser.Email;
+                    // Get flagged user
+                    var flaggedUser = _userService.GetUserById(flagUser.ToUserId);
+                    lblFlaggedUserBio.Text = flaggedUser.Bio;
+                    lblUserFlagReason.Text = flagUser.Reason;
+                    lblFlaggedUserStatus.Text = flaggedUser.Status.ToString();
+                    try
                     {
-                        pictureBoxFlaggedUserProfile.Image = Image.FromFile(imagePath);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        // Get the root path of the solution
+                        string solutionRoot = GetSolutionRoot();
+                        // Construct the path to the image in talktomeweb
+                        string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", flagUser.ToUser.ImagePath);
 
+                        if (File.Exists(imagePath))
+                        {
+                            pictureBoxFlaggedUserProfile.Image = Image.FromFile(imagePath);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to load user image: {ex.Message}");
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show($"Failed to load user image: {ex.Message}");
+                    lblFlaggedUserName.Text = "Flagged User Deleted.";
                 }
+
             }
         }
 
@@ -336,32 +361,40 @@ namespace talktomeadmin
                 string selectedItem = lstBoxFlaggedPosts.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagPost flagPost = _flagPostService.GetFlagPostById(flagId);
-                lblUserNamePost.Text = flagPost.Post.User.Username;
-                lblUserEmailPost.Text = flagPost.Post.User.Email;
-                lblPostText.Text = flagPost.Post.Text;
-                if (flagPost.Post.ImagePath != null || !string.IsNullOrWhiteSpace(flagPost.Post.ImagePath))
+                if (flagPost.Post != null)
                 {
-                    try
+                    lblUserNamePost.Text = flagPost.Post.User.Username;
+                    lblUserEmailPost.Text = flagPost.Post.User.Email;
+                    lblPostText.Text = flagPost.Post.Text;
+                    if (flagPost.Post.ImagePath != null && flagPost.Post.ImagePath != "")
                     {
-                        // Get the root path of the solution
-                        string solutionRoot = GetSolutionRoot();
-                        // Construct the path to the image in talktomeweb
-                        string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "posts", flagPost.Post.ImagePath);
+                        try
+                        {
+                            // Get the root path of the solution
+                            string solutionRoot = GetSolutionRoot();
+                            // Construct the path to the image in talktomeweb
+                            string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "posts", flagPost.Post.ImagePath);
 
-                        if (File.Exists(imagePath))
-                        {
-                            pictureBoxPostImage.Image = Image.FromFile(imagePath);
+                            if (File.Exists(imagePath))
+                            {
+                                pictureBoxPostImage.Image = Image.FromFile(imagePath);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Failed to load post image: {ex.Message}");
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Failed to load post image: {ex.Message}");
                     }
                 }
+                else
+                {
+                    lblUserNamePost.Text = "Flagged Post Deleted.";
+                }
+                
             }
         }
 
@@ -452,9 +485,17 @@ namespace talktomeadmin
                 string selectedItem = lstBoxFlaggedComments.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagComment flagComment = _flagCommentService.GetFlagCommentById(flagId);
-                lblUserNameComment.Text = flagComment.Comment.User.Username;
-                lblUserEmailComment.Text = flagComment.Comment.User.Email;
-                lbCommentText.Text = flagComment.Comment.Text;
+                if (flagComment.Comment != null)
+                {
+                    lblUserNameComment.Text = flagComment.Comment.User.Username;
+                    lblUserEmailComment.Text = flagComment.Comment.User.Email;
+                    lbCommentText.Text = flagComment.Comment.Text;
+                }
+                else
+                {
+                    lblUserNameComment.Text = "Flagged Comment Deleted";
+                }
+                
             }
         }
 
