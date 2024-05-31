@@ -45,6 +45,15 @@ namespace SharedLibrary.Services
             await _contentRepository.RemoveComment(commentId);
         }
 
+        public async Task DeleteCommentsByPostIdAsync(int postId)
+        {
+            var comments = _contentRepository.GetCommentsByPostId(postId);
+            foreach (var comment in comments)
+            {
+                await _contentRepository.RemoveComment(comment.CommentId);
+            }
+        }
+
         public int GetTotalComments()
         {
             return _contentRepository.GetComments().Count;

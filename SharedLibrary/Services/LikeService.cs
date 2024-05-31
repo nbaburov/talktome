@@ -54,5 +54,14 @@ namespace SharedLibrary.Services
         {
             return _contentRepository.GetLikes().Count;
         }
+
+        public async Task DeleteLikesByPostIdAsync(int postId)
+        {
+            var likes = _contentRepository.GetLikesByPostId(postId);
+            foreach (var like in likes)
+            {
+                await _contentRepository.RemoveLike(like.LikeId);
+            }
+        }
     }
 }
