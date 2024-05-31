@@ -80,6 +80,14 @@ namespace talktomeadmin
                 lstBoxFlaggedComments.Items.Add(displayInfo);
             }
 
+            // Load all clients
+            List<Client> clients = _userService.GetAllClients();
+            lstBoxUsers.Items.Clear();
+            foreach (var client in clients)
+            {
+                lstBoxUsers.Items.Add($"{client.UserId}-{client.Username}-{client.Status.ToString()}");
+            }
+
             // Load all admins
             List<Admin> admins = _userService.GetAllAdmins();
             lstBoxAdmins.Items.Clear();
@@ -102,7 +110,8 @@ namespace talktomeadmin
             // Set picture boxes settings
             pictureBoxAdminImage.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxPostImage.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxUserProfile.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxFlaggedUserProfile.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxUserImage.SizeMode = PictureBoxSizeMode.Zoom;
 
         }
         private void LoadPermissions()
@@ -118,6 +127,8 @@ namespace talktomeadmin
 
                     btnBanUser.Enabled = true;
                     btnUnbanUser.Enabled = false;
+                    btnBanFlaggedUser.Enabled = true;
+                    btnUnbanFlaggedUser.Enabled = false;
                     btnBanUserFromComment.Enabled = true;
                     btnBanUserFromPost.Enabled = true;
 
@@ -137,6 +148,8 @@ namespace talktomeadmin
 
                     btnBanUser.Enabled = true;
                     btnUnbanUser.Enabled = true;
+                    btnBanFlaggedUser.Enabled = true;
+                    btnUnbanFlaggedUser.Enabled = true;
                     btnBanUserFromComment.Enabled = true;
                     btnBanUserFromPost.Enabled = true;
 
@@ -156,6 +169,8 @@ namespace talktomeadmin
 
                     btnBanUser.Enabled = true;
                     btnUnbanUser.Enabled = true;
+                    btnBanFlaggedUser.Enabled = true;
+                    btnUnbanFlaggedUser.Enabled = true;
                     btnBanUserFromComment.Enabled = true;
                     btnBanUserFromPost.Enabled = true;
 
@@ -204,13 +219,13 @@ namespace talktomeadmin
                 string selectedItem = lstBoxFlaggedUsers.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagUser flagUser = _flagUserService.GetFlagUserById(flagId);
-                lblUserName.Text = flagUser.ToUser.Username;
-                lblUserEmail.Text = flagUser.ToUser.Email;
+                lblFlaggedUserName.Text = flagUser.ToUser.Username;
+                lblFlaggedUserEmail.Text = flagUser.ToUser.Email;
                 // Get flagged user
                 var flaggedUser = _userService.GetUserById(flagUser.ToUserId);
-                lblUserBio.Text = flaggedUser.Bio;
+                lblFlaggedUserBio.Text = flaggedUser.Bio;
                 lblUserFlagReason.Text = flagUser.Reason;
-                lblUserStatus.Text = flaggedUser.Status.ToString();
+                lblFlaggedUserStatus.Text = flaggedUser.Status.ToString();
                 try
                 {
                     // Get the root path of the solution
@@ -220,7 +235,7 @@ namespace talktomeadmin
 
                     if (File.Exists(imagePath))
                     {
-                        pictureBoxUserProfile.Image = Image.FromFile(imagePath);
+                        pictureBoxFlaggedUserProfile.Image = Image.FromFile(imagePath);
                     }
                     else
                     {
@@ -324,7 +339,7 @@ namespace talktomeadmin
                 lblUserNamePost.Text = flagPost.Post.User.Username;
                 lblUserEmailPost.Text = flagPost.Post.User.Email;
                 lblPostText.Text = flagPost.Post.Text;
-                if (flagPost.Post.ImagePath != null)
+                if (flagPost.Post.ImagePath != null || !string.IsNullOrWhiteSpace(flagPost.Post.ImagePath))
                 {
                     try
                     {
@@ -366,6 +381,7 @@ namespace talktomeadmin
                 bool success = await _flagPostService.DeleteFlaggedPost(flagId);
                 if (success)
                 {
+                    await _moderationRepo.ResolveFlag(flagId);
                     MessageBox.Show("Post deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadInfo();
                 }
@@ -458,6 +474,7 @@ namespace talktomeadmin
                 bool success = await _flagCommentService.DeleteFlaggedComment(flagId);
                 if (success)
                 {
+                    await _moderationRepo.ResolveFlag(flagId);
                     MessageBox.Show("Comment deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadInfo();
                 }
@@ -522,62 +539,62 @@ namespace talktomeadmin
 
         // Admins Tab
         private void lstBoxAdmins_SelectedIndexChanged(object sender, EventArgs e)
-{
-    if (lstBoxAdmins.SelectedItem != null)
-    {
-        int selectedUserId = Convert.ToInt32(lstBoxAdmins.SelectedItem.ToString().Split('-')[0]);
-        var selectedAdmin = _userService.GetUserById(selectedUserId) as Admin;
-
-        if (selectedAdmin != null)
         {
-            txtAdminUsername.Text = selectedAdmin.Username;
-            txtAdminEmail.Text = selectedAdmin.Email;
-            txtAdminPassword.Clear();
-            if (!string.IsNullOrWhiteSpace(selectedAdmin.ImagePath))
+            if (lstBoxAdmins.SelectedItem != null)
             {
-                try
-                {
-                    // Get the root path of the solution
-                    string solutionRoot = GetSolutionRoot();
-                    // Construct the path to the image in talktomeweb
-                    string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", selectedAdmin.ImagePath);
+                int selectedUserId = Convert.ToInt32(lstBoxAdmins.SelectedItem.ToString().Split('-')[0]);
+                var selectedAdmin = _userService.GetUserById(selectedUserId) as Admin;
 
-                    if (File.Exists(imagePath))
+                if (selectedAdmin != null)
+                {
+                    txtAdminUsername.Text = selectedAdmin.Username;
+                    txtAdminEmail.Text = selectedAdmin.Email;
+                    txtAdminPassword.Clear();
+                    if (!string.IsNullOrWhiteSpace(selectedAdmin.ImagePath))
                     {
-                        pictureBoxAdminImage.Image = Image.FromFile(imagePath);
-                        _adminImage = selectedAdmin.ImagePath;
+                        try
+                        {
+                            // Get the root path of the solution
+                            string solutionRoot = GetSolutionRoot();
+                            // Construct the path to the image in talktomeweb
+                            string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", selectedAdmin.ImagePath);
+
+                            if (File.Exists(imagePath))
+                            {
+                                pictureBoxAdminImage.Image = Image.FromFile(imagePath);
+                                _adminImage = selectedAdmin.ImagePath;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        catch
+                        {
+                            pictureBoxAdminImage.Image = null;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        pictureBoxAdminImage.Image = null;
                     }
-                }
-                catch
-                {
-                    pictureBoxAdminImage.Image = null;
+
+                    if (selectedAdmin.Permission != null)
+                    {
+                        cmBxAdminPerms.SelectedItem = selectedAdmin.Permission.ToString();
+                    }
                 }
             }
             else
             {
+                txtAdminUsername.Clear();
+                txtAdminEmail.Clear();
+                txtAdminPassword.Clear();
+                _adminImage = null;
                 pictureBoxAdminImage.Image = null;
-            }
-
-            if (selectedAdmin.Permission != null)
-            {
-                cmBxAdminPerms.SelectedItem = selectedAdmin.Permission.ToString();
+                cmBxAdminPerms.SelectedIndex = -1;
             }
         }
-    }
-    else
-    {
-        txtAdminUsername.Clear();
-        txtAdminEmail.Clear();
-        txtAdminPassword.Clear();
-        _adminImage = null;
-        pictureBoxAdminImage.Image = null;
-        cmBxAdminPerms.SelectedIndex = -1;
-    }
-}
 
         private async void btnNewAdmin_Click(object sender, EventArgs e)
         {
@@ -725,5 +742,89 @@ namespace talktomeadmin
             }
         }
 
+        private void lstBoxUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstBoxUsers.SelectedIndex != -1)
+            {
+                string selectedItem = lstBoxUsers.SelectedItem.ToString();
+                int userId = ParseFlagIdFromDisplayInfo(selectedItem);
+                Client user = _userService.GetUserById(userId);
+                lblUserName.Text = user.Username;
+                lblUserEmail.Text = user.Email;
+                lblUserBio.Text = user.Bio;
+                lblUserStatus.Text = user.Status.ToString();
+                try
+                {
+                    // Get the root path of the solution
+                    string solutionRoot = GetSolutionRoot();
+                    // Construct the path to the image in talktomeweb
+                    string imagePath = Path.Combine(solutionRoot, "talktomeweb", "wwwroot", "images", "users", user.ImagePath);
+
+                    if (File.Exists(imagePath))
+                    {
+                        pictureBoxUserImage.Image = Image.FromFile(imagePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Image file not found: " + imagePath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Failed to load user image: {ex.Message}");
+                }
+            }
+        }
+
+        private async void btnBanUser_Click_1Async(object sender, EventArgs e)
+        {
+            if (lstBoxUsers.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a user to ban.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int userId = ParseFlagIdFromDisplayInfo(lstBoxUsers.SelectedItem.ToString());
+            Client client = _userService.GetUserById(userId);
+            if (client != null)
+            {
+                bool success = await _flagUserService.BanUser(userId);
+                if (success)
+                {
+                    LoadInfo();
+                    MessageBox.Show("User has been banned successfully.", "Ban Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to ban the user.", "Unban Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private async void btnUnbanUser_Click_1Async(object sender, EventArgs e)
+        {
+            if (lstBoxUsers.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a user to unban.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int userId = ParseFlagIdFromDisplayInfo(lstBoxUsers.SelectedItem.ToString());
+            Client client = _userService.GetUserById(userId);
+            if (client != null)
+            {
+                bool success = await _flagUserService.UnBanUser(userId);
+                if (success)
+                {
+                    LoadInfo();
+                    MessageBox.Show("User has been unbanned successfully.", "Unban Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to unban the user.", "Unban Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

@@ -125,5 +125,9 @@ namespace SharedLibrary.Services
         {
             return _userRepository.GetUsers().OfType<Admin>().ToList();
         }
+        public List<Client> GetAllClients()
+        {
+            return _userRepository.GetUsers().OfType<Client>().ToList();
+        }
     }
 }
