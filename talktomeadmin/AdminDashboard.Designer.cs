@@ -251,9 +251,9 @@
             lblFlaggedCommentsTotal.Location = new Point(1030, 18);
             lblFlaggedCommentsTotal.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedCommentsTotal.Name = "lblFlaggedCommentsTotal";
-            lblFlaggedCommentsTotal.Size = new Size(99, 16);
+            lblFlaggedCommentsTotal.Size = new Size(44, 16);
             lblFlaggedCommentsTotal.TabIndex = 9;
-            lblFlaggedCommentsTotal.Text = "{postamount}";
+            lblFlaggedCommentsTotal.Text = "None";
             // 
             // label11
             // 
@@ -273,9 +273,9 @@
             lblFlaggedUsersTotal.Location = new Point(156, 21);
             lblFlaggedUsersTotal.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedUsersTotal.Name = "lblFlaggedUsersTotal";
-            lblFlaggedUsersTotal.Size = new Size(99, 16);
+            lblFlaggedUsersTotal.Size = new Size(44, 16);
             lblFlaggedUsersTotal.TabIndex = 3;
-            lblFlaggedUsersTotal.Text = "{postamount}";
+            lblFlaggedUsersTotal.Text = "None";
             // 
             // label17
             // 
@@ -295,9 +295,9 @@
             lblFlaggedPostsTotal.Location = new Point(582, 21);
             lblFlaggedPostsTotal.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedPostsTotal.Name = "lblFlaggedPostsTotal";
-            lblFlaggedPostsTotal.Size = new Size(99, 16);
+            lblFlaggedPostsTotal.Size = new Size(44, 16);
             lblFlaggedPostsTotal.TabIndex = 1;
-            lblFlaggedPostsTotal.Text = "{postamount}";
+            lblFlaggedPostsTotal.Text = "None";
             // 
             // label19
             // 
@@ -340,9 +340,9 @@
             lblCommentsTotal.Location = new Point(950, 53);
             lblCommentsTotal.Margin = new Padding(4, 0, 4, 0);
             lblCommentsTotal.Name = "lblCommentsTotal";
-            lblCommentsTotal.Size = new Size(99, 16);
+            lblCommentsTotal.Size = new Size(44, 16);
             lblCommentsTotal.TabIndex = 11;
-            lblCommentsTotal.Text = "{postamount}";
+            lblCommentsTotal.Text = "None";
             // 
             // label7
             // 
@@ -362,9 +362,9 @@
             lblLikesTotal.Location = new Point(899, 21);
             lblLikesTotal.Margin = new Padding(4, 0, 4, 0);
             lblLikesTotal.Name = "lblLikesTotal";
-            lblLikesTotal.Size = new Size(99, 16);
+            lblLikesTotal.Size = new Size(44, 16);
             lblLikesTotal.TabIndex = 9;
-            lblLikesTotal.Text = "{postamount}";
+            lblLikesTotal.Text = "None";
             // 
             // label9
             // 
@@ -384,9 +384,9 @@
             lblPostsToday.Location = new Point(626, 53);
             lblPostsToday.Margin = new Padding(4, 0, 4, 0);
             lblPostsToday.Name = "lblPostsToday";
-            lblPostsToday.Size = new Size(99, 16);
+            lblPostsToday.Size = new Size(44, 16);
             lblPostsToday.TabIndex = 7;
-            lblPostsToday.Text = "{postamount}";
+            lblPostsToday.Text = "None";
             // 
             // label5
             // 
@@ -406,9 +406,9 @@
             lblUsersToday.Location = new Point(200, 53);
             lblUsersToday.Margin = new Padding(4, 0, 4, 0);
             lblUsersToday.Name = "lblUsersToday";
-            lblUsersToday.Size = new Size(99, 16);
+            lblUsersToday.Size = new Size(44, 16);
             lblUsersToday.TabIndex = 5;
-            lblUsersToday.Text = "{postamount}";
+            lblUsersToday.Text = "None";
             // 
             // label6
             // 
@@ -428,9 +428,9 @@
             lblUsersTotal.Location = new Point(80, 21);
             lblUsersTotal.Margin = new Padding(4, 0, 4, 0);
             lblUsersTotal.Name = "lblUsersTotal";
-            lblUsersTotal.Size = new Size(99, 16);
+            lblUsersTotal.Size = new Size(44, 16);
             lblUsersTotal.TabIndex = 3;
-            lblUsersTotal.Text = "{postamount}";
+            lblUsersTotal.Text = "None";
             // 
             // label4
             // 
@@ -450,9 +450,9 @@
             lblPostsTotal.Location = new Point(507, 21);
             lblPostsTotal.Margin = new Padding(4, 0, 4, 0);
             lblPostsTotal.Name = "lblPostsTotal";
-            lblPostsTotal.Size = new Size(99, 16);
+            lblPostsTotal.Size = new Size(44, 16);
             lblPostsTotal.TabIndex = 1;
-            lblPostsTotal.Text = "{postamount}";
+            lblPostsTotal.Text = "None";
             // 
             // label2
             // 
@@ -554,9 +554,9 @@
             lblUserStatus.Location = new Point(82, 264);
             lblUserStatus.Margin = new Padding(4, 0, 4, 0);
             lblUserStatus.Name = "lblUserStatus";
-            lblUserStatus.Size = new Size(57, 16);
+            lblUserStatus.Size = new Size(44, 16);
             lblUserStatus.TabIndex = 24;
-            lblUserStatus.Text = "{value}";
+            lblUserStatus.Text = "None";
             // 
             // label24
             // 
@@ -577,9 +577,9 @@
             lblUserBio.Margin = new Padding(4, 0, 4, 0);
             lblUserBio.MaximumSize = new Size(198, 0);
             lblUserBio.Name = "lblUserBio";
-            lblUserBio.Size = new Size(197, 48);
+            lblUserBio.Size = new Size(44, 16);
             lblUserBio.TabIndex = 22;
-            lblUserBio.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblUserBio.Text = "None";
             // 
             // label30
             // 
@@ -599,9 +599,9 @@
             lblUserEmail.Location = new Point(81, 63);
             lblUserEmail.Margin = new Padding(4, 0, 4, 0);
             lblUserEmail.Name = "lblUserEmail";
-            lblUserEmail.Size = new Size(57, 16);
+            lblUserEmail.Size = new Size(44, 16);
             lblUserEmail.TabIndex = 18;
-            lblUserEmail.Text = "{value}";
+            lblUserEmail.Text = "None";
             // 
             // label46
             // 
@@ -621,9 +621,9 @@
             lblUserName.Location = new Point(81, 31);
             lblUserName.Margin = new Padding(4, 0, 4, 0);
             lblUserName.Name = "lblUserName";
-            lblUserName.Size = new Size(57, 16);
+            lblUserName.Size = new Size(44, 16);
             lblUserName.TabIndex = 16;
-            lblUserName.Text = "{value}";
+            lblUserName.Text = "None";
             // 
             // label48
             // 
@@ -969,9 +969,9 @@
             lblFlaggedUserStatus.Location = new Point(81, 264);
             lblFlaggedUserStatus.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedUserStatus.Name = "lblFlaggedUserStatus";
-            lblFlaggedUserStatus.Size = new Size(57, 16);
+            lblFlaggedUserStatus.Size = new Size(44, 16);
             lblFlaggedUserStatus.TabIndex = 24;
-            lblFlaggedUserStatus.Text = "{value}";
+            lblFlaggedUserStatus.Text = "None";
             // 
             // label44
             // 
@@ -992,9 +992,9 @@
             lblFlaggedUserBio.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedUserBio.MaximumSize = new Size(198, 0);
             lblFlaggedUserBio.Name = "lblFlaggedUserBio";
-            lblFlaggedUserBio.Size = new Size(197, 48);
+            lblFlaggedUserBio.Size = new Size(44, 16);
             lblFlaggedUserBio.TabIndex = 22;
-            lblFlaggedUserBio.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblFlaggedUserBio.Text = "None";
             // 
             // label23
             // 
@@ -1011,19 +1011,19 @@
             // 
             lblUserFlagReason.AutoSize = true;
             lblUserFlagReason.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblUserFlagReason.Location = new Point(274, 31);
+            lblUserFlagReason.Location = new Point(80, 158);
             lblUserFlagReason.Margin = new Padding(4, 0, 4, 0);
             lblUserFlagReason.MaximumSize = new Size(350, 0);
             lblUserFlagReason.Name = "lblUserFlagReason";
-            lblUserFlagReason.Size = new Size(344, 32);
+            lblUserFlagReason.Size = new Size(44, 16);
             lblUserFlagReason.TabIndex = 20;
-            lblUserFlagReason.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblUserFlagReason.Text = "None";
             // 
             // label15
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.Location = new Point(201, 29);
+            label15.Location = new Point(7, 156);
             label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
             label15.Size = new Size(71, 18);
@@ -1037,9 +1037,9 @@
             lblFlaggedUserEmail.Location = new Point(80, 63);
             lblFlaggedUserEmail.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedUserEmail.Name = "lblFlaggedUserEmail";
-            lblFlaggedUserEmail.Size = new Size(57, 16);
+            lblFlaggedUserEmail.Size = new Size(44, 16);
             lblFlaggedUserEmail.TabIndex = 18;
-            lblFlaggedUserEmail.Text = "{value}";
+            lblFlaggedUserEmail.Text = "None";
             // 
             // label14
             // 
@@ -1059,9 +1059,9 @@
             lblFlaggedUserName.Location = new Point(80, 31);
             lblFlaggedUserName.Margin = new Padding(4, 0, 4, 0);
             lblFlaggedUserName.Name = "lblFlaggedUserName";
-            lblFlaggedUserName.Size = new Size(57, 16);
+            lblFlaggedUserName.Size = new Size(44, 16);
             lblFlaggedUserName.TabIndex = 16;
-            lblFlaggedUserName.Text = "{value}";
+            lblFlaggedUserName.Text = "None";
             // 
             // label12
             // 
@@ -1217,19 +1217,19 @@
             // 
             lblPostText.AutoSize = true;
             lblPostText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblPostText.Location = new Point(342, 31);
+            lblPostText.Location = new Point(114, 110);
             lblPostText.Margin = new Padding(4, 0, 4, 0);
             lblPostText.MaximumSize = new Size(327, 0);
             lblPostText.Name = "lblPostText";
-            lblPostText.Size = new Size(326, 32);
+            lblPostText.Size = new Size(44, 16);
             lblPostText.TabIndex = 20;
-            lblPostText.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lblPostText.Text = "None";
             // 
             // label29
             // 
             label29.AutoSize = true;
             label29.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label29.Location = new Point(236, 31);
+            label29.Location = new Point(8, 110);
             label29.Margin = new Padding(4, 0, 4, 0);
             label29.Name = "label29";
             label29.Size = new Size(85, 18);
@@ -1243,9 +1243,9 @@
             lblUserEmailPost.Location = new Point(128, 63);
             lblUserEmailPost.Margin = new Padding(4, 0, 4, 0);
             lblUserEmailPost.Name = "lblUserEmailPost";
-            lblUserEmailPost.Size = new Size(57, 16);
+            lblUserEmailPost.Size = new Size(44, 16);
             lblUserEmailPost.TabIndex = 18;
-            lblUserEmailPost.Text = "{value}";
+            lblUserEmailPost.Text = "None";
             // 
             // label31
             // 
@@ -1265,9 +1265,9 @@
             lblUserNamePost.Location = new Point(128, 31);
             lblUserNamePost.Margin = new Padding(4, 0, 4, 0);
             lblUserNamePost.Name = "lblUserNamePost";
-            lblUserNamePost.Size = new Size(57, 16);
+            lblUserNamePost.Size = new Size(44, 16);
             lblUserNamePost.TabIndex = 16;
-            lblUserNamePost.Text = "{value}";
+            lblUserNamePost.Text = "None";
             // 
             // label33
             // 
@@ -1421,19 +1421,19 @@
             // 
             lbCommentText.AutoSize = true;
             lbCommentText.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lbCommentText.Location = new Point(386, 31);
+            lbCommentText.Location = new Point(158, 95);
             lbCommentText.Margin = new Padding(4, 0, 4, 0);
             lbCommentText.MaximumSize = new Size(327, 0);
             lbCommentText.Name = "lbCommentText";
-            lbCommentText.Size = new Size(326, 32);
+            lbCommentText.Size = new Size(44, 16);
             lbCommentText.TabIndex = 20;
-            lbCommentText.Text = "{value}fjijwbfhjibfbwhjbfehbefbwhbfhebfwbhfehbbwefhwfhefbhwf";
+            lbCommentText.Text = "None";
             // 
             // label37
             // 
             label37.AutoSize = true;
             label37.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label37.Location = new Point(236, 31);
+            label37.Location = new Point(8, 95);
             label37.Margin = new Padding(4, 0, 4, 0);
             label37.Name = "label37";
             label37.Size = new Size(123, 18);
@@ -1447,9 +1447,9 @@
             lblUserEmailComment.Location = new Point(128, 63);
             lblUserEmailComment.Margin = new Padding(4, 0, 4, 0);
             lblUserEmailComment.Name = "lblUserEmailComment";
-            lblUserEmailComment.Size = new Size(57, 16);
+            lblUserEmailComment.Size = new Size(44, 16);
             lblUserEmailComment.TabIndex = 18;
-            lblUserEmailComment.Text = "{value}";
+            lblUserEmailComment.Text = "None";
             // 
             // label39
             // 
@@ -1469,9 +1469,9 @@
             lblUserNameComment.Location = new Point(128, 31);
             lblUserNameComment.Margin = new Padding(4, 0, 4, 0);
             lblUserNameComment.Name = "lblUserNameComment";
-            lblUserNameComment.Size = new Size(57, 16);
+            lblUserNameComment.Size = new Size(44, 16);
             lblUserNameComment.TabIndex = 16;
-            lblUserNameComment.Text = "{value}";
+            lblUserNameComment.Text = "None";
             // 
             // label41
             // 
