@@ -98,8 +98,6 @@ namespace SharedLibrary.Repository
             var flagPost = _flaggedPosts.Find(p => p.FlagId == flagId);
             if (flagPost != null)
             {
-                await _likeService.DeleteLikesByPostIdAsync(flagPost.PostId);
-                await _commentService.DeleteCommentsByPostIdAsync(flagPost.PostId);
                 await _postService.DeletePostAsync(flagPost.PostId);
             }
         }
