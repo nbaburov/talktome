@@ -99,10 +99,23 @@ namespace SharedLibrary.Repository
             var post = _posts.FirstOrDefault(p => p.PostId == postId);
             if (post != null)
             {
+                var likesToRemove = _likes.Where(l => l.PostId == postId).ToList();
+                foreach (var like in likesToRemove)
+                {
+                    await RemoveLike(like.LikeId);
+                }
+
+                var commentsToRemove = _comments.Where(c => c.PostId == postId).ToList();
+                foreach (var comment in commentsToRemove)
+                {
+                    await RemoveComment(comment.CommentId);
+                }
+
                 _posts.Remove(post);
                 await _postData.DeletePost(postId);
             }
         }
+
 
         public async Task RemoveComment(int commentId)
         {
@@ -129,7 +142,7 @@ namespace SharedLibrary.Repository
         public Comment GetCommentById(int commentId) => _comments.FirstOrDefault(c => c.CommentId == commentId);
         public List<Like> GetLikesByPostId(int postId) => _likes.Where(l => l.PostId == postId).ToList();
         public List<Comment> GetCommentsByPostId(int postId) => _comments.Where(c => c.PostId == postId).ToList();
-        
+
         public UserService GetUserService()
         {
             return _userService;
