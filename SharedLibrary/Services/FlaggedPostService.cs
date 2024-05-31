@@ -45,7 +45,7 @@ namespace SharedLibrary.Services
             var flagPost = _moderationRepository.GetFlaggedPosts().FirstOrDefault(p => p.FlagId == flagId);
             if (flagPost != null)
             {
-                await _moderationRepository.RemoveFlagPost(flagId);
+                await _moderationRepository.DeleteFlaggedPost(flagId);
                 return true;
             }
             return false;

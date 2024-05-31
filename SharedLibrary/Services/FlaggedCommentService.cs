@@ -45,7 +45,7 @@ namespace SharedLibrary.Services
             var flagComment = _moderationRepository.GetFlaggedComments().FirstOrDefault(c => c.FlagId == flagId);
             if (flagComment != null)
             {
-                await _moderationRepository.RemoveFlagComment(flagId);
+                await _moderationRepository.DeleteFlaggedComment(flagId);
                 return true;
             }
             return false;

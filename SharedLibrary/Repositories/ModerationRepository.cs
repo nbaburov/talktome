@@ -93,6 +93,15 @@ namespace SharedLibrary.Repository
             }
         }
 
+        public async Task DeleteFlaggedPost(int flagId)
+        {
+            var flagPost = _flaggedPosts.Find(p => p.FlagId == flagId);
+            if (flagPost != null)
+            {
+                await _postService.DeletePostAsync(flagPost.PostId);
+            }
+        }
+
         public async Task RemoveFlagComment(int flagId)
         {
             var flagComment = _flaggedComments.Find(c => c.FlagId == flagId);
@@ -102,6 +111,16 @@ namespace SharedLibrary.Repository
                 await _flagData.RemoveFlagComment(flagId);
             }
         }
+
+        public async Task DeleteFlaggedComment(int flagId)
+        {
+            var flagComment = _flaggedComments.Find(c => c.FlagId == flagId);
+            if (flagComment != null)
+            {
+                await _commentService.DeleteCommentAsync(flagComment.CommentId);
+            }
+        }
+
 
         public async Task<bool> IsAlreadyFlagged(int fromUserId, int? toUserId, int? postId, int? commentId)
         {
