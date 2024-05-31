@@ -1,6 +1,7 @@
 @using SharedLibrary.Models
 @model IEnumerable<Post>
 @inject SharedLibrary.Services.AuthService AuthService
+@inject SharedLibrary.Services.FlaggedPostService FlaggedPostService
 
 <div>
 
@@ -12,6 +13,8 @@
         var profileLink = Url.Page("/Account/Profile", new { userId = post.User.UserId });
         var commentLink = Url.Page("/Post/View", new { id = post.PostId });
         bool isLikedByCurrentUser = post.Likes.Any(l => l.UserId == AuthService.GetCurrentlyLoggedInUser()?.UserId);
+        bool isFlaggedPost = FlaggedPostService.GetFlagPostByPostId(post.PostId) != null ? true : false;
+        
         <div class="border-b pb-6 mt-4">
             <div class="flex flex-row justify-between items-center">
                 <div class="flex flex-row gap-2 items-center">
@@ -41,7 +44,7 @@
                                 </button>
                             </form>
                         }
-                        else
+                        else if(!isFlaggedPost)
                         {
 
                             <form method="post" asp-page="/Post/FlagHandler"

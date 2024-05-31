@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace SharedLibrary.Data
@@ -20,16 +23,17 @@ namespace SharedLibrary.Data
                 using var connection = new SqlConnection(_connectionString);
                 await connection.OpenAsync();
 
-                var createCommentTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Comments') BEGIN CREATE TABLE 
-            Comments (CommentId INT PRIMARY KEY IDENTITY, 
-            Text TEXT NOT NULL, 
-            UserId INT, 
-            PostId INT, 
-            CreationDate 
-            DATETIME NOT NULL DEFAULT GETDATE(), 
-            FOREIGN KEY (UserId) REFERENCES Users(UserId) , 
-            FOREIGN KEY (PostId) REFERENCES Posts(PostId) ON DELETE CASCADE
-            ) END";
+                var createCommentTable = @"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Comments') 
+                    BEGIN CREATE TABLE Comments (
+                        CommentId INT PRIMARY KEY IDENTITY(1,1),
+                        Text TEXT NOT NULL,
+                        CommentedBy INT,
+                        PostId INT,
+                        CreationDate DATETIME NOT NULL DEFAULT GETDATE(),
+                        FOREIGN KEY (CommentedBy) REFERENCES Users(UserId) ON DELETE CASCADE,
+                        FOREIGN KEY (PostId) REFERENCES Posts(PostId) ON DELETE NO ACTION
+                    );
+                    END";
 
                 using (var command = new SqlCommand(createCommentTable, connection))
                 {
@@ -48,7 +52,7 @@ namespace SharedLibrary.Data
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var query = @"INSERT INTO Comments (Text, UserId, PostId) VALUES (@Text, @UserId, @PostId); SELECT SCOPE_IDENTITY();";
+                var query = @"INSERT INTO Comments (Text, CommentedBy, PostId) VALUES (@Text, @UserId, @PostId); SELECT SCOPE_IDENTITY();";
 
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -114,7 +118,7 @@ namespace SharedLibrary.Data
                             {
                                 CommentId = reader.GetInt32(reader.GetOrdinal("CommentId")),
                                 Text = reader["Text"].ToString(),
-                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                                UserId = reader.GetInt32(reader.GetOrdinal("CommentedBy")),
                                 PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
                                 CreationDate = reader.GetDateTime(reader.GetOrdinal("CreationDate"))
                             };
@@ -126,6 +130,7 @@ namespace SharedLibrary.Data
 
             return commentsList;
         }
+
         public async Task<List<string>> GetAllComments()
         {
             List<string> commentsList = new List<string>();
@@ -145,7 +150,7 @@ namespace SharedLibrary.Data
                             {
                                 CommentId = reader.GetInt32(reader.GetOrdinal("CommentId")),
                                 Text = reader["Text"].ToString(),
-                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                                UserId = reader.GetInt32(reader.GetOrdinal("CommentedBy")),
                                 PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
                                 CreationDate = reader.GetDateTime(reader.GetOrdinal("CreationDate"))
                             };
@@ -176,7 +181,7 @@ namespace SharedLibrary.Data
                             {
                                 CommentId = reader.GetInt32(reader.GetOrdinal("CommentId")),
                                 Text = reader["Text"].ToString(),
-                                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                                UserId = reader.GetInt32(reader.GetOrdinal("CommentedBy")),
                                 PostId = reader.GetInt32(reader.GetOrdinal("PostId")),
                                 CreationDate = reader.GetDateTime(reader.GetOrdinal("CreationDate"))
                             };

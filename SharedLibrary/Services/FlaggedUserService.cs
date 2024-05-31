@@ -70,5 +70,9 @@ namespace SharedLibrary.Services
         {
             return _moderationRepository.GetFlaggedUsers().FirstOrDefault(f => f.FlagId == id);
         }
+        public FlagUser GetFlagUserByUserId(int id)
+        {
+            return _moderationRepository.GetFlaggedUsers().FirstOrDefault(f => f.ToUserId == id);
+        }
     }
 }

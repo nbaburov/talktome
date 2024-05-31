@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SharedLibrary.Models;
 using SharedLibrary.Services;
 
 namespace talktomeweb.Pages.Account
@@ -11,13 +12,13 @@ namespace talktomeweb.Pages.Account
         private readonly AuthService _authService;
         private readonly PostService _postService;
         private readonly FlaggedUserService _flagUserService;
-        public List<SharedLibrary.Models.Post> Posts { get; set; }
+        public List<SharedLibrary.Models.Post> Posts { get; set; } = new List<SharedLibrary.Models.Post>();
         public dynamic SelectedUser { get; private set; }
         public dynamic CurrentUser { get; private set; }
+        public FlagUser FlagUser { get; private set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
-
 
         public class InputModel
         {
@@ -25,6 +26,7 @@ namespace talktomeweb.Pages.Account
             public string Reason { get; set; }
             public int ToUserId { get; set; }
         }
+
         public ProfileModel(UserService userService, AuthService authService, PostService postService, FlaggedUserService flaggedUserService)
         {
             _userService = userService;
@@ -33,45 +35,46 @@ namespace talktomeweb.Pages.Account
             _flagUserService = flaggedUserService;
         }
 
-        public void OnGet(int userId)
+        public IActionResult OnGet(int userId)
         {
             SelectedUser = _userService.GetUserById(userId);
             CurrentUser = _authService.GetCurrentlyLoggedInUser();
+            FlagUser = _flagUserService.GetFlagUserByUserId(userId);
+
+            if (CurrentUser == null)
+            {
+                return RedirectToPage("/Index");
+            }
 
             if (SelectedUser != null)
             {
                 Posts = SelectedUser.Posts ?? new List<SharedLibrary.Models.Post>();
-            }
-            else
-            {
-                RedirectToPage("/Index");
+                Input = new InputModel
+                {
+                    Reason = "",
+                    ToUserId = SelectedUser.UserId
+                };
+                return Page();
             }
 
-            Input = new InputModel
-            {
-                Reason = "",
-                ToUserId = SelectedUser.UserId
-            };
+            return RedirectToPage("/Index");
         }
 
         public async Task<IActionResult> OnPostFlagUserAsync()
         {
             try
             {
-
                 int fromUserId = _authService.GetCurrentlyLoggedInUser()?.UserId ?? 0;
                 SelectedUser = _userService.GetUserById(Input.ToUserId);
                 if (SelectedUser == null)
                 {
-                    RedirectToPage("/Index");
+                    return RedirectToPage("/Index");
                 }
 
                 Posts = SelectedUser.Posts ?? new List<SharedLibrary.Models.Post>();
                 int toUserId = SelectedUser.UserId;
 
-                bool noReason =
-                Input.Reason == null || string.IsNullOrWhiteSpace(Input.Reason) || Input.Reason == "";
-
+                bool noReason = string.IsNullOrWhiteSpace(Input.Reason);
 
                 if (noReason)
                 {
@@ -106,6 +109,5 @@ namespace talktomeweb.Pages.Account
                 return RedirectToPage();
             }
         }
-
     }
 }

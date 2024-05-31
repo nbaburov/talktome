@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -23,22 +24,22 @@ namespace SharedLibrary.Data
                 {
                     await connection.OpenAsync();
                     var query = @"
-                IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
-                BEGIN
-                    CREATE TABLE Users (
-                        UserId INT PRIMARY KEY IDENTITY(1,1),
-                        Username VARCHAR(50) NOT NULL,
-                        Email VARCHAR(255) NOT NULL,
-                        ImagePath VARCHAR(255),
-                        PasswordHash VARCHAR(255) NOT NULL,
-                        Salt VARCHAR(255) NOT NULL,
-                        RegistrationDate DATETIME NOT NULL,
-                        UserType VARCHAR(50) NOT NULL,
-                        Bio VARCHAR(MAX),
-                        Status INT,
-                        Permission INT
-                    )
-                END";
+                    IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') AND type in (N'U'))
+                    BEGIN 
+                        CREATE TABLE Users (
+                            UserId INT PRIMARY KEY IDENTITY(1,1),
+                            Username VARCHAR(50) NOT NULL,
+                            Email VARCHAR(100) NOT NULL,
+                            ImagePath VARCHAR(255),
+                            PasswordHash VARCHAR(255) NOT NULL,
+                            Salt VARCHAR(255) NOT NULL,
+                            RegistrationDate DATETIME NOT NULL,
+                            UserType VARCHAR(50) NOT NULL,
+                            Bio TEXT,
+                            Status INT,
+                            Permission INT
+                        );
+                    END";
 
                     using (var command = new SqlCommand(query, connection))
                     {
@@ -60,7 +61,7 @@ namespace SharedLibrary.Data
             {
                 await connection.OpenAsync();
                 var query = @"
-                INSERT INTO Users (Username, Email, ImagePath, PasswordHash,Salt, RegistrationDate, UserType, Bio, Status, Permission) 
+                INSERT INTO Users (Username, Email, ImagePath, PasswordHash, Salt, RegistrationDate, UserType, Bio, Status, Permission) 
                 VALUES (@Username, @Email, @ImagePath, @PasswordHash, @Salt, @RegistrationDate, @UserType, @Bio, @Status, @Permission)";
 
                 using (var command = new SqlCommand(query, connection))
@@ -158,7 +159,6 @@ namespace SharedLibrary.Data
 
             return userList;
         }
-
 
         // Update a User
         public async Task UpdateUser(int userId, string username, string email, string imagePath, string passwordHash, string salt, DateTime registrationDate, string userType, string? bio = null, int? status = null, int? permission = null)

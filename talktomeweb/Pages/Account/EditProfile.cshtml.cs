@@ -82,10 +82,11 @@ namespace talktomeweb.Pages.Account
             string imagePath = Input.Image != null ? ProcessUploadedFile(Input.Image) : CurrentUser.ImagePath;
 
             string passwordChange = string.IsNullOrEmpty(Input.Password) ? null : Input.Password;
+            Console.Write(passwordChange);
             try
             {
 
-                await _userService.EditUser(CurrentUser.UserId, Input.Username, Input.Email, imagePath, passwordChange, CurrentUser.RegistrationDate, CurrentUser is Admin ? "Admin" : "Client", Input.Bio, 1);
+                await _userService.EditUser(CurrentUser.UserId, Input.Username, Input.Email, imagePath, passwordChange, CurrentUser.RegistrationDate, CurrentUser is Admin ? "Admin" : "Client", Input.Bio, (int)CurrentUser.Status);
 
             }
             catch (Exception ex)

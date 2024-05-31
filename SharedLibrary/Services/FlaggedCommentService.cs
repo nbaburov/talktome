@@ -55,5 +55,9 @@ namespace SharedLibrary.Services
         {
             return _moderationRepository.GetFlaggedComments().FirstOrDefault(f => f.FlagId == id);
         }
+        public FlagComment GetFlagCommentByCommentId(int id)
+        {
+            return _moderationRepository.GetFlaggedComments().FirstOrDefault(f => f.CommentId == id);
+        }
     }
 }

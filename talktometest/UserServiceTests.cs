@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using Moq; 
+// Moq lets you simulate the behavior of dependencies, so you can test a class in isolation without relying on real implementations.
+// can define specific behaviors and return values for methods of the mocked dependencies, making tests predictable and consistent.
 using SharedLibrary.Helpers;
 using SharedLibrary.Interface;
 using SharedLibrary.Models;
@@ -22,6 +24,7 @@ namespace talktometest
         [TestInitialize]
         public void Setup()
         {
+            // Access the Mocked Instance: The .Object property is used to get the instance of the mock that implements the interface or class. This instance is what you pass to the class under test.
             _userContextMock = new Mock<IUserContext>();
             _testUserRepository = new TestUserRepository(_userContextMock.Object);
             _hashHelperMock = new Mock<HashWrapper>();
@@ -54,6 +57,9 @@ namespace talktometest
             var newStatus = (int)Status.Suspended;
 
             _hashHelperMock.Setup(h => h.GenerateSalt()).Returns(new byte[] { 5, 6, 7, 8 });
+            // In Moq, It is a static class that provides a set of helper methods for creating parameter matchers.
+            // It.IsAny<T>() is a specific matcher provided by the It class that matches any value of type T. This means that when you use It.IsAny<T>() in your mock setup or verification, it will accept any value of the specified type for that parameter.
+            // Setup the mock to return "newhash" whenever HashPassword is called with 'newPassword' and any byte array as parameters.
             _hashHelperMock.Setup(h => h.HashPassword(newPassword, It.IsAny<byte[]>())).Returns("newhash");
 
             // Act
@@ -146,7 +152,7 @@ namespace talktometest
                 Permission = Permission.Basic
             };
 
-            _testUserRepository.AddUser(user1).Wait();
+            _testUserRepository.AddUser(user1).Wait(); // Ensure its done before moving on
             _testUserRepository.AddUser(user2).Wait();
 
             // Act
