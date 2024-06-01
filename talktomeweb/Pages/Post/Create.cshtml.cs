@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SharedLibrary.Models;
 using SharedLibrary.Services;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,6 +27,8 @@ namespace talktomeweb.Pages.Post
 
         public Dictionary<int, string> Categories { get; set; }
 
+        public Client Client { get; set; }
+
         public class PostInputModel
         {
             public string Text { get; set; }
@@ -36,6 +39,11 @@ namespace talktomeweb.Pages.Post
         public async Task OnGetAsync()
         {
             Categories = await _categoryService.GetCategoriesAsync();
+            Client = _authService.GetCurrentlyLoggedInUser();
+            if (Client == null || Client.Status == SharedLibrary.Models.Status.Active)
+            {
+                RedirectToPage("/Index");
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -49,15 +57,15 @@ namespace talktomeweb.Pages.Post
                     ModelState.AddModelError("Input.Image", "Either text or an image is required.");
                 }
 
-                var currentUser = _authService.GetCurrentlyLoggedInUser();
-                if (currentUser == null)
+                Client = _authService.GetCurrentlyLoggedInUser();
+                if (Client == null)
                 {
                     return RedirectToPage("/Account/Login");
                 }
 
                 string imagePath = ProcessUploadedFile(Input.Image);
 
-                await _postService.CreatePostAsync(Input.Text, imagePath, Input.CategoryId, currentUser.UserId);
+                await _postService.CreatePostAsync(Input.Text, imagePath, Input.CategoryId, Client.UserId);
 
                 return RedirectToPage("/Index");
             }

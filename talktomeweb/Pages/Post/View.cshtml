@@ -10,7 +10,7 @@
     </div>
     <!-- Comments Section -->
     <div class="">
-        @if (Model.CurrentUser != null)
+        @if (Model.CurrentUser != null && Model.CurrentUser.Status == SharedLibrary.Models.Status.Active)
         {
             <form method="post" class="flex flex-row gap-4 mt-4">
                 <div class="w-full h-full flex flex-col gap-2">
@@ -45,7 +45,7 @@
                             }
                         </div>
                     </div>
-                    @if (Model.CurrentUser.UserId == comment.UserId)
+                    @if (Model.CurrentUser.UserId == comment.UserId && Model.CurrentUser.Status == SharedLibrary.Models.Status.Active)
                     {
                         <form method="post" asp-page-handler="DeleteComment" asp-route-id="@Model.Post.PostId"
                             asp-route-commentId="@comment.CommentId" class="ml-auto">
@@ -58,7 +58,7 @@
                             </button>
                         </form>
                     }
-                    else if (!isFlaggedComment)
+                    else if (!isFlaggedComment && Model.CurrentUser.Status == SharedLibrary.Models.Status.Active)
                     {
                         <form method="post" asp-page-handler="FlagHandler" asp-route-id="@Model.Post.PostId"
                             asp-route-fromUserId="@Model.CurrentUser.UserId" asp-route-commentId="@comment.CommentId"

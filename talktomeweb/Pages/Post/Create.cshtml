@@ -47,8 +47,17 @@
                     </div>
                 </div>
             </div>
-            <button type="submit"
-                class="bg-gradient-to-tl mt-6 from-pink-500 to-rose-500 py-3 px-8 text-white font-bold rounded hover:scale-110 transition-all duration-100">Post</button>
+            @if (Model.Client.Status == SharedLibrary.Models.Status.Suspended)
+            {
+                <button disabled
+                    class="bg-gradient-to-tl mt-6 from-slate-500 to-gray-500 py-3 px-8 text-white font-bold rounded hover:scale-110 transition-all duration-100">Post</button>
+
+            }
+            else
+            {
+                <button type="submit"
+                    class="bg-gradient-to-tl mt-6 from-pink-500 to-rose-500 py-3 px-8 text-white font-bold rounded hover:scale-110 transition-all duration-100">Post</button>
+            }
         </form>
     </div>
 </div>
