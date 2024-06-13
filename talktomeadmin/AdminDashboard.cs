@@ -47,7 +47,7 @@ namespace talktomeadmin
             lstBoxFlaggedUsers.Items.Clear();
             foreach (var flag in flaggedUsers)
             {
-                string displayInfo = $"{flag.FlagId}-{flag.ToUser.Username}-{flag.Reason}-Ok:{flag.Resolved}";
+                string displayInfo = $"{flag.FlagId}-{flag.ToUser.Username}-{flag.Reason}-Resolved:{flag.Resolved}";
                 lstBoxFlaggedUsersDashboard.Items.Add(displayInfo);
                 lstBoxFlaggedUsers.Items.Add(displayInfo);
             }
@@ -64,11 +64,11 @@ namespace talktomeadmin
                 var displayInfo = "";
                 if (flag.Post != null)
                 {
-                    displayInfo = $"{flag.FlagId}-{flag.Post?.User.Username}-Ok:{flag.Resolved}";
+                    displayInfo = $"{flag.FlagId}-{flag.Post?.User.Username}-Resolved:{flag.Resolved}";
                 }
                 else
                 {
-                    displayInfo = $"{flag.FlagId}-DeletedPost-Ok:{flag.Resolved}";
+                    displayInfo = $"{flag.FlagId}-DeletedPost-Resolved:{flag.Resolved}";
                 }
                 lstBoxFlaggedPostsDashboard.Items.Add(displayInfo);
                 lstBoxFlaggedPosts.Items.Add(displayInfo);
@@ -86,11 +86,11 @@ namespace talktomeadmin
                 var displayInfo = "";
                 if (flag.Comment != null)
                 {
-                    displayInfo = $"{flag.FlagId}-{flag.Comment?.User.Username}-Ok:{flag.Resolved}";
+                    displayInfo = $"{flag.FlagId}-{flag.Comment?.User.Username}-Resolved:{flag.Resolved}";
                 }
                 else
                 {
-                    displayInfo = $"{flag.FlagId}-DeletedComment-Ok:{flag.Resolved}";
+                    displayInfo = $"{flag.FlagId}-DeletedComment-Resolved:{flag.Resolved}";
                 }
                 
                 lstBoxFlaggedCommentsDashboard.Items.Add(displayInfo);
@@ -245,6 +245,16 @@ namespace talktomeadmin
                     lblFlaggedUserBio.Text = flaggedUser.Bio;
                     lblUserFlagReason.Text = flagUser.Reason;
                     lblFlaggedUserStatus.Text = flaggedUser.Status.ToString();
+                    if (flagUser.Resolved)
+                    {
+                        btnBanFlaggedUser.Enabled = false;
+                        btnUnbanFlaggedUser.Enabled = false;
+                    }
+                    else
+                    {
+                        btnBanFlaggedUser.Enabled = true;
+                        btnUnbanFlaggedUser.Enabled = true;
+                    }
                     try
                     {
                         // Get the root path of the solution
@@ -366,6 +376,16 @@ namespace talktomeadmin
                     lblUserNamePost.Text = flagPost.Post.User.Username;
                     lblUserEmailPost.Text = flagPost.Post.User.Email;
                     lblPostText.Text = flagPost.Post.Text;
+                    if (flagPost.Resolved)
+                    {
+                        btnBanUserFromPost.Enabled = false;
+                        btnRemovePost.Enabled = false;
+                    }
+                    else
+                    {
+                        btnBanUserFromPost.Enabled = true;
+                        btnRemovePost.Enabled = true;
+                    }
                     if (flagPost.Post.ImagePath != null && flagPost.Post.ImagePath != "")
                     {
                         try
@@ -485,6 +505,16 @@ namespace talktomeadmin
                 string selectedItem = lstBoxFlaggedComments.SelectedItem.ToString();
                 int flagId = ParseFlagIdFromDisplayInfo(selectedItem);
                 FlagComment flagComment = _flagCommentService.GetFlagCommentById(flagId);
+                if (flagComment.Resolved)
+                {
+                    btnBanUserFromComment.Enabled = false;
+                    btnDeleteComment.Enabled = false;
+                }
+                else
+                {
+                    btnBanUserFromComment.Enabled = true;
+                    btnDeleteComment.Enabled = true;
+                }
                 if (flagComment.Comment != null)
                 {
                     lblUserNameComment.Text = flagComment.Comment.User.Username;
@@ -794,6 +824,16 @@ namespace talktomeadmin
                 lblUserEmail.Text = user.Email;
                 lblUserBio.Text = user.Bio;
                 lblUserStatus.Text = user.Status.ToString();
+                if (user.Status == Status.Active)
+                {
+                    btnBanUser.Enabled = true;
+                    btnUnbanUser.Enabled = false;
+                }
+                else
+                {
+                    btnBanUser.Enabled = false;
+                    btnUnbanUser.Enabled = true;
+                }
                 try
                 {
                     // Get the root path of the solution
