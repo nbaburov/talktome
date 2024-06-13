@@ -27,7 +27,7 @@ namespace talktomeweb.Pages
 
             if (CategoryInfo == null)
             {
-                return NotFound();
+                return RedirectToPage("/Index");
             }
 
             return Page();

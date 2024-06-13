@@ -86,10 +86,8 @@
             }
             @* Navigation Items *@
             <div class="hidden md:flex flex-col md:flex-row py-2 items-center gap-6 justify-end">
-                <a href="#"
+                <a asp-page="/About"
                     class="text-pink-600 transition-colors duration-300 transform rounded-lg hover:text-pink-800">About</a>
-                <a href="#"
-                    class="text-pink-600 transition-colors duration-300 transform rounded-lg hover:text-pink-800">Help</a>
                 @if (currentUser != null)
                 {
                     var imagePath = "/images/users/" + currentUser.ImagePath ??
@@ -141,10 +139,8 @@
                 }
                 @* Navigation Items *@
                 <div class="flex flex-col px-2 -mx-4 md:flex-row md:mx-10 md:py-0">
-                    <a href="#"
+                    <a asp-page="/About"
                         class="px-2.5 py-2 text-pink-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 md:mx-2">About</a>
-                    <a href="#"
-                        class="px-2.5 py-2 text-pink-600 transition-colors duration-300 transform rounded-lg hover:bg-gray-100 md:mx-2">Help</a>
                     @if (currentUser != null)
                     {
                         var imagePath = "/images/users/" + currentUser.ImagePath ??

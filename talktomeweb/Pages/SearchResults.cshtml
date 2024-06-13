@@ -10,7 +10,7 @@
 
     @if (Model.Users.Any())
     {
-        <div>
+        <div class="flex flex-col gap-2">
             @foreach (var user in Model.Users)
             {
                 var ProfileLink = Url.Page("/Account/Profile", new { userId = user.UserId });

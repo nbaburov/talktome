@@ -96,7 +96,9 @@ namespace talktomeweb.Pages.Account
                 TempData["AlertColor"] = "red";
                 return RedirectToPage("/Account/EditProfile");
             }
-
+            TempData["AlertTitle"] = "Success.";
+            TempData["AlertText"] = "Profile updated.";
+            TempData["AlertColor"] = "green";
             return RedirectToPage("/Account/Manage");
         }
 

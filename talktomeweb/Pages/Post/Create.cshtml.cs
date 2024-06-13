@@ -36,14 +36,15 @@ namespace talktomeweb.Pages.Post
             public int CategoryId { get; set; }
         }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             Categories = await _categoryService.GetCategoriesAsync();
             Client = _authService.GetCurrentlyLoggedInUser();
-            if (Client == null || Client.Status == SharedLibrary.Models.Status.Active)
+            if (Client == null)
             {
-                RedirectToPage("/Index");
+                return RedirectToPage("/Account/Login");
             }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -53,8 +54,7 @@ namespace talktomeweb.Pages.Post
 
                 if (string.IsNullOrWhiteSpace(Input.Text) && Input.Image == null)
                 {
-                    ModelState.AddModelError("Input.Text", "Either text or an image is required.");
-                    ModelState.AddModelError("Input.Image", "Either text or an image is required.");
+                    throw new Exception("Either Image or Text is required.");
                 }
 
                 Client = _authService.GetCurrentlyLoggedInUser();
