@@ -58,7 +58,7 @@ namespace talktomeweb.Pages.Account
                 }
                 else
                 {
-                    return RedirectToPage("/Account/Login");
+                    throw new Exception("Login data invalid.");
                 }
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace talktomeweb.Pages.Account
                 TempData["AlertTitle"] = "Error.";
                 TempData["AlertText"] = ex.Message;
                 TempData["AlertColor"] = "red";
-                return RedirectToPage("/Account/Login");
+                return Page();
             }
 
         }
