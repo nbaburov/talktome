@@ -93,7 +93,7 @@ namespace talktomeweb.Pages.Account
                 TempData["AlertTitle"] = "Error.";
                 TempData["AlertText"] = ex.Message;
                 TempData["AlertColor"] = "red";
-                return RedirectToPage("/Account/Register");
+                return Page();
             }
 
 
