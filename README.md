@@ -16,7 +16,7 @@ Welcome to the TalkToMe project! This repository showcases a professional, featu
 
 ## Project Overview
 
-- **Project Plan**: [File]([https://i530788.luna.fhict.nl/](https://nbaburov.notion.site/Project-Plan-732637bd90a94150a1662be638237721?pvs=74))
+- **Project Plan**: [File](https://nbaburov.notion.site/Project-Plan-732637bd90a94150a1662be638237721?pvs=74)
 
 ### Project Name: TalkToMe
 
@@ -31,7 +31,7 @@ TalkToMe is a dynamic social platform designed to facilitate community interacti
 
 ## Features
 
-- **Ideation Document**: [File]([https://i530788.luna.fhict.nl/](https://nbaburov.notion.site/Ideation-Document-ee79cab293794befa53e475b85680081?pvs=74))
+- **Ideation Document**: [File](https://nbaburov.notion.site/Ideation-Document-ee79cab293794befa53e475b85680081?pvs=74)
 
 ### User Features
 
@@ -51,7 +51,7 @@ TalkToMe is a dynamic social platform designed to facilitate community interacti
 
 ## Architecture and Design
 
-- **URS & Test Plan & Test Report**: [File]([https://i530788.luna.fhict.nl/](https://nbaburov.notion.site/User-Requirements-Specification-URS-Document-Test-Plan-85e757cede2e4483b8059a48b87864d6?pvs=74))
+- **URS & Test Plan & Test Report**: [File](https://nbaburov.notion.site/User-Requirements-Specification-URS-Document-Test-Plan-85e757cede2e4483b8059a48b87864d6?pvs=74)
 
 ### System Architecture
 
