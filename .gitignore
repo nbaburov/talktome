@@ -505,3 +505,9 @@ src/.vs/config/applicationhost.config
 
 # JetBrains Rider's auto generated files
 .idea/
+
+# User uploads (profile and post images) are runtime data
+talktomeweb/wwwroot/images/users/*
+!talktomeweb/wwwroot/images/users/default-profile.png
+talktomeweb/wwwroot/images/posts/*
+!talktomeweb/wwwroot/images/posts/.gitkeep
