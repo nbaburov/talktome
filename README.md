@@ -20,7 +20,7 @@ Passwords are stored as salted PBKDF2 hashes (`Rfc2898DeriveBytes`, 10,000 itera
 Requires the .NET 8 SDK and a SQL Server instance. The admin app builds on Windows only.
 
 ```bash
-git clone https://github.com/nixxxo/talktome.git
+git clone https://github.com/nbaburov/talktome.git
 cd talktome
 export ConnectionStrings__DefaultConnection="Server=localhost;Database=talktome;User Id=<user>;Password=<password>;TrustServerCertificate=true"
 dotnet run --project talktomeweb
