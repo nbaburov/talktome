@@ -4,7 +4,7 @@ A Twitter-style social platform in C#/.NET 8: an ASP.NET Core Razor Pages site f
 
 Fontys University of Applied Sciences coursework (2024). Project documents: [plan](https://nbaburov.notion.site/Project-Plan-732637bd90a94150a1662be638237721?pvs=74), [ideation](https://nbaburov.notion.site/Ideation-Document-ee79cab293794befa53e475b85680081?pvs=74), [requirements, test plan and report](https://nbaburov.notion.site/User-Requirements-Specification-URS-Document-Test-Plan-85e757cede2e4483b8059a48b87864d6?pvs=74).
 
-Write-up: [Building a Twitter clone (of course)](https://nb.nb-limited.com/writing/talktome), on why it's built this way and how it got there.
+Write-up: [Building a Twitter clone (of course)](https://nb.nb-limited.com/writing/building-a-twitter-clone-of-course), on why it's built this way and how it got there.
 
 ## What it does
 
